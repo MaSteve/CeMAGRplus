@@ -1,0 +1,124 @@
+\documentclass[spanish, a4paper, 12pt] {article}
+\usepackage[spanish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{anysize}
+%\marginsize{2cm}{2cm}{2cm}{3cm}
+\newcommand\eqdef{\stackrel{\mathclap{\mbox{\tiny{def}}}}{=}}
+\newcommand\eqac{\stackrel{\mathclap{\mbox{*}}}{=}}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{textcomp}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\usepackage[a4paper,bindingoffset=0.2in,left=0.8in,right=0.8in,top=1.1in,bottom=1in,footskip=.25in]{geometry}
+
+\newcommand{\lname}[0]{CeMAGR+ }
+
+\begin{document}
+\title{\lname: primer boceto}
+\author{Marco Antonio Garrido y Celia de Frutos}
+\date{}
+\maketitle
+Nuestra intención para este lenguaje de programación es escoger lo mejor y lo peor de cada lenguaje que conocemos y juntarlo todo en un único lenguaje para acabar con las discusión de oficina en las que uno se burlan de otros por ser de C++ y no de Java.
+\subsection*{Declaración de variables y definición de funciones}
+Empecemos por lo más básico:
+\begin{verbatim}
+<declaración-variable> ::= <tipo> <declarador>
+<tipo> ::= bool | int
+<declarador> ::= €<identificador> | <declarador>(<expresión-constante-arit>)
+\end{verbatim}
+\lname cuenta con dos tipos: booleanos y enteros. Los nombres de variable van precedidos por el símbolo del euro (PHP nos inspira) y se permite la declaración de arrays multidimensionales declarando la dimensión entre paréntesis (MATLAB nos inspira pero menos).\\
+
+\lname es un lenguaje sin orientación a objetos pero que permite el uso de funciones funciones.
+\begin{verbatim}
+<def-función> ::= func <tipo> <identificador> (<variables-entrada>) {<bloque-func>}
+<variables-entrada> ::= <declaración-variable>
+                        | <variables-entrada>, <declaración-variable>
+\end{verbatim}
+donde bloque-func será un bloque de instrucciones.
+\subsection*{Instrucciones}
+Las instrucciones deben de usarse dentro de una función y el punto de entrada para nuestro programa es la función main.\\
+
+Todo bloque de instrucciones de una función tiene que terminar con la instrucción return.
+\begin{verbatim}
+<bloque-func> ::= <bloque> <return>
+<bloque> ::= <instrucción> | <bloque> <instrucción>
+<return> ::= return <expresión>;
+<instrucción> ::= <declaración-variable>; | <bloque-if> | <bloque-loop>
+                  | <bloque-foop> | <asignación> | <llamada-func>
+\end{verbatim}
+Hablemos en primer lugar de la asignación.
+\begin{verbatim}
+<asignación> ::= <declarador> := <expresion>
+<expresion> ::= <exp-arit> | <exp-bool>
+<exp-arit> ::= <expresión-constante-arit> | <declarador> | <llamada-func>
+               | <exp-arit> + <exp-arit> | <exp-arit> - <exp-arit>
+               | <exp-arit> * <exp-arit> | <exp-arit> / <exp-arit>
+               | <exp-arit> % <exp-arit>
+<exp-bool> ::= <expresión-constante-bool> | <declarador>
+               | <exp-bool> & <exp-bool> | <exp-bool> '|' <exp-bool>
+               | not <exp-bool> | <exp-arit> == <exp-arit>
+               | <exp-arit> != <exp-arit> | <exp-arit> < <exp-arit>
+               | <exp-arit> > <exp-arit> | <exp-arit> <= <exp-arit>
+               | <exp-arit> >= <exp-arit>
+\end{verbatim}
+Solo existe un operador de asignación. Nadie necesita los `+=' de C.\\
+
+Las llamadas a función son como en C.
+\begin{verbatim}
+<llamada-func> ::= <identificador>(<variables>)
+<variables> ::= <declarador> | <variables>, <declarador>
+\end{verbatim}
+Por último, hablemos de las estructuras de control de ejecución.
+\begin{verbatim}
+<bloque-if> ::= If (<exp-bool>) {<bloque>}
+              | If (<exp-bool>) {<bloque>} Else {<bloque>}
+<bloque-loop> ::= Loop (<exp-bool>) {<bloque>}
+<bloque-foop> ::= Foop (<asignación>; <exp-bool>; <asignación>) {<bloque>}
+\end{verbatim}
+\subsection*{Ejemplos}
+\subsubsection*{Fibonacci}
+\begin{verbatim}
+func int fib(int n) {
+    int ret;
+    int prev;
+    ret := 1;
+    prev := 0;
+    int i;
+    Foop (i := 0; i < n; i := i + 1) {
+        int auxi;
+        auxi := ret;
+        ret := ret + prev;
+        prev := auxi;
+    }
+    return ret;
+}
+\end{verbatim}
+\subsubsection*{Potencia (recursivo)}
+Vamos a calcular la potencia p-esima de n en tiempo logarítmico:
+\begin{verbatim}
+func int pot(int n, int p) {
+    int ret;
+    If (p == 0) {
+        ret = 1;
+    } Else {
+        int np;
+        np := p/2;
+        ret := pot(n, np);
+        ret := ret * ret;
+        If (p % 2 == 1) {
+            ret := ret * n;
+        }
+    }
+    return ret;
+}
+\end{verbatim}
+\end{document}
