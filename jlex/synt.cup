@@ -11,10 +11,11 @@ parser code {:
 
 terminal SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT, GE, LT, LE, NUM;
 terminal AND, OR, NOT, BOOL;
-terminal RP, LP;
+terminal RP, LP, RB, LB;
 terminal Integer NUMBER;
 
-non terminal inst_block, inst, ass_inst;
+non terminal inst_block, inst, ass_inst, if_inst, loop_inst;
+terminal IF, ELSE, LOOP, FOOP;
 non terminal E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, OP4;
 non terminal VAR, ARRAY, ARRAY_LIST;
 
@@ -23,7 +24,7 @@ precedence left TIMES, DIV, MOD, AND;
 precedence left NOT;
 
 inst_block ::= inst_block inst | inst;
-inst ::= ass_inst;
+inst ::= ass_inst | if_inst | loop_inst;
 ass_inst ::= VAR ASS E0 SEMI {: System.out.println("ASS"); :};
 E0 ::= E1 OP0 E1 | E1;
 OP0 ::= EQ | NEQ | GT | GE | LT | LE ;
@@ -39,3 +40,8 @@ E4 ::= VAR | NUM | BOOL | LP E0 RP ;
 VAR ::= VAR_NAME | VAR_NAME ARRAY_LIST ;
 ARRAY_LIST ::= ARRAY_LIST ARRAY | ARRAY ;
 ARRAY ::= LP E1 RP {: System.out.println("IDX"); :};
+
+
+if_inst ::= IF LP E1 RP LB inst_block RB {: System.out.println("IF"); :} | IF LP E1 RP LB inst_block RB ELSE LB inst_block RB {: System.out.println("IFELSE"); :} ;
+
+loop_inst ::= LOOP LP E1 RP LB inst_block RB {: System.out.println("LOOP"); :} ;

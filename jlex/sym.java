@@ -12,17 +12,23 @@ public class sym {
   public static final int MOD = 7;
   public static final int AND = 17;
   public static final int LT = 14;
+  public static final int ELSE = 27;
   public static final int PLUS = 3;
   public static final int OR = 18;
   public static final int LP = 22;
   public static final int SEMI = 2;
+  public static final int LOOP = 28;
   public static final int RP = 21;
   public static final int NOT = 19;
+  public static final int FOOP = 29;
+  public static final int IF = 26;
   public static final int GT = 12;
   public static final int LE = 15;
   public static final int ASS = 9;
   public static final int NUM = 16;
-  public static final int NUMBER = 23;
+  public static final int LB = 24;
+  public static final int RB = 23;
+  public static final int NUMBER = 25;
   public static final int EOF = 0;
   public static final int DIV = 6;
   public static final int VAR_NAME = 8;
@@ -56,7 +62,13 @@ public class sym {
   "BOOL",
   "RP",
   "LP",
-  "NUMBER"
+  "RB",
+  "LB",
+  "NUMBER",
+  "IF",
+  "ELSE",
+  "LOOP",
+  "FOOP"
   };
 }
 
