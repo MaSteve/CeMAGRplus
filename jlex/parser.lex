@@ -1,11 +1,13 @@
+package cemagr;
 import java.lang.System;
+import java_cup.runtime.Symbol;
 
 class Sample {
     public static void main(String argv[]) throws java.io.IOException {
-        Yylex yy = new Yylex(System.in);
+        /*Yylex yy = new Yylex(System.in);
         Yytoken t;
         while ((t = yy.yylex()) != null)
-            System.out.println(t);
+            System.out.println(t);*/
     }
 }
 
@@ -33,14 +35,16 @@ class Utility {
     }
 }
 
-class Yytoken {
-    Yytoken(int index, String text, int line, int charBegin, int charEnd, int col) {
+class Yytoken extends Symbol{
+    Yytoken(int symb, int index, String text, int line, int charBegin, int charEnd, int col) {
+        super(symb);
         m_index = index;
         m_text = new String(text);
         m_line = line;
         m_charBegin = charBegin;
         m_charEnd = charEnd;
         m_col = col;
+        System.out.println(this);
     }
 
     public int m_index;
@@ -62,6 +66,7 @@ class Yytoken {
 %unicode
 %line
 %char
+%cup
 %state COMMENT
 
 ALPHA=[A-Za-z]
@@ -74,26 +79,26 @@ STRING_TEXT=([^\n\"])*
 
 %%
 
-<YYINITIAL> ";" { return (new Yytoken(0,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ":=" { return (new Yytoken(1,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "{" { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "}" { return (new Yytoken(3,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "(" { return (new Yytoken(4,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ")" { return (new Yytoken(5,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "<" { return (new Yytoken(6,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ">" { return (new Yytoken(7,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "<=" { return (new Yytoken(8,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ">=" { return (new Yytoken(9,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "==" { return (new Yytoken(10,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "!=" { return (new Yytoken(11,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "+" { return (new Yytoken(12,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "-" { return (new Yytoken(13,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "*" { return (new Yytoken(14,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "/" { return (new Yytoken(15,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "%" { return (new Yytoken(16,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "&&" { return (new Yytoken(17,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "||" { return (new Yytoken(18,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "!" { return (new Yytoken(19,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ";" { return (new Yytoken(sym.SEMI, 0,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ":=" { return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "{" { return (new Yytoken(sym.SEMI, 2,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "}" { return (new Yytoken(sym.SEMI, 3,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "(" { return (new Yytoken(sym.LP, 4,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ")" { return (new Yytoken(sym.RP, 5,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "<" { return (new Yytoken(sym.LT, 6,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ">" { return (new Yytoken(sym.GT, 7,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "<=" { return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ">=" { return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "==" { return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "!=" { return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "+" { return (new Yytoken(sym.PLUS, 12,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "-" { return (new Yytoken(sym.MINUS, 13,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "*" { return (new Yytoken(sym.TIMES, 14,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "/" { return (new Yytoken(sym.DIV, 15,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "%" { return (new Yytoken(sym.MOD, 16,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "&&" { return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "||" { return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "!" { return (new Yytoken(sym.NOT, 19,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 
 
 <YYINITIAL> {END_LINE} { col_offset = yychar + yytext().length(); }
@@ -104,33 +109,35 @@ STRING_TEXT=([^\n\"])*
 	String str =  yytext().substring(1,yytext().length() - 1);
 
 	Utility.assertExp(str.length() == yytext().length() - 2);
-	return (new Yytoken(30,str,yyline,yychar,yychar + str.length(), yychar-col_offset));
+	return (new Yytoken(sym.SEMI, 30,str,yyline,yychar,yychar + str.length(), yychar-col_offset));
 }
 <YYINITIAL> \"{STRING_TEXT} {
 	String str =  yytext().substring(1,yytext().length());
 
 	Utility.error(Utility.E_UNCLOSEDSTR);
 	Utility.assertExp(str.length() == yytext().length() - 1);
-	return (new Yytoken(41,str,yyline,yychar,yychar + str.length(), yychar-col_offset));
+	return (new Yytoken(sym.SEMI, 41,str,yyline,yychar,yychar + str.length(), yychar-col_offset));
 }
 <YYINITIAL> {DIGIT}+ {
-	return (new Yytoken(42,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+	return (new Yytoken(sym.NUM, 42,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
 }
 <YYINITIAL> {EURO}{ALPHA}({ALPHA}|{DIGIT}|_)* {
-	return (new Yytoken(43,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+	return (new Yytoken(sym.VAR_NAME, 43,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
 }
 <YYINITIAL> {ALPHA}({ALPHA}|{DIGIT}|_)* {
     String str = yytext();
     switch(str) {
-        case "If": return (new Yytoken(50,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Else": return (new Yytoken(51,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Loop": return (new Yytoken(52,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Foop": return (new Yytoken(53,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "func": return (new Yytoken(54,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "return": return (new Yytoken(55,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "int": return (new Yytoken(60,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "bool": return (new Yytoken(61,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        default: return (new Yytoken(44,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "If": return (new Yytoken(sym.SEMI, 50, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "Else": return (new Yytoken(sym.SEMI, 51, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "Loop": return (new Yytoken(sym.SEMI, 52, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "Foop": return (new Yytoken(sym.SEMI, 53, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "func": return (new Yytoken(sym.SEMI, 54, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "return": return (new Yytoken(sym.SEMI, 55, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "int": return (new Yytoken(sym.SEMI, 60, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "bool": return (new Yytoken(sym.SEMI, 61, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "YES": return (new Yytoken(sym.BOOL, 70, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "NO": return (new Yytoken(sym.BOOL, 71, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        default: return (new Yytoken(sym.SEMI, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
     }
 }
 <YYINITIAL,COMMENT> . {

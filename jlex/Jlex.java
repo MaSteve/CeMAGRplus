@@ -3820,7 +3820,7 @@ class CAlloc
   Class: Main
   Description: Top-level lexical analyzer generator function.
  **************************************************************/
-public class Main
+public class Jlex
 {
   /***************************************************************
     Function: main

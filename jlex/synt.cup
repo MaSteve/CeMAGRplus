@@ -1,0 +1,41 @@
+package cemagr;
+import java_cup.runtime.*;
+import java.io.FileInputStream;
+
+parser code {:
+	public static void main(String args[]) throws Exception {
+        System.setIn(new FileInputStream("example.txt"));
+		new parser(new Yylex(System.in)).parse();
+	}
+:}
+
+terminal SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT, GE, LT, LE, NUM;
+terminal AND, OR, NOT, BOOL;
+terminal RP, LP;
+terminal Integer NUMBER;
+
+non terminal inst_block, inst, ass_inst;
+non terminal E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, OP4;
+non terminal VAR, ARRAY, ARRAY_LIST;
+
+precedence left PLUS, MINUS, OR;
+precedence left TIMES, DIV, MOD, AND;
+precedence left NOT;
+
+inst_block ::= inst_block inst | inst;
+inst ::= ass_inst;
+ass_inst ::= VAR ASS E0 SEMI {: System.out.println("ASS"); :};
+E0 ::= E1 OP0 E1 | E1;
+OP0 ::= EQ | NEQ | GT | GE | LT | LE ;
+E1 ::= E1 OP1 E2 | E2 ;
+OP1 ::= PLUS | MINUS | OR ;
+E2 ::= E2 OP2 E3 | E3 ;
+OP2 ::= TIMES | DIV | MOD | AND ;
+E3 ::= OP3 E3 | E4;
+OP3 ::= NOT | MINUS;
+E4 ::= VAR | NUM | BOOL | LP E0 RP ;
+
+
+VAR ::= VAR_NAME | VAR_NAME ARRAY_LIST ;
+ARRAY_LIST ::= ARRAY_LIST ARRAY | ARRAY ;
+ARRAY ::= LP E1 RP {: System.out.println("IDX"); :};
