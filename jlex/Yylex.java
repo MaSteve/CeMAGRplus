@@ -451,8 +451,8 @@ class Yylex implements java_cup.runtime.Scanner {
         case "Foop": return (new Yytoken(sym.FOOP, 53, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "func": return (new Yytoken(sym.SEMI, 54, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "return": return (new Yytoken(sym.SEMI, 55, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "int": return (new Yytoken(sym.SEMI, 60, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "bool": return (new Yytoken(sym.SEMI, 61, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "int": return (new Yytoken(sym.TYPE, 60, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "bool": return (new Yytoken(sym.TYPE, 61, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "YEAH": return (new Yytoken(sym.BOOL, 70, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "NO": return (new Yytoken(sym.BOOL, 71, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         default: return (new Yytoken(sym.SEMI, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));

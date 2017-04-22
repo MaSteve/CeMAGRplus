@@ -27,6 +27,7 @@ public class sym {
   public static final int ASS = 9;
   public static final int NUM = 16;
   public static final int LB = 24;
+  public static final int TYPE = 30;
   public static final int RB = 23;
   public static final int NUMBER = 25;
   public static final int EOF = 0;
@@ -68,7 +69,8 @@ public class sym {
   "IF",
   "ELSE",
   "LOOP",
-  "FOOP"
+  "FOOP",
+  "TYPE"
   };
 }
 
