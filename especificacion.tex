@@ -62,13 +62,13 @@ Hablemos en primer lugar de la asignación.
 <exp-arit> ::= <expresión-constante-arit> | <declarador> | <llamada-func>
                | <exp-arit> + <exp-arit> | <exp-arit> - <exp-arit>
                | <exp-arit> * <exp-arit> | <exp-arit> / <exp-arit>
-               | <exp-arit> % <exp-arit>
+               | <exp-arit> % <exp-arit> | (<exp-arit>)
 <exp-bool> ::= <expresión-constante-bool> | <declarador>
                | <exp-bool> && <exp-bool> | <exp-bool> '||' <exp-bool>
                | ! <exp-bool> | <exp-arit> == <exp-arit>
                | <exp-arit> != <exp-arit> | <exp-arit> < <exp-arit>
                | <exp-arit> > <exp-arit> | <exp-arit> <= <exp-arit>
-               | <exp-arit> >= <exp-arit>
+               | <exp-arit> >= <exp-arit> | (<exp-bool>)
 \end{verbatim}
 Solo existe un operador de asignación. Nadie necesita los `+=' de C.\\
 
@@ -93,7 +93,7 @@ func int fib(int €n) {
     €ret := 1;
     €prev := 0;
     int €i;
-    Foop (€i := 0; €i < €n; €i := €i + 1) {
+    Foop (€i := 0; €i < €n; €i := €i + 1;) {
         int €auxi;
         €auxi := €ret;
         €ret := €ret + €prev;
