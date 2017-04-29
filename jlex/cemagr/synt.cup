@@ -24,8 +24,14 @@ precedence left TIMES, DIV, MOD, AND;
 precedence left NOT;
 
 inst_block ::= inst_block inst | inst;
-inst ::= ass_inst | if_inst | loop_inst | foop_inst | switch_inst | decl | func_decl;
-ass_inst ::= VAR ASS E0:exp SEMI {: System.out.println("ASS"); System.out.println(exp); :};
+inst ::= ass_inst:ass {: System.out.println(ass); :}
+       | if_inst
+       | loop_inst
+       | foop_inst
+       | switch_inst
+       | decl:node {: System.out.println(node); :}
+       | func_decl;
+ass_inst ::= VAR:var ASS E0:exp SEMI {: RESULT = new AssNode((VarReferenceNode) var, exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
      | E1:exp {: RESULT = exp; :}
      | STRING:string {: RESULT = new StringNode(string); :} ;
@@ -50,7 +56,7 @@ E3 ::= OP3:op E3:exp {: RESULT = new UnaryExpression((OperatorNode) op, exp); :}
      | E4:exp {: RESULT = exp; :} ;
 OP3 ::= NOT:op {: RESULT = new OperatorNode(op); :}
       | MINUS:op {: RESULT = new OperatorNode(op); :};
-E4 ::= VAR {: RESULT = null; :}
+E4 ::= VAR:var {: RESULT = var; :}
      | NUM:num {: RESULT = new NumNode(num); :}
      | BOOL:bool {: RESULT = new BoolNode(bool); :}
      | LP E0:exp RP {: RESULT = exp; :}
@@ -59,10 +65,12 @@ ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
 
-VAR ::= VAR_NAME | VAR_NAME ARRAY_LIST ;
+VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
+      | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :} ;
 VAR_LIST ::= VAR_LIST COMMA VAR | VAR ;
-ARRAY_LIST ::= ARRAY_LIST ARRAY | ARRAY ;
-ARRAY ::= LP E1 RP {: System.out.println("IDX"); :};
+ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
+             | ARRAY:exp {: RESULT = new ArrayNode(exp); :} ;
+ARRAY ::= LP E1:exp RP {: RESULT = exp; :};
 ARG_LIST ::= ARG_LIST COMMA ARG | ARG ;
 ARG ::= TYPE VAR_NAME STATIC_ARRAY_LIST {: System.out.println("ARG_DECL_ARRAY"); :}
       | TYPE VAR_NAME {: System.out.println("ARG_DECL"); :} ;
@@ -93,5 +101,5 @@ call_inst ::= FUNC_ID LP VAR_LIST RP |
 func_decl ::= FUNC TYPE FUNC_ID LP ARG_LIST RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :}
               | FUNC TYPE FUNC_ID LP RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :} ;
 
-decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); System.out.println(RESULT); :}
-       | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); System.out.println(RESULT); :} ;
+decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
+       | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :} ;

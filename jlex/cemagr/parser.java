@@ -495,7 +495,10 @@ class CUP$parser$actions {
           case 3: // inst ::= ass_inst 
             {
               ParserNode RESULT =null;
-
+		int assleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int assright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode ass = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 System.out.println(ass); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("inst",1, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -540,7 +543,10 @@ class CUP$parser$actions {
           case 8: // inst ::= decl 
             {
               ParserNode RESULT =null;
-
+		int nodeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int noderight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode node = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 System.out.println(node); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("inst",1, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -558,10 +564,13 @@ class CUP$parser$actions {
           case 10: // ass_inst ::= VAR ASS E0 SEMI 
             {
               ParserNode RESULT =null;
+		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
+		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
+		ParserNode var = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 System.out.println("ASS"); System.out.println(exp); 
+		 RESULT = new AssNode((VarReferenceNode) var, exp); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ass_inst",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -879,7 +888,10 @@ class CUP$parser$actions {
           case 35: // E4 ::= VAR 
             {
               ParserNode RESULT =null;
-		 RESULT = null; 
+		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode var = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = var; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("E4",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -969,7 +981,10 @@ class CUP$parser$actions {
           case 43: // VAR ::= VAR_NAME 
             {
               ParserNode RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Yytoken id = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new VarReferenceNode(id); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("VAR",24, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -978,7 +993,13 @@ class CUP$parser$actions {
           case 44: // VAR ::= VAR_NAME ARRAY_LIST 
             {
               ParserNode RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Yytoken id = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int arrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int arrright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode arr = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new VarReferenceNode(id, (ArrayNode) arr); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("VAR",24, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1005,7 +1026,13 @@ class CUP$parser$actions {
           case 47: // ARRAY_LIST ::= ARRAY_LIST ARRAY 
             {
               ParserNode RESULT =null;
-
+		int nextleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int nextright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode next = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new ArrayNode(exp, (ArrayNode) next); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ARRAY_LIST",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1014,7 +1041,10 @@ class CUP$parser$actions {
           case 48: // ARRAY_LIST ::= ARRAY 
             {
               ParserNode RESULT =null;
-
+		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new ArrayNode(exp); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ARRAY_LIST",26, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1023,7 +1053,10 @@ class CUP$parser$actions {
           case 49: // ARRAY ::= LP E1 RP 
             {
               ParserNode RESULT =null;
-		 System.out.println("IDX"); 
+		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = exp; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ARRAY",25, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1233,7 +1266,7 @@ class CUP$parser$actions {
 		int arrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int arrright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		ParserNode arr = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); System.out.println(RESULT); 
+		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("decl",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1248,7 +1281,7 @@ class CUP$parser$actions {
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Yytoken var = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); System.out.println(RESULT); 
+		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("decl",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
