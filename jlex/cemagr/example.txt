@@ -64,6 +64,7 @@ func int fib(int €n) {
         €auxi := €ret;
         €ret := €ret + €prev;
         €prev := €auxi;
+        €string := "Un string";
     }
     return €ret;
 }

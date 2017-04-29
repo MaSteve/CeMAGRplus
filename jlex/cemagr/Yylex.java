@@ -32,13 +32,14 @@ class Utility {
 class Yytoken extends Symbol{
     Yytoken(int symb, int index, String text, int line, int charBegin, int charEnd, int col) {
         super(symb);
+        this.value = this;
         m_index = index;
         m_text = new String(text);
         m_line = line;
         m_charBegin = charBegin;
         m_charEnd = charEnd;
         m_col = col;
-        System.out.println(this);
+        //System.out.println(this);
     }
     public int m_index;
     public String m_text;
