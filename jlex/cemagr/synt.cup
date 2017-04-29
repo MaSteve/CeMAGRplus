@@ -80,8 +80,8 @@ STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new St
 STATIC_ARRAY ::= LP NUM:num RP {: RESULT = new NumNode(num); :};
 
 
-if_inst ::= IF LP E0 RP LB inst_block RB {: System.out.println("IF"); :}
-            | IF LP E0 RP LB inst_block RB ELSE LB inst_block RB {: System.out.println("IFELSE"); :} ;
+if_inst ::= IF LP E0:cond RP LB inst_block:block RB {: RESULT = new IfNode(cond, block); :}
+          | IF LP E0:cond RP LB inst_block:block1 RB ELSE LB inst_block:block2 RB {: RESULT = new IfNode(cond, block1, block2); :} ;
 
 loop_inst ::= LOOP LP E0:cond RP LB inst_block:block RB {: RESULT = new LoopNode(cond, block); :} ;
 
