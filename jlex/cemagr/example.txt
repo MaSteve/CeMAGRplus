@@ -54,6 +54,11 @@ func int pot(int €n, int €p) {
     return €ret;
 }
 
+func bool dummy() {
+    €ret := "dummy";
+    return €ret;
+}
+
 func int fib(int €n) {
     int €ret;
     int €prev;

@@ -72,9 +72,10 @@ VAR_LIST ::= VAR_LIST:list COMMA VAR:var {: RESULT = new VarListNode((VarReferen
 ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
              | ARRAY:exp {: RESULT = new ArrayNode(exp); :} ;
 ARRAY ::= LP E1:exp RP {: RESULT = exp; :};
-ARG_LIST ::= ARG_LIST COMMA ARG | ARG ;
-ARG ::= TYPE VAR_NAME STATIC_ARRAY_LIST {: System.out.println("ARG_DECL_ARRAY"); :}
-      | TYPE VAR_NAME {: System.out.println("ARG_DECL"); :} ;
+ARG_LIST ::= ARG_LIST:next COMMA ARG:arg {: RESULT = new ArgumentListNode((ArgumentNode) arg, (ArgumentListNode) next); :}
+           | ARG:arg {: RESULT = new ArgumentListNode((ArgumentNode) arg); :} ;
+ARG ::= TYPE:type VAR_NAME:id STATIC_ARRAY_LIST:arr {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), (StaticArrayNode) arr); :}
+      | TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :} ;
 
 STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); :}
                     | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp); :} ;
@@ -100,8 +101,8 @@ otherwise_inst ::= OTHERWISE THEN inst_block:block {: RESULT = block; :} ;
 call_inst ::= FUNC_ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (VarListNode) list); :}
             | FUNC_ID:id LP RP {: RESULT = new FuncCallNode(id); :} ;
 
-func_decl ::= FUNC TYPE FUNC_ID LP ARG_LIST RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :}
-              | FUNC TYPE FUNC_ID LP RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :} ;
+func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, block, ret); :}
+            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), block, ret); :} ;
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :} ;
