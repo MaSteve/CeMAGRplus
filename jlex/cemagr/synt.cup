@@ -60,14 +60,15 @@ E4 ::= VAR:var {: RESULT = var; :}
      | NUM:num {: RESULT = new NumNode(num); :}
      | BOOL:bool {: RESULT = new BoolNode(bool); :}
      | LP E0:exp RP {: RESULT = exp; :}
-     | call_inst {: RESULT = null; :} ;
+     | call_inst:call {: RESULT = call; :} ;
 ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
 
 VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
       | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :} ;
-VAR_LIST ::= VAR_LIST COMMA VAR | VAR ;
+VAR_LIST ::= VAR_LIST:list COMMA VAR:var {: RESULT = new VarListNode((VarReferenceNode) var, (VarListNode) list); :}
+           | VAR:var {: RESULT = new VarListNode((VarReferenceNode) var); :};
 ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
              | ARRAY:exp {: RESULT = new ArrayNode(exp); :} ;
 ARRAY ::= LP E1:exp RP {: RESULT = exp; :};
@@ -96,8 +97,8 @@ case_inst ::= CASE ECONST:cond THEN inst_block:block {: RESULT = new CaseNode(co
 
 otherwise_inst ::= OTHERWISE THEN inst_block:block {: RESULT = block; :} ;
 
-call_inst ::= FUNC_ID LP VAR_LIST RP |
-              FUNC_ID LP RP ;
+call_inst ::= FUNC_ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (VarListNode) list); :}
+            | FUNC_ID:id LP RP {: RESULT = new FuncCallNode(id); :} ;
 
 func_decl ::= FUNC TYPE FUNC_ID LP ARG_LIST RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :}
               | FUNC TYPE FUNC_ID LP RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :} ;

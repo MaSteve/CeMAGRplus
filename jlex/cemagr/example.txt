@@ -3,6 +3,7 @@ int €adios;
 €hola := YEAH && NO == !(YEAH && !NO);
 €adios := 123 * - 124 - 34 + 45;
 €adios(12)(12+34) := €hola(1) * 124 - 34 + 45;
+€callmemaybe := pot(€n, €np);
 
 If (YEAH) {
     €adios(12)(12+34) := 0;
