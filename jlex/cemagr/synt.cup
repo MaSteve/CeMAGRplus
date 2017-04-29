@@ -87,13 +87,14 @@ loop_inst ::= LOOP LP E0:cond RP LB inst_block:block RB {: RESULT = new LoopNode
 
 foop_inst ::= FOOP LP inst_block:p1 E0:cond SEMI inst_block:p2 RP LB inst_block:block RB {: RESULT = new FoopNode(p1, cond, p2, block); :}  ;
 
-switch_inst ::= SWITCH LP E0 RP LB case_inst_list otherwise_inst RB {: System.out.println("SWITCH"); :} ;
+switch_inst ::= SWITCH LP E0:cond RP LB case_inst_list:cases otherwise_inst:defaultBlock RB {: RESULT = new SwitchNode(cond, (CaseNode) cases, defaultBlock); :} ;
 
-case_inst_list ::= case_inst_list case_inst | case_inst ;
+case_inst_list ::= case_inst_list:next case_inst:cases {: ((CaseNode) cases).setNext((CaseNode)next); RESULT = cases; :}
+                 | case_inst:cases {: RESULT = cases; :} ;
 
-case_inst ::= CASE ECONST THEN inst_block {: System.out.println("CASEX"); :} ;
+case_inst ::= CASE ECONST:cond THEN inst_block:block {: RESULT = new CaseNode(cond, block); :} ;
 
-otherwise_inst ::= OTHERWISE THEN inst_block {: System.out.println("OTHERWISE"); :} ;
+otherwise_inst ::= OTHERWISE THEN inst_block:block {: RESULT = block; :} ;
 
 call_inst ::= FUNC_ID LP VAR_LIST RP |
               FUNC_ID LP RP ;

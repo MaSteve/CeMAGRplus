@@ -1230,7 +1230,16 @@ class CUP$parser$actions {
           case 61: // switch_inst ::= SWITCH LP E0 RP LB case_inst_list otherwise_inst RB 
             {
               ParserNode RESULT =null;
-		 System.out.println("SWITCH"); 
+		int condleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
+		int condright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
+		ParserNode cond = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		int casesleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int casesright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		ParserNode cases = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int defaultBlockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int defaultBlockright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode defaultBlock = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = new SwitchNode(cond, (CaseNode) cases, defaultBlock); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("switch_inst",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1239,7 +1248,13 @@ class CUP$parser$actions {
           case 62: // case_inst_list ::= case_inst_list case_inst 
             {
               ParserNode RESULT =null;
-
+		int nextleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int nextright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode next = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int casesleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int casesright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode cases = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 ((CaseNode) cases).setNext((CaseNode)next); RESULT = cases; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("case_inst_list",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1248,7 +1263,10 @@ class CUP$parser$actions {
           case 63: // case_inst_list ::= case_inst 
             {
               ParserNode RESULT =null;
-
+		int casesleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int casesright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode cases = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = cases; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("case_inst_list",7, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1257,7 +1275,13 @@ class CUP$parser$actions {
           case 64: // case_inst ::= CASE ECONST THEN inst_block 
             {
               ParserNode RESULT =null;
-		 System.out.println("CASEX"); 
+		int condleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int condright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		ParserNode cond = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int blockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int blockright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode block = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new CaseNode(cond, block); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("case_inst",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1266,7 +1290,10 @@ class CUP$parser$actions {
           case 65: // otherwise_inst ::= OTHERWISE THEN inst_block 
             {
               ParserNode RESULT =null;
-		 System.out.println("OTHERWISE"); 
+		int blockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int blockright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode block = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = block; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("otherwise_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
