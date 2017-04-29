@@ -25,7 +25,7 @@ precedence left NOT;
 
 inst_block ::= inst_block inst | inst;
 inst ::= ass_inst | if_inst | loop_inst | foop_inst | switch_inst | decl | func_decl;
-ass_inst ::= VAR ASS E0 SEMI {: System.out.println("ASS"); :};
+ass_inst ::= VAR ASS E0:exp SEMI {: System.out.println("ASS"); System.out.println(exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
      | E1:exp {: RESULT = exp; :}
      | STRING:string {: RESULT = new StringNode(string); :} ;
@@ -66,8 +66,10 @@ ARRAY ::= LP E1 RP {: System.out.println("IDX"); :};
 ARG_LIST ::= ARG_LIST COMMA ARG | ARG ;
 ARG ::= TYPE VAR_NAME STATIC_ARRAY_LIST {: System.out.println("ARG_DECL_ARRAY"); :}
       | TYPE VAR_NAME {: System.out.println("ARG_DECL"); :} ;
-STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST STATIC_ARRAY | STATIC_ARRAY ;
-STATIC_ARRAY ::= LP NUM:num RP {: System.out.println("IDX_S"); :};
+
+STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); :}
+                    | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp); :} ;
+STATIC_ARRAY ::= LP NUM:num RP {: RESULT = new NumNode(num); :};
 
 
 if_inst ::= IF LP E0 RP LB inst_block RB {: System.out.println("IF"); :}
@@ -90,5 +92,6 @@ call_inst ::= FUNC_ID LP VAR_LIST RP |
 
 func_decl ::= FUNC TYPE FUNC_ID LP ARG_LIST RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :}
               | FUNC TYPE FUNC_ID LP RP LB inst_block RETURN E0 SEMI RB {: System.out.println("FUNC"); :} ;
-decl ::= TYPE VAR_NAME STATIC_ARRAY_LIST SEMI {: System.out.println("DECL_ARRAY"); :}
-       | TYPE VAR_NAME SEMI {: System.out.println("DECL"); :} ;
+
+decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); System.out.println(RESULT); :}
+       | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); System.out.println(RESULT); :} ;

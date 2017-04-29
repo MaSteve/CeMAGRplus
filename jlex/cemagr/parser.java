@@ -558,7 +558,10 @@ class CUP$parser$actions {
           case 10: // ass_inst ::= VAR ASS E0 SEMI 
             {
               ParserNode RESULT =null;
-		 System.out.println("ASS"); 
+		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 System.out.println("ASS"); System.out.println(exp); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ass_inst",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1065,7 +1068,13 @@ class CUP$parser$actions {
           case 54: // STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST STATIC_ARRAY 
             {
               ParserNode RESULT =null;
-
+		int nextleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int nextright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode next = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("STATIC_ARRAY_LIST",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1074,7 +1083,10 @@ class CUP$parser$actions {
           case 55: // STATIC_ARRAY_LIST ::= STATIC_ARRAY 
             {
               ParserNode RESULT =null;
-
+		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new StaticArrayNode(exp); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("STATIC_ARRAY_LIST",27, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1086,7 +1098,7 @@ class CUP$parser$actions {
 		int numleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int numright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Yytoken num = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 System.out.println("IDX_S"); 
+		 RESULT = new NumNode(num); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("STATIC_ARRAY",28, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1212,7 +1224,16 @@ class CUP$parser$actions {
           case 70: // decl ::= TYPE VAR_NAME STATIC_ARRAY_LIST SEMI 
             {
               ParserNode RESULT =null;
-		 System.out.println("DECL_ARRAY"); 
+		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
+		Yytoken type = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		Yytoken var = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int arrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int arrright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		ParserNode arr = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); System.out.println(RESULT); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("decl",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1221,7 +1242,13 @@ class CUP$parser$actions {
           case 71: // decl ::= TYPE VAR_NAME SEMI 
             {
               ParserNode RESULT =null;
-		 System.out.println("DECL"); 
+		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		Yytoken type = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Yytoken var = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); System.out.println(RESULT); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("decl",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

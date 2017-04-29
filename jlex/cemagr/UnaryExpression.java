@@ -14,6 +14,6 @@ public class UnaryExpression extends ParserNode {
 
     @Override
     public String toString() {
-        return "";
+        return "UnaryExpression: \n" + op + "\n" + exp;
     }
 }

@@ -15,6 +15,6 @@ public class BinaryExpression extends ParserNode {
 
     @Override
     public String toString() {
-        return "";
+        return "BinaryExpression: \n" + exp1 + "\n" + op + "\n" + exp2;
     }
 }

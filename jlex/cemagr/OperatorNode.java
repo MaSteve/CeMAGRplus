@@ -14,7 +14,7 @@ public class OperatorNode extends ParserNode {
 
     @Override
     public String toString() {
-        return null;
+        return "OP" + op;
     }
 
 
