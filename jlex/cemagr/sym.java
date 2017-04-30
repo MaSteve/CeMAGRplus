@@ -8,45 +8,48 @@ package cemagr;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int OTHERWISE = 37;
+  public static final int OTHERWISE = 39;
   public static final int GE = 13;
-  public static final int CASE = 36;
+  public static final int CASE = 38;
   public static final int SEMI = 2;
   public static final int MINUS = 4;
   public static final int NOT = 19;
   public static final int AND = 17;
   public static final int LT = 14;
-  public static final int TYPE = 38;
+  public static final int TYPE = 41;
+  public static final int ADDRESS = 27;
   public static final int LP = 22;
   public static final int OR = 18;
   public static final int BOOL = 20;
   public static final int COMMA = 25;
   public static final int DIV = 6;
   public static final int RP = 21;
+  public static final int DEREFERENCE = 28;
   public static final int NUM = 16;
-  public static final int LOOP = 29;
+  public static final int LOOP = 31;
   public static final int PLUS = 3;
-  public static final int IF = 27;
+  public static final int IF = 29;
+  public static final int PTR = 40;
   public static final int LE = 15;
   public static final int EOF = 0;
+  public static final int RETURN = 35;
   public static final int LB = 24;
-  public static final int RETURN = 33;
   public static final int ASS = 9;
   public static final int error = 1;
   public static final int RB = 23;
   public static final int MOD = 7;
   public static final int NEQ = 11;
   public static final int EQ = 10;
-  public static final int SWITCH = 35;
-  public static final int FUNC_ID = 32;
+  public static final int SWITCH = 37;
+  public static final int FUNC_ID = 34;
   public static final int TIMES = 5;
-  public static final int ELSE = 28;
-  public static final int FUNC = 31;
+  public static final int ELSE = 30;
+  public static final int FUNC = 33;
   public static final int THEN = 26;
   public static final int VAR_NAME = 8;
-  public static final int STRING = 34;
+  public static final int STRING = 36;
   public static final int GT = 12;
-  public static final int FOOP = 30;
+  public static final int FOOP = 32;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -75,6 +78,8 @@ public class sym {
   "LB",
   "COMMA",
   "THEN",
+  "ADDRESS",
+  "DEREFERENCE",
   "IF",
   "ELSE",
   "LOOP",
@@ -86,6 +91,7 @@ public class sym {
   "SWITCH",
   "CASE",
   "OTHERWISE",
+  "PTR",
   "TYPE"
   };
 }

@@ -33,4 +33,6 @@ public class OperatorNode extends ParserNode {
     public static final int AND = 17;
     public static final int OR = 18;
     public static final int NOT = 19;
+    public static final int ADDRESS = 22;
+    public static final int DEREFERENCE = 23;
 }

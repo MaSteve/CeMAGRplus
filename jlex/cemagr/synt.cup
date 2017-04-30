@@ -11,11 +11,11 @@ parser code {:
 
 terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT, GE, LT, LE, NUM;
 terminal Yytoken AND, OR, NOT, BOOL;
-terminal Yytoken RP, LP, RB, LB, COMMA, THEN;
+terminal Yytoken RP, LP, RB, LB, COMMA, THEN, ADDRESS, DEREFERENCE;
 
-non terminal ParserNode inicio, inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
-terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE;
-non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST;
+non terminal ParserNode inicio, inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, ptr_decl, var_decl, func_decl;
+terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE, PTR;
+non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST, OPPTR, EPTR;
 non terminal ParserNode VAR, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
 terminal Yytoken TYPE;
 
@@ -32,12 +32,13 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | loop_inst:node {: RESULT = node; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
-       | decl:node {: RESULT = node; :}
+       | var_decl:node {: RESULT = node; :}
        | func_decl:node {: RESULT = node; :};
 ass_inst ::= VAR:var ASS E0:exp SEMI {: RESULT = new AssNode((VarReferenceNode) var, exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
      | E1:exp {: RESULT = exp; :}
-     | STRING:string {: RESULT = new StringNode(string); :} ;
+     | STRING:string {: RESULT = new StringNode(string); :}
+     | EPTR:exp {: RESULT = exp; :} ;
 OP0 ::= EQ:op {: RESULT = new OperatorNode(op); :}
       | NEQ:op {: RESULT = new OperatorNode(op); :}
       | GT:op {: RESULT = new OperatorNode(op); :}
@@ -67,6 +68,10 @@ E4 ::= VAR:var {: RESULT = var; :}
 ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
+
+OPPTR ::= ADDRESS:op {: RESULT = new OperatorNode(op); :}
+      | DEREFERENCE:op {: RESULT = new OperatorNode(op); :} ;
+EPTR ::= OPPTR:op VAR:var {: RESULT = new UnaryExpression((OperatorNode) op, exp); :};
 
 VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
       | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :} ;
@@ -109,3 +114,7 @@ func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block R
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :} ;
+
+ptr_decl ::= PTR decl:node {: RESULT = node; :};
+
+var_decl ::= ptr_decl:node {: RESULT = node; :} | decl:node {: RESULT = node; :};

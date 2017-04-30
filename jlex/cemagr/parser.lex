@@ -102,8 +102,9 @@ COMMENT_TEXT=([^\n])*
 <YYINITIAL> "||" { return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "!" { return (new Yytoken(sym.NOT, 19,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "," { return (new Yytoken(sym.COMMA, 20,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "=>" { return (new Yytoken(sym.THEN, 20,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-
+<YYINITIAL> "=>" { return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ":" { return (new Yytoken(sym.ADDRESS, 22,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "@" { return (new Yytoken(sym.DEREFERENCE, 23,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 
 
 <YYINITIAL> {END_LINE} { col_offset = yychar + yytext().length(); }
@@ -141,6 +142,7 @@ COMMENT_TEXT=([^\n])*
         case "switch": return (new Yytoken(sym.SWITCH, 56, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "case": return (new Yytoken(sym.CASE, 57, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "otherwise": return (new Yytoken(sym.OTHERWISE, 58, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "ptr": return (new Yytoken(sym.PTR, 59, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "int": return (new Yytoken(sym.TYPE, 60, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "bool": return (new Yytoken(sym.TYPE, 61, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "string": return (new Yytoken(sym.TYPE, 62, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
