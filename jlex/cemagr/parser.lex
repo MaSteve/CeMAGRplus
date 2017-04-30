@@ -72,11 +72,12 @@ class Yytoken extends Symbol{
 
 ALPHA=[A-Za-z]
 EURO=[€]
+SHARP=[#]
 DIGIT=[0-9]
 WHITE_SPACE_CHAR=[\ \t\b]
 END_LINE = (\n)*
 STRING_TEXT=([^\n\"])*
-
+COMMENT_TEXT=([^\n])*
 
 %%
 
@@ -148,6 +149,13 @@ STRING_TEXT=([^\n\"])*
         default: return (new Yytoken(sym.FUNC_ID, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
     }
 }
+
+<YYINITIAL> {SHARP} { yybegin(COMMENT); }
+
+<COMMENT> {COMMENT_TEXT} { }
+
+<COMMENT> {END_LINE} { yybegin(YYINITIAL); }
+
 <YYINITIAL,COMMENT> . {
         System.out.println("Illegal character: <" + yytext() + ">");
 	Utility.error(Utility.E_UNMATCHED);

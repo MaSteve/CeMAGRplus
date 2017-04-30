@@ -13,7 +13,7 @@ terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT,
 terminal Yytoken AND, OR, NOT, BOOL;
 terminal Yytoken RP, LP, RB, LB, COMMA, THEN;
 
-non terminal ParserNode inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
+non terminal ParserNode inicio, inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
 terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE;
 non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST;
 non terminal ParserNode VAR, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
@@ -23,6 +23,7 @@ precedence left PLUS, MINUS, OR;
 precedence left TIMES, DIV, MOD, AND;
 precedence left NOT;
 
+inicio ::= inst_block:block {: System.out.println(block); :} ;
 
 inst_block ::= inst_block:next inst:inst {: RESULT = new BlockNode(inst, (BlockNode) next); :}
              | inst:inst {:  RESULT = new BlockNode(inst); :};

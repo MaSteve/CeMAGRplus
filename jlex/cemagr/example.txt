@@ -1,3 +1,4 @@
+# Esto es un comentario
 int €hola(10)(20);
 int €adios;
 €hola := YEAH && NO == !(YEAH && !NO);
