@@ -9,9 +9,12 @@ public class BlockNode extends ParserNode {
     private ParserNode inst;
     private BlockNode next;
 
-    public BlockNode (ParserNode inst) { init(inst, null); }
-    public BlockNode (ParserNode inst, BlockNode node) { init(inst, node);}
-
+    public BlockNode (ParserNode inst) {
+        init(inst, null);
+    }
+    public BlockNode (ParserNode inst, BlockNode node) {
+        init(inst, node);
+    }
 
     private void init(ParserNode inst, BlockNode node) {
         this.inst = inst;
@@ -20,17 +23,6 @@ public class BlockNode extends ParserNode {
 
     @Override
     public String toString() {
-        return (next == null? "": next + ", " ) + inst;
+        return (next == null? "": next + "\n" ) + inst + ";";
     }
 }
-
-
-
-
-
-
-
-
-
-
-

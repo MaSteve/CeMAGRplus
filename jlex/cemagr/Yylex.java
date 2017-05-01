@@ -490,35 +490,35 @@ class Yylex implements java_cup.runtime.Scanner {
 					case -25:
 						break;
 					case 24:
-						{ return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -26:
 						break;
 					case 25:
-						{ return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -27:
 						break;
 					case 26:
-						{ return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -28:
 						break;
 					case 27:
-						{ return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -29:
 						break;
 					case 28:
-						{ return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -30:
 						break;
 					case 29:
-						{ return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -31:
 						break;
 					case 30:
-						{ return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -32:
 						break;
 					case 31:
-						{ return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -33:
 						break;
 					case 32:

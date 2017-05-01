@@ -82,27 +82,27 @@ COMMENT_TEXT=([^\n])*
 %%
 
 <YYINITIAL> ";" { return (new Yytoken(sym.SEMI, 0,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ":=" { return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> ":=" { return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 <YYINITIAL> "{" { return (new Yytoken(sym.LB, 2,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "}" { return (new Yytoken(sym.RB, 3,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "(" { return (new Yytoken(sym.LP, 4,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> ")" { return (new Yytoken(sym.RP, 5,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "<" { return (new Yytoken(sym.LT, 6,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> ">" { return (new Yytoken(sym.GT, 7,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "<=" { return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ">=" { return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "==" { return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "!=" { return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "<=" { return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+<YYINITIAL> ">=" { return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+<YYINITIAL> "==" { return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+<YYINITIAL> "!=" { return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 <YYINITIAL> "+" { return (new Yytoken(sym.PLUS, 12,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "-" { return (new Yytoken(sym.MINUS, 13,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "*" { return (new Yytoken(sym.TIMES, 14,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "/" { return (new Yytoken(sym.DIV, 15,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "%" { return (new Yytoken(sym.MOD, 16,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "&&" { return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "||" { return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "&&" { return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+<YYINITIAL> "||" { return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 <YYINITIAL> "!" { return (new Yytoken(sym.NOT, 19,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "," { return (new Yytoken(sym.COMMA, 20,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> "=>" { return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "=>" { return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 <YYINITIAL> ":" { return (new Yytoken(sym.ADDRESS, 22,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "@" { return (new Yytoken(sym.DEREFERENCE, 23,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 

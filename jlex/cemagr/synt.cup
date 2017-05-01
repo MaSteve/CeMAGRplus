@@ -13,9 +13,9 @@ terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT,
 terminal Yytoken AND, OR, NOT, BOOL;
 terminal Yytoken RP, LP, RB, LB, COMMA, THEN, ADDRESS, DEREFERENCE;
 
-non terminal ParserNode inicio, inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, ptr_decl, var_decl, func_decl;
+non terminal ParserNode inicio, inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
 terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE, PTR;
-non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST, OPPTR, EPTR;
+non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST, EPTR;
 non terminal ParserNode VAR, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
 terminal Yytoken TYPE;
 
@@ -32,7 +32,7 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | loop_inst:node {: RESULT = node; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
-       | var_decl:node {: RESULT = node; :}
+       | decl:node {: RESULT = node; :}
        | func_decl:node {: RESULT = node; :};
 ass_inst ::= VAR:var ASS E0:exp SEMI {: RESULT = new AssNode((VarReferenceNode) var, exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
@@ -69,12 +69,11 @@ ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
 
-OPPTR ::= ADDRESS:op {: RESULT = new OperatorNode(op); :}
-      | DEREFERENCE:op {: RESULT = new OperatorNode(op); :} ;
-EPTR ::= OPPTR:op VAR:var {: RESULT = new UnaryExpression((OperatorNode) op, exp); :};
+EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new UnaryExpression(new OperatorNode(op), new VarReferenceNode(id)); /* TODO */ :};
 
 VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
-      | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :} ;
+      | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}
+      | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id); /* TODO */ :} ;
 VAR_LIST ::= VAR_LIST:list COMMA VAR:var {: RESULT = new VarListNode((VarReferenceNode) var, (VarListNode) list); :}
            | VAR:var {: RESULT = new VarListNode((VarReferenceNode) var); :};
 ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
@@ -113,8 +112,5 @@ func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block R
             | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), block, ret); :} ;
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
-       | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :} ;
-
-ptr_decl ::= PTR decl:node {: RESULT = node; :};
-
-var_decl ::= ptr_decl:node {: RESULT = node; :} | decl:node {: RESULT = node; :};
+       | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}
+       | PTR TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); /* TODO: Modify node in this case */ :} ;

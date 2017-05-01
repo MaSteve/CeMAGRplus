@@ -2,9 +2,9 @@
 
 ptr int €ptr;
 
-int €firstvalue, €secondvalue;
+int €firstvalue;
 
-ptr int €p1, €p2;
+ptr int €p1;
 
 €p1 := :€firstvalue;
 €p2 := :€secondvalue;
