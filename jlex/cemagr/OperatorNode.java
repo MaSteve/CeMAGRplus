@@ -5,7 +5,7 @@ package cemagr;
  */
 public class OperatorNode extends ParserNode {
 
-    private int op;
+    protected int op;
 
     public OperatorNode(Yytoken token) {
         super(token);

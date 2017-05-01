@@ -73,16 +73,22 @@ EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new UnaryExpression(new OperatorNode
 
 VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
       | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}
-      | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id); /* TODO */ :} ;
+      | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ :} ;
+
 VAR_LIST ::= VAR_LIST:list COMMA VAR:var {: RESULT = new VarListNode((VarReferenceNode) var, (VarListNode) list); :}
            | VAR:var {: RESULT = new VarListNode((VarReferenceNode) var); :};
+
 ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
              | ARRAY:exp {: RESULT = new ArrayNode(exp); :} ;
+
 ARRAY ::= LP E1:exp RP {: RESULT = exp; :};
+
 ARG_LIST ::= ARG_LIST:next COMMA ARG:arg {: RESULT = new ArgumentListNode((ArgumentNode) arg, (ArgumentListNode) next); :}
            | ARG:arg {: RESULT = new ArgumentListNode((ArgumentNode) arg); :} ;
+
 ARG ::= TYPE:type VAR_NAME:id STATIC_ARRAY_LIST:arr {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), (StaticArrayNode) arr); :}
-      | TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :} ;
+      | TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :}
+      | PTR TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id));:} ;
 
 STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); :}
                     | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp); :} ;
@@ -113,4 +119,4 @@ func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block R
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}
-       | PTR TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); /* TODO: Modify node in this case */ :} ;
+       | PTR TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); /* TODO: Modify node in this case */ :} ;
