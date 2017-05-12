@@ -1,5 +1,7 @@
 package cemagr;
 
+import java.util.HashMap;
+
 /**
  * Created by marcoantonio on 29/4/17.
  */
@@ -12,6 +14,12 @@ public class SwitchNode extends ParserNode {
         this.exp = cond;
         this.cases = cases;
         this.defaultBlock = defaultBlock;
+    }
+
+    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+        exp.solveReferences(previous);
+        cases.solveReferences(previous);
+        defaultBlock.solveReferences(previous);
     }
 
     @Override

@@ -11,11 +11,14 @@ public class VarReferenceNode extends ParserNode{
     private ArrayNode arrayNode;
     private boolean ptr;
 
+    private DeclarationNode def;
+
     public VarReferenceNode(Yytoken token) {
         super(token);
         id = token.m_text;
         array = false;
         ptr = false;
+        def = null;
     }
 
     public VarReferenceNode (Yytoken token, ArrayNode arrayNode) {
@@ -30,7 +33,11 @@ public class VarReferenceNode extends ParserNode{
         super(token);
         id = token.m_text;
         array = false;
-        if(opNode.op == DEREFERENCE) ptr = true;
+        if (opNode.op == DEREFERENCE) ptr = true;
+    }
+
+    public void addDefinition(DeclarationNode node) {
+        def = node;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package cemagr;
 
-import static cemagr.OperatorNode.DEREFERENCE;
-
 /**
  * Created by marcoantonio on 29/4/17.
  */

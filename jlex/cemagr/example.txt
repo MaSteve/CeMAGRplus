@@ -1,39 +1,42 @@
 # Esto es un comentario
+int €firstvalue; #Variable global
 
-ptr int €puntero;
+func int main () {
+    ptr int €puntero;
 
-int €firstvalue;
+    int €firstvalue;
 
-ptr int €p1;
+    ptr int €p1;
 
-€p1 := :€firstvalue;
-€p2 := :€secondvalue;
-@€p1 := 10;
-@€p2 := @€p1;
-€p1 := €p2;
-@€p1 := 20;
+    €p1 := :€firstvalue;
+    €p2 := :€secondvalue;
+    @€p1 := 10;
+    @€p2 := @€p1;
+    €p1 := €p2;
+    @€p1 := 20;
 
-int €hola(10)(20);
-int €adios;
-€hola := YEAH && NO == !(YEAH && !NO);
-€adios := 123 * - 124 - 34 + 45;
-€adios(12)(12+34) := €hola(1) * 124 - 34 + 45;
-€callmemaybe := pot(€n, @€np);
+    int €hola(10)(20);
+    int €adios;
+    €hola := YEAH && NO == !(YEAH && !NO);
+    €adios := 123 * - 124 - 34 + 45;
+    €adios(12)(12+34) := €hola(1) * 124 - 34 + 45;
+    €callmemaybe := pot(€n, @€np);
 
-If (YEAH) {
-    €adios(12)(12+34) := 0;
+    If (YEAH) {
+        €adios(12)(12+34) := 0;
+    }
+
+    If (NO) {
+        €hola(12)(12+34) := 0;
+    } Else {
+        €adios(12)(12+34) := 0;
+    }
+
+    Loop (YEAH) {
+        €adios(12)(12+34) := 0;
+    }
+    return 0;
 }
-
-If (NO) {
-    €hola(12)(12+34) := 0;
-} Else {
-    €adios(12)(12+34) := 0;
-}
-
-Loop (YEAH) {
-    €adios(12)(12+34) := 0;
-}
-
 func int prueba(int €n, int €hola(10)(20)) {
     int €ret;
     switch (€n){
@@ -42,14 +45,13 @@ func int prueba(int €n, int €hola(10)(20)) {
         case 2 => €ret := 2;
         otherwise => €ret := 3;
     }
+    Foop (€i := 0; €i == €n; €i := €i + 1;) {
+        int €auxi;
+        €auxi := €ret;
+        €ret := €ret + €prev;
+        €prev := €auxi;
+    }
     return €ret;
-}
-
-Foop (€i := 0; €i == €n; €i := €i + 1;) {
-    int €auxi;
-    €auxi := €ret;
-    €ret := €ret + €prev;
-    €prev := €auxi;
 }
 
 

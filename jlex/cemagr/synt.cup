@@ -13,7 +13,7 @@ terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT,
 terminal Yytoken AND, OR, NOT, BOOL;
 terminal Yytoken RP, LP, RB, LB, COMMA, THEN, ADDRESS, DEREFERENCE;
 
-non terminal ParserNode inicio, inst_block, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
+non terminal ParserNode inicio, global_inst_block, inst_block, global_inst, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
 terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE, PTR;
 non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST, EPTR;
 non terminal ParserNode VAR, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
@@ -23,7 +23,10 @@ precedence left PLUS, MINUS, OR;
 precedence left TIMES, DIV, MOD, AND;
 precedence left NOT;
 
-inicio ::= inst_block:block {: System.out.println(block); :} ;
+inicio ::= global_inst_block:block {: Manager.init((GlobalBlockNode) block); :} ;
+
+global_inst_block ::= global_inst_block:next global_inst:inst {: RESULT = new GlobalBlockNode((Declaration) inst, (GlobalBlockNode) next); :}
+                    | global_inst:inst {:  RESULT = new GlobalBlockNode((Declaration) inst); :};
 
 inst_block ::= inst_block:next inst:inst {: RESULT = new BlockNode(inst, (BlockNode) next); :}
              | inst:inst {:  RESULT = new BlockNode(inst); :};
@@ -32,8 +35,11 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | loop_inst:node {: RESULT = node; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
-       | decl:node {: RESULT = node; :}
-       | func_decl:node {: RESULT = node; :};
+       | decl:node {: RESULT = node; :};
+
+global_inst ::= decl:node {: RESULT = node; :}
+              | func_decl:node {: RESULT = node; :};
+
 ass_inst ::= VAR:var ASS E0:exp SEMI {: RESULT = new AssNode((VarReferenceNode) var, exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
      | E1:exp {: RESULT = exp; :}
@@ -114,8 +120,8 @@ otherwise_inst ::= OTHERWISE THEN inst_block:block {: RESULT = block; :} ;
 call_inst ::= FUNC_ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (VarListNode) list); :}
             | FUNC_ID:id LP RP {: RESULT = new FuncCallNode(id); :} ;
 
-func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, block, ret); :}
-            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), block, ret); :} ;
+func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, ret); :}
+            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, ret); :} ;
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}

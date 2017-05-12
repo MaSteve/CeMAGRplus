@@ -39,7 +39,7 @@ class Yytoken extends Symbol{
         m_charBegin = charBegin;
         m_charEnd = charEnd;
         m_col = col;
-        //System.out.println(this);
+        if (Application.debug()) System.out.println(this);
     }
     public int m_index;
     public String m_text;
