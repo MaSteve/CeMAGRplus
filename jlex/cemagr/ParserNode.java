@@ -16,7 +16,7 @@ public abstract class ParserNode {
     public static int FUNC = 2;
     public static int IF = 3;
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
 
     }
 

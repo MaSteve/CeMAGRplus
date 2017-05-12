@@ -16,7 +16,7 @@ public class SwitchNode extends ParserNode {
         this.defaultBlock = defaultBlock;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
         exp.solveReferences(previous);
         cases.solveReferences(previous);
         defaultBlock.solveReferences(previous);

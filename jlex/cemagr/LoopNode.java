@@ -14,7 +14,7 @@ public class LoopNode extends ParserNode{
         this.block = block;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
         cond.solveReferences(previous);
         block.solveReferences(previous);
     }

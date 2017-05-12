@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by celia on 30/4/17.
  */
 public class BlockNode extends ParserNode {
-    private HashMap<String, DeclarationNode> variables;
+    private HashMap<String, Declaration> variables;
 
     private ParserNode inst;
     private BlockNode next;
@@ -25,19 +25,19 @@ public class BlockNode extends ParserNode {
         next = node;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
         variables = new HashMap<>();
-        for (Map.Entry<String, DeclarationNode> entry: previous.entrySet()) {
+        for (Map.Entry<String, Declaration> entry: previous.entrySet()) {
             variables.put(entry.getKey(), entry.getValue());
         }
         initBlockReferences(variables);
     }
 
-    public HashMap<String, DeclarationNode> getVariables() {
+    public HashMap<String, Declaration> getVariables() {
         return variables;
     }
 
-    private void initBlockReferences(HashMap<String, DeclarationNode> ref) {
+    private void initBlockReferences(HashMap<String, Declaration> ref) {
         variables = ref;
         if (next != null) next.initBlockReferences(ref);
         if (inst.isDecl()) ref.put(((DeclarationNode) inst).getID(), ((DeclarationNode) inst));

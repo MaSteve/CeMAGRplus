@@ -27,7 +27,7 @@ public class CaseNode extends ParserNode {
         next = node;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
         cond.solveReferences(previous);
         block.solveReferences(previous);
         if (next != null) next.solveReferences(previous);

@@ -33,9 +33,9 @@ public class FuncDeclarationNode extends Declaration{
         this.returnExp = returnExp;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
-        HashMap<String, DeclarationNode> variables = new HashMap<>();
-        for (Map.Entry<String, DeclarationNode> entry: previous.entrySet()) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
+        HashMap<String, Declaration> variables = new HashMap<>();
+        for (Map.Entry<String, Declaration> entry: previous.entrySet()) {
             variables.put(entry.getKey(), entry.getValue());
         }
         //TODO

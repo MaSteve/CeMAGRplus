@@ -1,7 +1,6 @@
 package cemagr;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by marcoantonio on 29/4/17.
@@ -25,7 +24,7 @@ public class IfNode extends ParserNode {
         elseBranch = false;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
         cond.solveReferences(previous);
         block1.solveReferences(previous);
         if (elseBranch) block2.solveReferences(previous);

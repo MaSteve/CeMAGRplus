@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public class GlobalBlockNode extends ParserNode {
     private static final HashMap<String, FuncDeclarationNode> functions = new HashMap<>();
-    private static final HashMap<String, DeclarationNode> global_variables = new HashMap<>();
+    private static final HashMap<String, Declaration> global_variables = new HashMap<>();
 
     private Declaration inst;
     private GlobalBlockNode next;
@@ -28,7 +28,7 @@ public class GlobalBlockNode extends ParserNode {
 
     public void initGlobalReferences() {
         if (next != null) next.initGlobalReferences();
-        if (inst.getType() == Declaration.VAR) global_variables.put(inst.getID(), (DeclarationNode) inst);
+        if (inst.getType() == Declaration.VAR) global_variables.put(inst.getID(), inst);
         else if (inst.getType() == Declaration.FUNC) functions.put(inst.getID(), (FuncDeclarationNode) inst);
         initReferences();
     }
@@ -58,7 +58,7 @@ public class GlobalBlockNode extends ParserNode {
             ret += entry.getKey() + "\n";
         }
         ret += "Var:\n";
-        for (Map.Entry<String, DeclarationNode> entry: global_variables.entrySet()) {
+        for (Map.Entry<String, Declaration> entry: global_variables.entrySet()) {
             ret += entry.getKey() + "\n";
         }
         return ret;

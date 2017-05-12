@@ -7,6 +7,7 @@ public abstract class Declaration extends ParserNode {
     private int type;
     public static final int FUNC = 0;
     public static final int VAR = 1;
+    public static final int ARG = 2;
 
     protected Declaration(int type) {
         super();

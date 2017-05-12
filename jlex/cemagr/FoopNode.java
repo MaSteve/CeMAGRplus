@@ -18,9 +18,9 @@ public class FoopNode extends ParserNode{
         this.block = block;
     }
 
-    public void solveReferences(HashMap<String, DeclarationNode> previous) {
+    public void solveReferences(HashMap<String, Declaration> previous) {
         preamble.solveReferences(previous);
-        HashMap<String, DeclarationNode> vars = ((BlockNode) preamble).getVariables();
+        HashMap<String, Declaration> vars = ((BlockNode) preamble).getVariables();
         cond.solveReferences(vars);
         postamble.solveReferences(vars);
         block.solveReferences(vars);

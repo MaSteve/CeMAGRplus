@@ -11,5 +11,6 @@ public class Manager {
         System.out.println(block);
         block.initGlobalReferences();
         System.out.println(GlobalBlockNode.getRefs());
+        System.out.println("FIN");
     }
 }
