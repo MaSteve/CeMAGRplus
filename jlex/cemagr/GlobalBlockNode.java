@@ -2,6 +2,7 @@ package cemagr;
 
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Map;
 public class GlobalBlockNode extends ParserNode {
     private static final HashMap<String, FuncDeclarationNode> functions = new HashMap<>();
     private static final HashMap<String, Declaration> global_variables = new HashMap<>();
+    private static final HashSet<String> ids = new HashSet<>();
 
     private Declaration inst;
     private GlobalBlockNode next;
@@ -28,12 +30,19 @@ public class GlobalBlockNode extends ParserNode {
 
     public void initGlobalReferences() {
         if (next != null) next.initGlobalReferences();
-        if (inst.getType() == Declaration.VAR) global_variables.put(inst.getID(), inst);
-        else if (inst.getType() == Declaration.FUNC) functions.put(inst.getID(), (FuncDeclarationNode) inst);
-        initReferences();
+        global_variables.put(inst.getID(), inst);
+        if (!ids.contains(inst.getID())) ids.add(inst.getID());
+        else Application.notifyError(Application.DUPLICATED_MSG
+                    + " " + inst.getID()
+                    + " (" + inst.getLine() + ", " + inst.getColumn() + ")");
+
+        if (inst.getClassType() == Declaration.FUNC) {
+            functions.put(inst.getID(), (FuncDeclarationNode) inst);
+        }
+        //initReferences();
     }
 
-    private static void initReferences() {
+    public static void initReferences() {
         for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
             entry.getValue().solveReferences(global_variables);
         }

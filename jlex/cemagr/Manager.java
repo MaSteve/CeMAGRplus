@@ -10,6 +10,7 @@ public class Manager {
         block = block1;
         System.out.println(block);
         block.initGlobalReferences();
+        GlobalBlockNode.initReferences();
         System.out.println(GlobalBlockNode.getRefs());
         System.out.println("FIN");
     }

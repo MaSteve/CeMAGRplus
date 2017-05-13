@@ -540,7 +540,7 @@ class Yylex implements java_cup.runtime.Scanner {
 					case -36:
 						break;
 					case 35:
-						{ yybegin(YYINITIAL); }
+						{ yybegin(YYINITIAL); col_offset = yychar + yytext().length(); }
 					case -37:
 						break;
 					case 36:

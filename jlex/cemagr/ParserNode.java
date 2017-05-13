@@ -20,7 +20,6 @@ public abstract class ParserNode {
 
     }
 
-
     public ParserNode() {
         token = null;
         decl = false;
@@ -29,6 +28,14 @@ public abstract class ParserNode {
     public ParserNode(Yytoken token) {
         this.token = token;
         decl = false;
+    }
+
+    public int getLine() {
+        return token == null? -1: token.m_line;
+    }
+
+    public int getColumn() {
+        return token == null? -1: token.m_col;
     }
 
     public boolean isDecl() {

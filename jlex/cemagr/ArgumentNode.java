@@ -3,37 +3,24 @@ package cemagr;
 /**
  * Created by marcoantonio on 29/4/17.
  */
-public class ArgumentNode extends Declaration {
-    private boolean array;
-    private TypeNode type;
-    private VarIDNode id;
-    private StaticArrayNode arrayNode;
-    private boolean ptr;
+public class ArgumentNode extends DeclarationNode {
 
     public ArgumentNode(TypeNode type, VarIDNode id) {
-        super(Declaration.ARG);
-        array = false;
-        this.type = type;
-        this.id = id;
+        super(type, id);
+        //super(Declaration.ARG);
     }
 
     public ArgumentNode(TypeNode type, VarIDNode id, StaticArrayNode arrayNode) {
-        super(Declaration.ARG);
-        array = true;
-        this.type = type;
-        this.id = id;
-        this.arrayNode = arrayNode;
+        super(type, id, arrayNode);
+        //super(Declaration.ARG);
     }
 
     public ArgumentNode(TypeNode type, VarIDNode id, boolean ptr) {
-        super(Declaration.ARG);
-        array = false;
-        this.type = type;
-        this.id = id;
-        if(ptr) this.ptr = true;
+        super(type, id, ptr);
+        //super(Declaration.ARG);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Arg: " + type + (ptr? "ptr":"") + (array? arrayNode: "") + " ID: " + id;
     }
@@ -41,5 +28,5 @@ public class ArgumentNode extends Declaration {
     @Override
     public String getID() {
         return id.toString();
-    }
+    }*/
 }

@@ -11,7 +11,7 @@ public class DeclarationNode extends Declaration {
     private boolean ptr;
 
     public DeclarationNode(TypeNode type, VarIDNode id) {
-        super(Declaration.VAR);
+        super(Declaration.VAR, id.token);
         array = false;
         this.type = type;
         this.id = id;
@@ -19,7 +19,7 @@ public class DeclarationNode extends Declaration {
     }
 
     public DeclarationNode(TypeNode type, VarIDNode id, StaticArrayNode arrayNode) {
-        super(Declaration.VAR);
+        super(Declaration.VAR, id.token);
         array = true;
         this.type = type;
         this.id = id;
@@ -28,7 +28,7 @@ public class DeclarationNode extends Declaration {
     }
 
     public DeclarationNode(TypeNode type, VarIDNode id, boolean ptr) {
-        super(Declaration.VAR);
+        super(Declaration.VAR, id.token);
         array = false;
         this.type = type;
         this.id = id;

@@ -38,7 +38,10 @@ public class FuncDeclarationNode extends Declaration{
         for (Map.Entry<String, Declaration> entry: previous.entrySet()) {
             variables.put(entry.getKey(), entry.getValue());
         }
-        //TODO
+        if (arguments) {
+            arg.solveReferences(variables);
+            variables = arg.getVariables();
+        }
         block.solveReferences(variables);
     }
 

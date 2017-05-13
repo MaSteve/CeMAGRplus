@@ -156,7 +156,7 @@ COMMENT_TEXT=([^\n])*
 
 <COMMENT> {COMMENT_TEXT} { }
 
-<COMMENT> {END_LINE} { yybegin(YYINITIAL); }
+<COMMENT> {END_LINE} { yybegin(YYINITIAL); col_offset = yychar + yytext().length(); }
 
 <YYINITIAL,COMMENT> . {
         System.out.println("Illegal character: <" + yytext() + ">");
