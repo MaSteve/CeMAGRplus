@@ -1,12 +1,14 @@
 # Esto es un comentario
 int €firstvalue; #Variable global
 
-func int pot(int €n, int €n) {
-    €ret := 1;
-    int €ret;
+func int pot(int €n, int €p) {
     int €ret;
     int €np;
-    €ret(€p) := €np;
+    ptr int €pt;
+    €pt := :€np;
+    €np :=  @€pt;
+    int €arr(10);
+    €arr(€pp) := €np;
     If (€p == 0) {
         €ret := 1;
     } Else {
@@ -20,16 +22,3 @@ func int pot(int €n, int €n) {
     }
     return €ret;
 }
-
-bool €firstvalue;
-
-func bool dummy(ptr int €puntero) {
-    €ret := "dummy";
-    return €ret;
-}
-
-func int dummy() {
-    €ret := "dummy";
-    return 0;
-}
-

@@ -37,6 +37,10 @@ public class OperatorNode extends ParserNode {
         return "OP" + op;
     }
 
+    public int getOp() {
+        return op;
+    }
+
     public static final int ASS = 1;
     public static final int LT = 6;
     public static final int GT = 7;

@@ -5,6 +5,7 @@ package cemagr;
  */
 public abstract class Declaration extends ParserNode {
     private int typeClass;
+    protected TypeNode type;
     public static final int FUNC = 0;
     public static final int VAR = 1;
     public static final int ARG = 2;
@@ -22,6 +23,10 @@ public abstract class Declaration extends ParserNode {
         TYPE = Type.OK;
     }
     public abstract String getID();
+
+    public Type getDeclTYPE() {
+        return type.getTYPE();
+    }
 
     public int getClassType() {
         return typeClass;

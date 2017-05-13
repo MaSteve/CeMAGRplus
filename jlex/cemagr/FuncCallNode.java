@@ -10,6 +10,8 @@ public class FuncCallNode extends ParserNode {
     private VarListNode list;
     private boolean arg;
 
+    private Declaration def;
+
     public FuncCallNode(Yytoken token, VarListNode list) {
         super(token);
         this.id = token.m_text;
@@ -28,6 +30,8 @@ public class FuncCallNode extends ParserNode {
             Application.notifyError(Application.UNKNOWN_MSG
                     + " " + id
                     + " (" + getLine() + ", " + getColumn() + ")");
+        } else {
+            def = previous.get(id);
         }
         if (arg) list.solveReferences(previous);
     }

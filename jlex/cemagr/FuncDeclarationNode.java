@@ -7,7 +7,6 @@ import java.util.Map;
  * Created by marcoantonio on 29/4/17.
  */
 public class FuncDeclarationNode extends Declaration{
-    private TypeNode type;
     private String id;
     private ArgumentListNode arg;
     private boolean arguments;
@@ -51,9 +50,9 @@ public class FuncDeclarationNode extends Declaration{
     public Type getTYPE() {
         if (block.getTYPE() == TYPE.OK) {
             Type ret = returnExp.getTYPE();
-            if (ret == type.getTYPE() && ret != Type.FAIL) setTYPE(Type.OK);
-            else setTYPE(Type.FAIL);
-        } else  setTYPE(Type.FAIL);
+            if (ret == type.getTYPE() && ret != Type.FAIL) TYPE = Type.OK;
+            else TYPE = Type.FAIL;
+        } else  TYPE = Type.FAIL;
         return TYPE;
     }
 

@@ -9,7 +9,8 @@ public class AssNode extends ParserNode {
     private VarReferenceNode var;
     private ParserNode exp;
 
-    public AssNode(VarReferenceNode var, ParserNode exp) {
+    public AssNode(Yytoken token, VarReferenceNode var, ParserNode exp) {
+        super(token);
         this.var = var;
         this.exp = exp;
     }
@@ -26,9 +27,11 @@ public class AssNode extends ParserNode {
 
     public Type getTYPE() {
         Type varType = var.getTYPE();
-        if (varType == exp.getTYPE() && varType != Type.FAIL) TYPE = Type.OK;
+        Type expType = exp.getTYPE();
+        if (varType == expType && varType != Type.FAIL) TYPE = Type.OK;
         else {
             Application.notifyError(Application.TYPE_MSG + ": "
+                    + varType + " != " + expType
                     + " (" + getLine() + ", " + getColumn() + ")");
             TYPE = Type.FAIL;
         }

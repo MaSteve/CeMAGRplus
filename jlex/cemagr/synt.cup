@@ -40,7 +40,7 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
 global_inst ::= decl:node {: RESULT = node; :}
               | func_decl:node {: RESULT = node; :};
 
-ass_inst ::= VAR:var ASS E0:exp SEMI {: RESULT = new AssNode((VarReferenceNode) var, exp); :};
+ass_inst ::= VAR:var ASS:token E0:exp SEMI {: RESULT = new AssNode(token, (VarReferenceNode) var, exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
      | E1:exp {: RESULT = exp; :}
      | STRING:string {: RESULT = new StringNode(string); :}
@@ -75,7 +75,7 @@ ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
 
-EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new UnaryExpression(new OperatorNode(op), new VarReferenceNode(id)); /* TODO */ :};
+EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ :};
 
 VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
       | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}

@@ -26,4 +26,8 @@ public class Application {
     public static final String UNKNOWN_MSG = "Símbolo desconocido";
     public static final String TYPE_MSG = "Lío de tipos";
     public static final String TYPE_EXP_MSG = "Tipo esperado: ";
+    public static final String DEREFENCE_MSG = "No se puede derrefenciar la variable ";
+    public static final String ADDRESS_MSG = "No se puede obtener la direccion de ";
+    public static final String ARRAY_MSG = "No es un array ";
+    public static final String ARRAY2_MSG = "Indice indeterminado de ";
 }

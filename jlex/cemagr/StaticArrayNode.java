@@ -6,6 +6,7 @@ package cemagr;
 public class StaticArrayNode extends ParserNode {
     private ParserNode exp;
     private StaticArrayNode next;
+    private int len = -1;
 
     public StaticArrayNode(ParserNode exp) {
         init(exp, null);
@@ -17,6 +18,14 @@ public class StaticArrayNode extends ParserNode {
     private void init(ParserNode exp, StaticArrayNode node) {
         this.exp = exp;
         next = node;
+    }
+
+    public int getLen() {
+        if (len == -1) {
+            if (next == null) len = 1;
+            else len = next.getLen() + 1;
+        }
+        return len;
     }
     @Override
     public String toString() {

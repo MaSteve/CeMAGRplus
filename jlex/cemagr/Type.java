@@ -8,5 +8,7 @@ public enum Type {
     BOOL,
     OK,
     FAIL,
-    UNKNOWN;
+    UNKNOWN,
+    PTR_INT,
+    PTR_BOOL
 }

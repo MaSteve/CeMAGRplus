@@ -5,7 +5,6 @@ package cemagr;
  */
 public class DeclarationNode extends Declaration {
     private boolean array;
-    private TypeNode type;
     private VarIDNode id;
     private StaticArrayNode arrayNode;
     private boolean ptr;
@@ -33,6 +32,18 @@ public class DeclarationNode extends Declaration {
         this.type = type;
         this.id = id;
         if(ptr) this.ptr = true;
+    }
+
+    public boolean isArray() {
+        return array;
+    }
+
+    public StaticArrayNode getArrayNode() {
+        return arrayNode;
+    }
+
+    public boolean isPtr() {
+        return ptr;
     }
 
     @Override

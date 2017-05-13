@@ -25,7 +25,7 @@ public class BinaryExpression extends ParserNode {
         if (exp1Type == exp2.getTYPE() && exp1Type == op.getTYPE()) TYPE = op.getTYPE();
         else {
             Application.notifyError(Application.TYPE_MSG + ": " + Application.TYPE_EXP_MSG + op.getTYPE()
-                    + " (" + getLine() + ", " + getColumn() + ")");
+                    + " (" + op.getLine() + ", " + op.getColumn() + ")");
             TYPE = Type.FAIL;
         }
         return TYPE;
