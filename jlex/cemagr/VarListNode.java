@@ -26,6 +26,14 @@ public class VarListNode extends ParserNode{
         var.solveReferences(previous);
     }
 
+    public VarReferenceNode getVarReference() {
+        return var;
+    }
+
+    public VarListNode getNext() {
+        return next;
+    }
+
     @Override
     public String toString() {
         return (next == null? "": next + ", " ) + var;

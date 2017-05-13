@@ -51,7 +51,7 @@ public class GlobalBlockNode extends ParserNode {
     public static boolean typeChecker() {
         boolean ret = true;
         for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
-            ret = ret && entry.getValue().getTYPE() == Type.OK;
+            ret = entry.getValue().getTYPE() == Type.OK && ret;
         }
         return ret;
     }

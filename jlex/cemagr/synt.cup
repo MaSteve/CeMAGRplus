@@ -16,7 +16,7 @@ terminal Yytoken RP, LP, RB, LB, COMMA, THEN, ADDRESS, DEREFERENCE;
 non terminal ParserNode inicio, global_inst_block, inst_block, global_inst, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
 terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE, PTR;
 non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST, EPTR;
-non terminal ParserNode VAR, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
+non terminal ParserNode VAR, VAR2, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
 terminal Yytoken TYPE;
 
 precedence left PLUS, MINUS, OR;
@@ -81,8 +81,11 @@ VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
       | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}
       | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ :} ;
 
-VAR_LIST ::= VAR_LIST:list COMMA VAR:var {: RESULT = new VarListNode((VarReferenceNode) var, (VarListNode) list); :}
-           | VAR:var {: RESULT = new VarListNode((VarReferenceNode) var); :};
+VAR2 ::= EPTR:ptr {: RESULT = ptr; :}
+	   | VAR:var {: RESULT = var; :};
+
+VAR_LIST ::= VAR_LIST:list COMMA VAR2:var {: RESULT = new VarListNode((VarReferenceNode) var, (VarListNode) list); :}
+           | VAR2:var {: RESULT = new VarListNode((VarReferenceNode) var); :};
 
 ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
              | ARRAY:exp {: RESULT = new ArrayNode(exp); :} ;
@@ -94,7 +97,7 @@ ARG_LIST ::= ARG_LIST:next COMMA ARG:arg {: RESULT = new ArgumentListNode((Argum
 
 ARG ::= TYPE:type VAR_NAME:id STATIC_ARRAY_LIST:arr {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), (StaticArrayNode) arr); :}
       | TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :}
-      | PTR TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id));:} ;
+      | PTR TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), true);:} ;
 
 STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); :}
                     | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp); :} ;

@@ -31,11 +31,15 @@ public class DeclarationNode extends Declaration {
         array = false;
         this.type = type;
         this.id = id;
-        if(ptr) this.ptr = true;
+        this.ptr = ptr;
     }
 
     public boolean isArray() {
         return array;
+    }
+
+    public boolean isPointer() {
+        return ptr;
     }
 
     public StaticArrayNode getArrayNode() {

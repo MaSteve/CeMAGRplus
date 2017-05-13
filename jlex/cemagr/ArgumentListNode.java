@@ -46,9 +46,18 @@ public class ArgumentListNode extends ParserNode {
                 + " (" + arg.getLine() + ", " + arg.getColumn() + ")");
     }
 
+    public ArgumentNode getArgument() {
+        return arg;
+    }
+
+    public ArgumentListNode getNext() {
+        return next;
+    }
+
     public HashMap<String, Declaration> getVariables() {
         return variables;
     }
+
     @Override
     public String toString() {
         return (next == null? "": next + ", " ) + arg;

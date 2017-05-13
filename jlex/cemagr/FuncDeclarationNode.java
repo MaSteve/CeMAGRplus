@@ -32,6 +32,14 @@ public class FuncDeclarationNode extends Declaration{
         this.returnExp = returnExp;
     }
 
+    public boolean hasArguments() {
+        return arguments;
+    }
+
+    public ArgumentListNode getArguments() {
+        return arg;
+    }
+
     public void solveReferences(HashMap<String, Declaration> previous) {
         HashMap<String, Declaration> variables = new HashMap<>();
         for (Map.Entry<String, Declaration> entry: previous.entrySet()) {

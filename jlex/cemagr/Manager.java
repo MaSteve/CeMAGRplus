@@ -11,7 +11,7 @@ public class Manager {
         //System.out.println(block);
         block.initGlobalReferences();
         GlobalBlockNode.initReferences();
-        GlobalBlockNode.typeChecker();
+        System.out.println("CHECK: " + GlobalBlockNode.typeChecker());
         //System.out.println(GlobalBlockNode.getRefs());
         System.out.println("FIN");
     }

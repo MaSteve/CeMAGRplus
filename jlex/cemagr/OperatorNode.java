@@ -41,6 +41,29 @@ public class OperatorNode extends ParserNode {
         return op;
     }
 
+    public Type retType() {
+        switch (op) {
+            case ASS: return TYPE.FAIL;
+            case LT: return TYPE.BOOL;
+            case GT: return TYPE.BOOL;
+            case LE: return TYPE.BOOL;
+            case GE: return TYPE.BOOL;
+            case EQ: return TYPE.BOOL;
+            case NEQ: return TYPE.BOOL;
+            case PLUS: return TYPE.INT;
+            case MINUS: return TYPE.INT;
+            case TIMES: return TYPE.INT;
+            case DIV: return TYPE.INT;
+            case MOD: return TYPE.INT;
+            case AND: return TYPE.BOOL;
+            case OR: return TYPE.BOOL;
+            case NOT: return TYPE.BOOL;
+            case ADDRESS: return TYPE.FAIL;
+            case DEREFERENCE: return TYPE.FAIL;
+            default: return TYPE.FAIL;
+        }
+    }
+
     public static final int ASS = 1;
     public static final int LT = 6;
     public static final int GT = 7;

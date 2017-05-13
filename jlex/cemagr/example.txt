@@ -6,9 +6,9 @@ func int pot(int €n, int €p) {
     int €np;
     ptr int €pt;
     €pt := :€np;
-    €np :=  @€pt;
+    €np := @€pt;
     int €arr(10);
-    €arr(€pp) := €np;
+    €arr(€p) := €np;
     If (€p == 0) {
         €ret := 1;
     } Else {
@@ -20,5 +20,13 @@ func int pot(int €n, int €p) {
             €ret := €ret * €n;
         }
     }
+    return €ret;
+}
+
+func int test(int €n, ptr int €p) {
+    int €ret;
+    ptr int €pointer;
+    €pointer := :€ret;
+    €ret := test(€n, :€ret);
     return €ret;
 }

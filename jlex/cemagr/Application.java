@@ -30,4 +30,6 @@ public class Application {
     public static final String ADDRESS_MSG = "No se puede obtener la direccion de ";
     public static final String ARRAY_MSG = "No es un array ";
     public static final String ARRAY2_MSG = "Indice indeterminado de ";
+    public static final String ARRAY3_MSG = " es un array";
+    public static final String ARG_MSG = "No existe esa signatura para ";
 }

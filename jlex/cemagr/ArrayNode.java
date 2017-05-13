@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ArrayNode extends ParserNode{
     private ParserNode exp;
     private ArrayNode next;
-    private int len = 0;
+    private int len = -1;
 
     public ArrayNode(ParserNode exp) {
         init(exp, null);

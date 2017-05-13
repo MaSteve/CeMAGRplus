@@ -22,7 +22,7 @@ public class BinaryExpression extends ParserNode {
 
     public Type getTYPE() {
         Type exp1Type = exp1.getTYPE();
-        if (exp1Type == exp2.getTYPE() && exp1Type == op.getTYPE()) TYPE = op.getTYPE();
+        if (exp1Type == exp2.getTYPE() && exp1Type == op.getTYPE()) TYPE = op.retType();
         else {
             Application.notifyError(Application.TYPE_MSG + ": " + Application.TYPE_EXP_MSG + op.getTYPE()
                     + " (" + op.getLine() + ", " + op.getColumn() + ")");

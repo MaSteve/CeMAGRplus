@@ -43,6 +43,10 @@ public class VarReferenceNode extends ParserNode{
         else if (opNode.op == ADDRESS) address = true;
     }
 
+    public boolean isArray() {
+        return !array && ((DeclarationNode) def).isArray();
+    }
+
     public void solveReferences(HashMap<String, Declaration> previous) {
         if (!previous.containsKey(id)) {
             Application.notifyError(Application.UNKNOWN_MSG
@@ -81,7 +85,7 @@ public class VarReferenceNode extends ParserNode{
                     StaticArrayNode staticArrayNode = (((DeclarationNode)def).getArrayNode());
                     Type arrayType = arrayNode.getTYPE();
                     if (staticArrayNode.getLen() == arrayNode.getLen() && arrayType == Type.OK) {
-                        TYPE = Type.OK;
+                        TYPE = def.getDeclTYPE();
                     } else {
                         Application.notifyError(Application.TYPE_MSG + ": "
                                 + Application.ARRAY2_MSG + id
@@ -98,7 +102,13 @@ public class VarReferenceNode extends ParserNode{
                 if (((DeclarationNode)def).isPtr()) {
                     if (def.getDeclTYPE() == Type.INT) TYPE = Type.PTR_INT;
                     else if (def.getDeclTYPE() == Type.BOOL) TYPE = Type.PTR_BOOL;
-                } else TYPE = def.getDeclTYPE();
+                } else if (((DeclarationNode)def).isArray()) {
+                    Application.notifyError(Application.TYPE_MSG + ": "
+                            + id + Application.ARRAY3_MSG
+                            + " (" + getLine() + ", " + getColumn() + ")");
+                    TYPE = Type.FAIL;
+                }
+                else TYPE = def.getDeclTYPE();
             }
         }
         return TYPE;
