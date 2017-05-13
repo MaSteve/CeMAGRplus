@@ -8,7 +8,7 @@ public class Manager {
 
     public static void init(GlobalBlockNode block1) {
         block = block1;
-        System.out.println(block);
+        //System.out.println(block);
         block.initGlobalReferences();
         GlobalBlockNode.initReferences();
         System.out.println(GlobalBlockNode.getRefs());

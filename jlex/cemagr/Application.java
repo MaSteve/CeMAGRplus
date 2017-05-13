@@ -4,7 +4,7 @@ package cemagr;
  * Created by marcoantonio on 12/5/17.
  */
 public class Application {
-    private static boolean debug = true;
+    private static boolean debug = false;
     private static int ref = 0;
     private static boolean error = false;
 
@@ -23,4 +23,5 @@ public class Application {
     }
 
     public static final String DUPLICATED_MSG = "Símbolo duplicado";
+    public static final String UNKNOWN_MSG = "Símbolo desconocido";
 }

@@ -1,5 +1,7 @@
 package cemagr;
 
+import java.util.HashMap;
+
 /**
  * Created by marcoantonio on 29/4/17.
  */
@@ -19,6 +21,15 @@ public class FuncCallNode extends ParserNode {
         super(token);
         this.id = token.m_text;
         this.arg = false;
+    }
+
+    public void solveReferences(HashMap<String, Declaration> previous) {
+        if (!previous.containsKey(id)) {
+            Application.notifyError(Application.UNKNOWN_MSG
+                    + " " + id
+                    + " (" + getLine() + ", " + getColumn() + ")");
+        }
+        if (arg) list.solveReferences(previous);
     }
 
     @Override

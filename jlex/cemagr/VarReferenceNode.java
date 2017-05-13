@@ -1,5 +1,7 @@
 package cemagr;
 
+import java.util.HashMap;
+
 import static cemagr.OperatorNode.DEREFERENCE;
 
 /**
@@ -34,6 +36,15 @@ public class VarReferenceNode extends ParserNode{
         id = token.m_text;
         array = false;
         if (opNode.op == DEREFERENCE) ptr = true;
+    }
+
+    public void solveReferences(HashMap<String, Declaration> previous) {
+        if (!previous.containsKey(id)) {
+            Application.notifyError(Application.UNKNOWN_MSG
+                    + " " + id
+                    + " (" + getLine() + ", " + getColumn() + ")");
+        }
+        if (array) arrayNode.solveReferences(previous);
     }
 
     public void addDefinition(DeclarationNode node) {

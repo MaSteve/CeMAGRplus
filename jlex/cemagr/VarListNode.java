@@ -1,5 +1,7 @@
 package cemagr;
 
+import java.util.HashMap;
+
 /**
  * Created by marcoantonio on 29/4/17.
  */
@@ -18,6 +20,12 @@ public class VarListNode extends ParserNode{
         this.var = var;
         next = node;
     }
+
+    public void solveReferences(HashMap<String, Declaration> previous) {
+        if (next != null) next.solveReferences(previous);
+        var.solveReferences(previous);
+    }
+
     @Override
     public String toString() {
         return (next == null? "": next + ", " ) + var;
