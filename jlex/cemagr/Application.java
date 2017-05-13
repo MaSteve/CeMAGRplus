@@ -32,4 +32,5 @@ public class Application {
     public static final String ARRAY2_MSG = "Indice indeterminado de ";
     public static final String ARRAY3_MSG = " es un array";
     public static final String ARG_MSG = "No existe esa signatura para ";
+    public static final String ZERO_MSG = "Tamaño 0";
 }

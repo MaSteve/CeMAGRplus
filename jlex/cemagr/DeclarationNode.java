@@ -50,6 +50,13 @@ public class DeclarationNode extends Declaration {
         return ptr;
     }
 
+    public Type getTYPE() {
+        if (array) {
+            return arrayNode.getTYPE();
+        }
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return "Var: " + type + (ptr? " ptr":"") + (array? arrayNode: "") + " ID: " + id;

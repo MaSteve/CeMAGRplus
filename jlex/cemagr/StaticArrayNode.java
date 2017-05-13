@@ -36,6 +36,20 @@ public class StaticArrayNode extends ParserNode {
         return false;
     }
 
+    public Type getTYPE() {
+        Type nextType = Type.OK;
+        if (next != null) nextType = next.getTYPE();
+        if (nextType == Type.OK) {
+            if (exp.getValue() > 0) TYPE = Type.OK;
+            else {
+                Application.notifyError(Application.ZERO_MSG
+                                + " (" + exp.getLine() + ", " + exp.getColumn() + ")");
+                        TYPE = Type.FAIL;
+            }
+        } else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return (next == null? "": next) + "[" + exp + "]";
