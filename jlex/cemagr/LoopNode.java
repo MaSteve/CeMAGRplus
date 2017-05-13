@@ -19,6 +19,12 @@ public class LoopNode extends ParserNode{
         block.solveReferences(previous);
     }
 
+    public Type getTYPE() {
+        if (cond.getTYPE() == Type.BOOL && block.getTYPE() == Type.OK) TYPE = Type.OK;
+        else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return "While: " + cond + " { " + block + " } ";

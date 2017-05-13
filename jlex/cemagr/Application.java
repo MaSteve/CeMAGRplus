@@ -24,4 +24,6 @@ public class Application {
 
     public static final String DUPLICATED_MSG = "Símbolo duplicado";
     public static final String UNKNOWN_MSG = "Símbolo desconocido";
+    public static final String TYPE_MSG = "Lío de tipos";
+    public static final String TYPE_EXP_MSG = "Tipo esperado: ";
 }

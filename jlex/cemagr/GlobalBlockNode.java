@@ -48,6 +48,14 @@ public class GlobalBlockNode extends ParserNode {
         }
     }
 
+    public static boolean typeChecker() {
+        boolean ret = true;
+        for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
+            ret = ret && entry.getValue().getTYPE() == Type.OK;
+        }
+        return ret;
+    }
+
     public static Declaration getGlobalVarReference(String id) {
         return global_variables.get(id);
     }

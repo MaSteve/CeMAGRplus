@@ -33,6 +33,24 @@ public class CaseNode extends ParserNode {
         if (next != null) next.solveReferences(previous);
     }
 
+    public Type getTYPE() { //TODO: Refactor
+        Type casesType = Type.OK;
+        if (next != null) {
+            next.setTYPE(TYPE);
+            casesType = next.getTYPE();
+        }
+        Type expType = cond.getTYPE();
+        if (casesType == Type.OK) casesType = expType;
+        Type blockType = block.getTYPE();
+        if (expType != TYPE && TYPE != Type.FAIL) {
+            Application.notifyError(Application.TYPE_MSG + ": " + Application.TYPE_EXP_MSG + TYPE
+                    + " (" + getLine() + ", " + getColumn() + ")");
+        }
+        if (blockType == Type.OK && expType == casesType && expType != Type.FAIL) TYPE = casesType;
+        else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return (next == null? "": next + "") + cond + " => " + block + "\n";

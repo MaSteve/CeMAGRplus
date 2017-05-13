@@ -26,6 +26,17 @@ public class FoopNode extends ParserNode{
         block.solveReferences(vars);
     }
 
+    public Type getTYPE() {
+        Type preambleType = preamble.getTYPE();
+        Type condType = cond.getTYPE();
+        Type postambleType = postamble.getTYPE();
+        Type blockType = block.getTYPE();
+        if (condType == Type.BOOL && preambleType == postambleType
+                && postambleType == blockType && blockType == Type.OK) TYPE = Type.OK;
+        else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return "For: " + preamble + " ; " + cond + " ; " + postamble + " { " + block + " } ";

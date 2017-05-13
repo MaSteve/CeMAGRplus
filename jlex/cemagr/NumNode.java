@@ -11,6 +11,10 @@ public class NumNode extends cemagr.ParserNode {
         value = Integer.valueOf(token.m_text);
     }
 
+    public Type getTYPE() {
+        return Type.INT;
+    }
+
     @Override
     public String toString() {
         return "NumNode: " + value;

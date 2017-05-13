@@ -7,14 +7,9 @@ import java.util.HashMap;
  */
 public abstract class ParserNode {
     protected Yytoken token;
-    protected boolean decl;
-    //protected boolean hasBlock; //TODO: Refactor
-    private int NODE_TYPE;
+    protected boolean decl; //TODO: Refactor
+    protected Type TYPE;
 
-    public static int BLOCK = 0;
-    public static int DECL = 1;
-    public static int FUNC = 2;
-    public static int IF = 3;
 
     public void solveReferences(HashMap<String, Declaration> previous) {
 
@@ -23,11 +18,13 @@ public abstract class ParserNode {
     public ParserNode() {
         token = null;
         decl = false;
+        TYPE = Type.UNKNOWN;
     }
 
     public ParserNode(Yytoken token) {
         this.token = token;
         decl = false;
+        TYPE = Type.UNKNOWN;
     }
 
     public int getLine() {
@@ -40,6 +37,14 @@ public abstract class ParserNode {
 
     public boolean isDecl() {
         return decl;
+    }
+
+    protected void setTYPE(Type type) {
+        this.TYPE = type;
+    }
+
+    public Type getTYPE() {
+        return TYPE;
     }
 
     @Override

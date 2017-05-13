@@ -23,4 +23,15 @@ public class AssNode extends ParserNode {
         var.solveReferences(previous);
         exp.solveReferences(previous);
     }
+
+    public Type getTYPE() {
+        Type varType = var.getTYPE();
+        if (varType == exp.getTYPE() && varType != Type.FAIL) TYPE = Type.OK;
+        else {
+            Application.notifyError(Application.TYPE_MSG + ": "
+                    + " (" + getLine() + ", " + getColumn() + ")");
+            TYPE = Type.FAIL;
+        }
+        return TYPE;
+    }
 }

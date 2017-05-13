@@ -20,6 +20,17 @@ public class BinaryExpression extends ParserNode {
         exp2.solveReferences(previous);
     }
 
+    public Type getTYPE() {
+        Type exp1Type = exp1.getTYPE();
+        if (exp1Type == exp2.getTYPE() && exp1Type == op.getTYPE()) TYPE = op.getTYPE();
+        else {
+            Application.notifyError(Application.TYPE_MSG + ": " + Application.TYPE_EXP_MSG + op.getTYPE()
+                    + " (" + getLine() + ", " + getColumn() + ")");
+            TYPE = Type.FAIL;
+        }
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return "BinaryExpression: \n" + exp1 + "\n" + op + "\n" + exp2;

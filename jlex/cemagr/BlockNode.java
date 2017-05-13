@@ -37,6 +37,14 @@ public class BlockNode extends ParserNode {
         if (Application.debug()) System.out.println("BlockRef");
     }
 
+    public Type getTYPE() {
+        Type nextType = Type.OK;
+        if (next != null) nextType = next.getTYPE();
+        if (nextType == inst.getTYPE() && nextType == Type.OK) TYPE = Type.OK;
+        else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     public HashMap<String, Declaration> getVariables() {
         return variables;
     }

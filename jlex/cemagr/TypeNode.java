@@ -15,4 +15,12 @@ public class TypeNode extends ParserNode {
     public String toString() {
         return value;
     }
+
+    public Type getTYPE() {
+        switch (value) {
+            case "int": return TYPE.INT;
+            case "bool": return Type.BOOL;
+            default: return Type.FAIL;
+        }
+    }
 }

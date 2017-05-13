@@ -22,6 +22,15 @@ public class SwitchNode extends ParserNode {
         defaultBlock.solveReferences(previous);
     }
 
+    public Type getTYPE() {
+        Type expType = exp.getTYPE();
+        cases.setTYPE(expType);
+        Type casesType = cases.getTYPE();
+        if (defaultBlock.getTYPE() == Type.OK && expType == casesType && expType != Type.FAIL) TYPE = Type.OK;
+        else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return "Switch: " + exp + " { " + cases + " => " + defaultBlock + " } ";

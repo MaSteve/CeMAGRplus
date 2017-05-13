@@ -13,11 +13,13 @@ public abstract class Declaration extends ParserNode {
         super();
         this.typeClass = type;
         decl = true;
+        TYPE = Type.OK;
     }
     protected Declaration(int type, Yytoken yytoken) {
         super(yytoken);
         this.typeClass = type;
         decl = true;
+        TYPE = Type.OK;
     }
     public abstract String getID();
 

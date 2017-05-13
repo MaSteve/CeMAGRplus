@@ -11,6 +11,10 @@ public class BoolNode extends ParserNode {
         value = token.m_text.equals("YEAH");
     }
 
+    public Type getTYPE() {
+        return Type.BOOL;
+    }
+
     @Override
     public String toString() {
         return "BoolNode: " + value;

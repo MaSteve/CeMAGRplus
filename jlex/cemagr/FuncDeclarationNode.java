@@ -43,6 +43,18 @@ public class FuncDeclarationNode extends Declaration{
             variables = arg.getVariables();
         }
         block.solveReferences(variables);
+        variables = block.getVariables();
+        returnExp.solveReferences(variables);
+        //TODO: RETURN VALUE
+    }
+
+    public Type getTYPE() {
+        if (block.getTYPE() == TYPE.OK) {
+            Type ret = returnExp.getTYPE();
+            if (ret == type.getTYPE() && ret != Type.FAIL) setTYPE(Type.OK);
+            else setTYPE(Type.FAIL);
+        } else  setTYPE(Type.FAIL);
+        return TYPE;
     }
 
     @Override

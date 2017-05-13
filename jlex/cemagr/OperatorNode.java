@@ -10,13 +10,32 @@ public class OperatorNode extends ParserNode {
     public OperatorNode(Yytoken token) {
         super(token);
         op = token.m_index;
+        switch (op) { //TODO: Multitype operator
+            case ASS: TYPE = Type.OK; break;
+            case LT: TYPE = Type.INT; break;
+            case GT: TYPE = Type.INT; break;
+            case LE: TYPE = Type.INT; break;
+            case GE: TYPE = Type.INT; break;
+            case EQ: TYPE = Type.INT; break;
+            case NEQ: TYPE = Type.INT; break;
+            case PLUS: TYPE = Type.INT; break;
+            case MINUS: TYPE = Type.INT; break;
+            case TIMES: TYPE = Type.INT; break;
+            case DIV: TYPE = Type.INT; break;
+            case MOD: TYPE = Type.INT; break;
+            case AND: TYPE = Type.BOOL; break;
+            case OR: TYPE = Type.BOOL; break;
+            case NOT: TYPE = Type.BOOL; break;
+            case ADDRESS: TYPE = Type.OK; break;
+            case DEREFERENCE: TYPE = Type.OK; break;
+            default: TYPE = Type.FAIL; break;
+        }
     }
 
     @Override
     public String toString() {
         return "OP" + op;
     }
-
 
     public static final int ASS = 1;
     public static final int LT = 6;

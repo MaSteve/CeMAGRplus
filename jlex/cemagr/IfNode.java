@@ -30,6 +30,15 @@ public class IfNode extends ParserNode {
         if (elseBranch) block2.solveReferences(previous);
     }
 
+    public Type getTYPE() {
+        Type condType = cond.getTYPE();
+        Type block2Type = Type.OK;
+        if (elseBranch) block2Type = block2.getTYPE();
+        if (condType == Type.BOOL && block1.getTYPE() == block2Type && block2Type == Type.OK) TYPE = Type.OK;
+        else TYPE = Type.FAIL;
+        return TYPE;
+    }
+
     @Override
     public String toString() {
         return "If: " + cond + " ; " + " { " + block1 + " } " + (elseBranch? "Else { " + block2 + " } ": "");
