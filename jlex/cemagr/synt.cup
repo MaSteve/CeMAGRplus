@@ -99,8 +99,8 @@ ARG ::= TYPE:type VAR_NAME:id STATIC_ARRAY_LIST:arr {: RESULT = new ArgumentNode
       | TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :}
       | PTR TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), true);:} ;
 
-STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); :}
-                    | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode(exp); :} ;
+STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode((NumNode) exp, (StaticArrayNode) next); :}
+                    | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode((NumNode) exp); :} ;
 STATIC_ARRAY ::= LP NUM:num RP {: RESULT = new NumNode(num); :};
 
 

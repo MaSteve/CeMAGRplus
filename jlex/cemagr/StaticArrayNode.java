@@ -4,18 +4,18 @@ package cemagr;
  * Created by marcoantonio on 29/4/17.
  */
 public class StaticArrayNode extends ParserNode {
-    private ParserNode exp;
+    private NumNode exp;
     private StaticArrayNode next;
     private int len = -1;
 
-    public StaticArrayNode(ParserNode exp) {
+    public StaticArrayNode(NumNode exp) {
         init(exp, null);
     }
-    public StaticArrayNode(ParserNode exp, StaticArrayNode node) {
+    public StaticArrayNode(NumNode exp, StaticArrayNode node) {
         init(exp, node);
     }
 
-    private void init(ParserNode exp, StaticArrayNode node) {
+    private void init(NumNode exp, StaticArrayNode node) {
         this.exp = exp;
         next = node;
     }
@@ -27,6 +27,15 @@ public class StaticArrayNode extends ParserNode {
         }
         return len;
     }
+
+    public static boolean check(StaticArrayNode node1, StaticArrayNode node2) {
+        if (node1 == null && node2 == null) return true;
+        else if (node1 != null && node2 != null) {
+            return check(node1.next, node2.next) && node1.exp.getValue() == node2.exp.getValue();
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return (next == null? "": next) + "[" + exp + "]";

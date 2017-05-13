@@ -23,10 +23,11 @@ func int pot(int €n, int €p) {
     return €ret;
 }
 
-func int test(int €n, ptr int €p) {
+func int test(int €n, int €p(20)(10)) {
     int €ret;
     ptr int €pointer;
     €pointer := :€ret;
-    €ret := test(€n, :€ret);
+    int €arr(20)(10);
+    €ret := test(€n, €arr);
     return €ret;
 }

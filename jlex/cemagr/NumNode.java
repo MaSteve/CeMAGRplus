@@ -15,6 +15,10 @@ public class NumNode extends cemagr.ParserNode {
         return Type.INT;
     }
 
+    public int getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return "NumNode: " + value;

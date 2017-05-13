@@ -47,6 +47,10 @@ public class VarReferenceNode extends ParserNode{
         return !array && ((DeclarationNode) def).isArray();
     }
 
+    public Declaration getDef() {
+        return def;
+    }
+
     public void solveReferences(HashMap<String, Declaration> previous) {
         if (!previous.containsKey(id)) {
             Application.notifyError(Application.UNKNOWN_MSG

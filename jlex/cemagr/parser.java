@@ -1328,7 +1328,7 @@ class CUP$parser$actions {
 		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new StaticArrayNode(exp, (StaticArrayNode) next); 
+		 RESULT = new StaticArrayNode((NumNode) exp, (StaticArrayNode) next); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("STATIC_ARRAY_LIST",31, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1340,7 +1340,7 @@ class CUP$parser$actions {
 		int expleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int expright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ParserNode exp = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new StaticArrayNode(exp); 
+		 RESULT = new StaticArrayNode((NumNode) exp); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("STATIC_ARRAY_LIST",31, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
