@@ -6,17 +6,17 @@ import java.util.HashMap;
  * Created by marcoantonio on 29/4/17.
  */
 public class VarListNode extends ParserNode{
-    private VarReferenceNode var;
+    private ParserNode var;
     private VarListNode next;
 
-    public VarListNode(VarReferenceNode var) {
+    public VarListNode(ParserNode var) {
         init(var, null);
     }
-    public VarListNode(VarReferenceNode var, VarListNode node) {
+    public VarListNode(ParserNode var, VarListNode node) {
         init(var, node);
     }
 
-    private void init(VarReferenceNode var, VarListNode node) {
+    private void init(ParserNode var, VarListNode node) {
         this.var = var;
         next = node;
     }
@@ -26,7 +26,7 @@ public class VarListNode extends ParserNode{
         var.solveReferences(previous);
     }
 
-    public VarReferenceNode getVarReference() {
+    public ParserNode getExp() {
         return var;
     }
 

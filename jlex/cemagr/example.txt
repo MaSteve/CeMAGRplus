@@ -27,7 +27,16 @@ func int test(int €n, int €p(20)(10)) {
     int €ret;
     ptr int €pointer;
     €pointer := :€ret;
-    int €arr(20)(0);
+    int €arr(20)(10);
     €ret := test(€n, €arr);
+    return €ret;
+}
+
+func int test2(int €n, bool €p, ptr int €ptr) {
+    int €ret;
+    ptr int €pointer;
+    €pointer := :€ret;
+    int €arr(20)(10);
+    €ret := test2(€n + @€pointer - €arr(10)(1), YEAH && (NO), €pointer);
     return €ret;
 }

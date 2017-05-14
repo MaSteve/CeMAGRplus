@@ -40,11 +40,12 @@ public class FuncCallNode extends ParserNode {
         if (list == null && arg == null) return true;
         else if (list != null && arg != null) {
             boolean ok = argChecker(list.getNext(), arg.getNext());
-            if (list.getVarReference().isArray() && arg.getArgument().isArray()) {
-                return StaticArrayNode.check(((DeclarationNode)list.getVarReference().getDef()).getArrayNode(),
-                        arg.getArgument().getArrayNode());
-            } else if (!list.getVarReference().isArray() && !arg.getArgument().isArray()) {
-                Type varType = list.getVarReference().getTYPE();
+            if (list.getExp().isRefenceNode() && ((VarReferenceNode) list.getExp()).isArray() && arg.getArgument().isArray()) {
+                return StaticArrayNode.check(((DeclarationNode)((VarReferenceNode)list.getExp()).getDef()).getArrayNode(),
+                        arg.getArgument().getArrayNode()) && ok;
+            } else if (!arg.getArgument().isArray()) {
+                if (list.getExp().isRefenceNode() && ((VarReferenceNode) list.getExp()).isArray()) return false;
+                Type varType = list.getExp().getTYPE();
                 Type argType = arg.getArgument().getDeclTYPE();
                 if (arg.getArgument().isPointer()) {
                     argType = arg.getArgument().getDeclTYPE();

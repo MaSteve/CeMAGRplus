@@ -122,4 +122,8 @@ public class VarReferenceNode extends ParserNode{
     public String toString() {
         return "Ref: " + (dereference? "ptr ":"")  + id + (array? arrayNode: "");
     }
+
+    public boolean isRefenceNode() {
+        return true;
+    }
 }
