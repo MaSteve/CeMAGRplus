@@ -9,6 +9,8 @@ public class AssNode extends ParserNode {
     private VarReferenceNode var;
     private ParserNode exp;
 
+    private int instSize = -1;
+
     public AssNode(Yytoken token, VarReferenceNode var, ParserNode exp) {
         super(token);
         this.var = var;
@@ -37,4 +39,16 @@ public class AssNode extends ParserNode {
         }
         return TYPE;
     }
+
+    public int getInstSize() {
+        if (instSize == -1) {
+            instSize = var.getInstSize() + exp.getInstSize() + 1;
+        }
+        return instSize;
+    }
+
+    public void translate() {
+        exp.translate();
+    }
+
 }

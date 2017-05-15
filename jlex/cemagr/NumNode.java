@@ -19,6 +19,14 @@ public class NumNode extends cemagr.ParserNode {
         return value;
     }
 
+    public int getInstSize() {
+        return 1;
+    }
+
+    public void translate() {
+        Application.newInst("ldc " + value);
+    }
+
     @Override
     public String toString() {
         return "NumNode: " + value;

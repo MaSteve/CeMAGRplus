@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class BinaryExpression extends ParserNode {
     private OperatorNode op;
     private ParserNode exp1, exp2;
+    private int instSize = -1;
 
     public BinaryExpression(ParserNode exp1, OperatorNode op, ParserNode exp2) {
         this.op = op;
@@ -29,6 +30,19 @@ public class BinaryExpression extends ParserNode {
             TYPE = Type.FAIL;
         }
         return TYPE;
+    }
+
+    public int getInstSize() {
+        if (instSize == -1) {
+            instSize = exp1.getInstSize() + exp2.getInstSize() + op.getInstSize();
+        }
+        return instSize;
+    }
+
+    public void translate() {
+        exp1.translate();
+        exp2.translate();
+        op.translate();
     }
 
     @Override

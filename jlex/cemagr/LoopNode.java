@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class LoopNode extends ParserNode{
     private ParserNode cond;
     private ParserNode block;
-    private int declSize = -1;
+    private int declSize = -1, instSize = -1;
 
     public LoopNode(ParserNode cond, ParserNode block) {
         this.cond = cond;
@@ -31,6 +31,13 @@ public class LoopNode extends ParserNode{
             declSize = block.getDeclSize();
         }
         return declSize;
+    }
+
+    public int getInstSize() {
+        if (instSize == -1) {
+            instSize = cond.getInstSize() + block.getInstSize() + 2;
+        }
+        return instSize;
     }
 
     @Override

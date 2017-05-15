@@ -15,6 +15,14 @@ public class BoolNode extends ParserNode {
         return Type.BOOL;
     }
 
+    public int getInstSize() {
+        return 1;
+    }
+
+    public void translate() {
+        Application.newInst("ldc " + value);
+    }
+
     @Override
     public String toString() {
         return "BoolNode: " + value;

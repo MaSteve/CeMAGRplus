@@ -41,6 +41,10 @@ public class OperatorNode extends ParserNode {
         return op;
     }
 
+    public int getInstSize() {
+        return 1;
+    }
+
     public Type retType() {
         switch (op) {
             case ASS: return TYPE.FAIL;
@@ -61,6 +65,25 @@ public class OperatorNode extends ParserNode {
             case ADDRESS: return TYPE.FAIL;
             case DEREFERENCE: return TYPE.FAIL;
             default: return TYPE.FAIL;
+        }
+    }
+
+    public void translate() {
+        switch (op) {
+            case LT: Application.newInst("les"); break;
+            case GT: Application.newInst("grt"); break;
+            case LE: Application.newInst("leq"); break;
+            case GE: Application.newInst("geq"); break;
+            case EQ: Application.newInst("equ"); break;
+            case NEQ: Application.newInst("equ"); Application.newInst("not"); break;
+            case PLUS: Application.newInst("add"); break;
+            case MINUS: Application.newInst("sub"); break;
+            case TIMES: Application.newInst("mul"); break;
+            case DIV: Application.newInst("div"); break;
+            case MOD: Application.newInst("ERROR"); break;
+            case AND: Application.newInst("and"); break;
+            case OR: Application.newInst("or"); break;
+            case NOT: Application.newInst("not"); break;
         }
     }
 

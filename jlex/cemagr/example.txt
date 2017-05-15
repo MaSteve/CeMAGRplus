@@ -1,42 +1,10 @@
 # Esto es un comentario
 int €firstvalue; #Variable global
 
-func int pot(int €n, int €p) {
+func int main() {
     int €ret;
-    int €np;
-    ptr int €pt;
-    €pt := :€np;
-    €np := @€pt;
-    int €arr(10);
-    €arr(€p) := €np;
-    If (€p == 0) {
-        €ret := 1;
-    } Else {
-        int €np;
-        €np := €p/2;
-        €ret := pot(€n, €np);
-        €ret := €ret * €ret;
-        If (€p % 2 == 1) {
-            €ret := €ret * €n;
-        }
-    }
-    return €ret;
-}
-
-func int test(int €n, int €p(20)(10)) {
-    int €ret;
-    ptr int €pointer;
-    €pointer := :€ret;
-    int €arr(20)(10);
-    €ret := test(€n, €arr);
-    return €ret;
-}
-
-func int main(int €n, bool €p, ptr int €ptr) {
-    int €ret;
-    ptr int €pointer;
-    €pointer := :€ret;
-    int €arr(20)(10);
+    €firstvalue := 1;
+    €ret := €firstvalue + 2;
     #€ret := test2(€n + @€pointer - €arr(10)(1), YEAH && (NO), €pointer);
-    return €ret;
+    return €ret + 0;
 }

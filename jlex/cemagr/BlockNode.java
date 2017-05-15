@@ -15,7 +15,7 @@ public class BlockNode extends ParserNode {
     private ParserNode inst;
     private BlockNode next;
 
-    private int declSize = -1;
+    private int declSize = -1, instSize = -1;
 
     public BlockNode (ParserNode inst) {
         init(inst, null);
@@ -72,6 +72,19 @@ public class BlockNode extends ParserNode {
             else declSize = next.getDeclSize() + inst.getDeclSize();
         }
         return declSize;
+    }
+
+    public int getInstSize() {
+        if (instSize == -1) {
+            if (next == null) instSize = inst.getInstSize();
+            else instSize = next.getInstSize() + inst.getInstSize();
+        }
+        return instSize;
+    }
+
+    public void translate() {
+        if (next != null) next.translate();
+        inst.translate();
     }
 
     @Override

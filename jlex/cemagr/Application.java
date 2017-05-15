@@ -5,7 +5,6 @@ package cemagr;
  */
 public class Application {
     private static boolean debug = false;
-    private static int ref = 0;
     private static boolean error = false;
     private static int instID = 0;
 
@@ -14,8 +13,7 @@ public class Application {
     }
 
     public static int nextRef() {
-        ref++;
-        return ref;
+        return instID;
     }
 
     public static boolean isOK() {
@@ -35,6 +33,7 @@ public class Application {
     public static void newInst(String inst) {
         String output = "{" + instID + "} " + inst + ";";
         save(output);
+        instID++;
     }
 
     private static void save(String s) {

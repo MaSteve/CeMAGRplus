@@ -14,7 +14,6 @@ public class FuncDeclarationNode extends Declaration{
     private ParserNode returnExp;
     private int declSize = -1;
     private int instSize = -1;
-    private int address;
 
     public FuncDeclarationNode(Yytoken token, TypeNode type, ArgumentListNode arg, BlockNode block, ParserNode returnExp) {
         super(Declaration.FUNC, token);
@@ -67,14 +66,6 @@ public class FuncDeclarationNode extends Declaration{
         return TYPE;
     }
 
-    public void setAddress(int address) {
-        this.address = address;
-    }
-
-    public int getAddress() {
-        return address;
-    }
-
     public int getDeclSize() {
         if (declSize == -1) {
             declSize = block.getDeclSize() + (arguments? arg.getDeclSize(): 0);
@@ -87,6 +78,12 @@ public class FuncDeclarationNode extends Declaration{
             instSize = block.getInstSize() + returnExp.getInstSize() + 10; //TODO
         }
         return instSize;
+    }
+
+    public void translate() {
+        block.translate();
+        returnExp.translate();
+        Application.newInst("retf");
     }
 
     @Override
