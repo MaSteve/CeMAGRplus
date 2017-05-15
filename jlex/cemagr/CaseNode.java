@@ -9,6 +9,7 @@ public class CaseNode extends ParserNode {
     private ParserNode cond;
     private ParserNode block;
     private CaseNode next;
+    private int declSize = -1;
 
     public CaseNode(ParserNode cond, ParserNode block) {
         init(cond, block, null);
@@ -49,6 +50,14 @@ public class CaseNode extends ParserNode {
         if (blockType == Type.OK && expType == casesType && expType != Type.FAIL) TYPE = casesType;
         else TYPE = Type.FAIL;
         return TYPE;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            if (next == null) declSize = block.getDeclSize();
+            else declSize = next.getDeclSize() + block.getDeclSize();
+        }
+        return declSize;
     }
 
     @Override

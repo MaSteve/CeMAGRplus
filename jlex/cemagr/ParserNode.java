@@ -53,4 +53,16 @@ public abstract class ParserNode {
     public boolean isRefenceNode() {
         return false;
     }
+
+    public int getDeclSize() {
+        return 0;
+    }
+
+    public void translate() {
+
+    }
+
+    public int getInstSize() {
+        return 0;
+    }
 }

@@ -10,6 +10,7 @@ public class IfNode extends ParserNode {
     private ParserNode block1;
     private ParserNode block2;
     private boolean elseBranch;
+    private int declSize = -1;
 
     public IfNode(ParserNode cond, ParserNode block1, ParserNode block2) {
         this.cond = cond;
@@ -37,6 +38,13 @@ public class IfNode extends ParserNode {
         if (condType == Type.BOOL && block1.getTYPE() == block2Type && block2Type == Type.OK) TYPE = Type.OK;
         else TYPE = Type.FAIL;
         return TYPE;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            declSize = block1.getDeclSize() + (elseBranch? block2.getDeclSize(): 0);
+        }
+        return declSize;
     }
 
     @Override

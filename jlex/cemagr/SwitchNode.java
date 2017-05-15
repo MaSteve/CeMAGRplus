@@ -9,6 +9,7 @@ public class SwitchNode extends ParserNode {
     private ParserNode exp;
     private CaseNode cases;
     private ParserNode defaultBlock;
+    private int declSize = -1;
 
     public SwitchNode(ParserNode cond, CaseNode cases, ParserNode defaultBlock) {
         this.exp = cond;
@@ -29,6 +30,13 @@ public class SwitchNode extends ParserNode {
         if (defaultBlock.getTYPE() == Type.OK && expType == casesType && expType != Type.FAIL) TYPE = Type.OK;
         else TYPE = Type.FAIL;
         return TYPE;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            declSize = cases.getDeclSize() + defaultBlock.getDeclSize();
+        }
+        return declSize;
     }
 
     @Override

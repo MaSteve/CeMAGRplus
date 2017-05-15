@@ -7,6 +7,7 @@ public class Application {
     private static boolean debug = false;
     private static int ref = 0;
     private static boolean error = false;
+    private static int instID = 0;
 
     public static boolean debug() {
         return debug;
@@ -17,9 +18,28 @@ public class Application {
         return ref;
     }
 
+    public static boolean isOK() {
+        return !error;
+    }
+
     public static void notifyError(String msg) {
         error = true;
         System.err.println("ERROR: " + msg);
+    }
+
+    public static void newComment(String comment) {
+        String output = "{" + instID + "}";
+        save(comment);
+    }
+
+    public static void newInst(String inst) {
+        String output = "{" + instID + "} " + inst + ";";
+        save(output);
+    }
+
+    private static void save(String s) {
+        //TODO: Use a file.
+        System.out.println(s);
     }
 
     public static final String DUPLICATED_MSG = "Símbolo duplicado";
@@ -33,4 +53,5 @@ public class Application {
     public static final String ARRAY3_MSG = " es un array";
     public static final String ARG_MSG = "No existe esa signatura para ";
     public static final String ZERO_MSG = "Tamaño 0";
+    public static final String MAIN_MSG = "Función main no encontrada";
 }

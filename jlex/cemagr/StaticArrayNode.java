@@ -7,6 +7,7 @@ public class StaticArrayNode extends ParserNode {
     private NumNode exp;
     private StaticArrayNode next;
     private int len = -1;
+    private int declSize = -1;
 
     public StaticArrayNode(NumNode exp) {
         init(exp, null);
@@ -26,6 +27,14 @@ public class StaticArrayNode extends ParserNode {
             else len = next.getLen() + 1;
         }
         return len;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            if (next == null) declSize = exp.getValue();
+            else declSize = next.getDeclSize()*exp.getValue();
+        }
+        return declSize;
     }
 
     public static boolean check(StaticArrayNode node1, StaticArrayNode node2) {

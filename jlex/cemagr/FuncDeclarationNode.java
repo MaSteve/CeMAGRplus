@@ -12,6 +12,9 @@ public class FuncDeclarationNode extends Declaration{
     private boolean arguments;
     private BlockNode block;
     private ParserNode returnExp;
+    private int declSize = -1;
+    private int instSize = -1;
+    private int address;
 
     public FuncDeclarationNode(Yytoken token, TypeNode type, ArgumentListNode arg, BlockNode block, ParserNode returnExp) {
         super(Declaration.FUNC, token);
@@ -62,6 +65,28 @@ public class FuncDeclarationNode extends Declaration{
             else TYPE = Type.FAIL;
         } else  TYPE = Type.FAIL;
         return TYPE;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
+    }
+
+    public int getAddress() {
+        return address;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            declSize = block.getDeclSize() + (arguments? arg.getDeclSize(): 0);
+        }
+        return declSize;
+    }
+
+    public int getInstSize() {
+        if (instSize == -1) {
+            instSize = block.getInstSize() + returnExp.getInstSize() + 10; //TODO
+        }
+        return instSize;
     }
 
     @Override

@@ -16,6 +16,8 @@ public class GlobalBlockNode extends ParserNode {
     private Declaration inst;
     private GlobalBlockNode next;
 
+    private static int declSize = 0;
+
     public GlobalBlockNode(Declaration inst) {
         init(inst, null);
     }
@@ -38,6 +40,9 @@ public class GlobalBlockNode extends ParserNode {
 
         if (inst.getClassType() == Declaration.FUNC) {
             functions.put(inst.getID(), (FuncDeclarationNode) inst);
+        } else {
+            ((DeclarationNode) inst).setGlobal();
+            declSize += inst.getDeclSize();
         }
         //initReferences();
     }
@@ -54,6 +59,36 @@ public class GlobalBlockNode extends ParserNode {
             ret = entry.getValue().getTYPE() == Type.OK && ret;
         }
         return ret;
+    }
+
+    public static boolean hasMain() {
+        boolean ok = functions.containsKey("main");
+        if (!ok) Application.notifyError(Application.MAIN_MSG);
+        return ok;
+    }
+
+    public int getDeclSize() {
+        return declSize;
+    }
+
+    public void translate() {
+        // Stack
+        Application.newInst("ssp " + getDeclSize() + 5);
+        // Solve addresses
+        int address = functions.get("main").getInstSize() + 1;
+        functions.get("main").setAddress(1);
+        for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
+            if (!entry.getKey().equals("main")) {
+                entry.getValue().setAddress(address);
+                address += entry.getValue().getInstSize();
+            }
+        }
+        // Main
+        functions.get("main").translate();
+        // Functions
+        for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
+            if (!entry.getKey().equals("main")) entry.getValue().translate();
+        }
     }
 
     public static Declaration getGlobalVarReference(String id) {

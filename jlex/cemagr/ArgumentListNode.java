@@ -12,6 +12,7 @@ public class ArgumentListNode extends ParserNode {
     private ArgumentListNode next;
     private HashMap<String, Declaration> variables;
     private HashSet<String> ids;
+    private int declSize = -1;
 
     public ArgumentListNode(ArgumentNode arg) {
         init(arg, null);
@@ -56,6 +57,14 @@ public class ArgumentListNode extends ParserNode {
 
     public HashMap<String, Declaration> getVariables() {
         return variables;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            if (next == null) declSize = arg.getDeclSize();
+            else declSize = next.getDeclSize() + arg.getDeclSize();
+        }
+        return declSize;
     }
 
     @Override

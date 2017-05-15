@@ -59,21 +59,24 @@ public class FuncCallNode extends ParserNode {
     }
 
     public Type getTYPE() {
-        if (arg && ((FuncDeclarationNode)def).hasArguments()) {
-            if (argChecker(list, ((FuncDeclarationNode) def).getArguments())) {
-                TYPE = def.getDeclTYPE();
-            }
-            else TYPE = Type.FAIL;
-        } else if (!arg && !((FuncDeclarationNode)def).hasArguments()) {
-            TYPE = def.getDeclTYPE();
-        } else {
+        if (def == null || def.getClassType() != Declaration.FUNC) {
             TYPE = Type.FAIL;
-        }
+        } else {
+            if (arg && ((FuncDeclarationNode) def).hasArguments()) {
+                if (argChecker(list, ((FuncDeclarationNode) def).getArguments())) {
+                    TYPE = def.getDeclTYPE();
+                } else TYPE = Type.FAIL;
+            } else if (!arg && !((FuncDeclarationNode) def).hasArguments()) {
+                TYPE = def.getDeclTYPE();
+            } else {
+                TYPE = Type.FAIL;
+            }
 
-        if (TYPE == Type.FAIL) {
-            Application.notifyError(Application.TYPE_MSG + ": "
-                    + Application.ARG_MSG + id
-                    + " (" + getLine() + ", " + getColumn() + ")");
+            if (TYPE == Type.FAIL) {
+                Application.notifyError(Application.TYPE_MSG + ": "
+                        + Application.ARG_MSG + id
+                        + " (" + getLine() + ", " + getColumn() + ")");
+            }
         }
 
         /*if (array) {

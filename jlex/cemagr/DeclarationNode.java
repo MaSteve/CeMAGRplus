@@ -8,6 +8,8 @@ public class DeclarationNode extends Declaration {
     private VarIDNode id;
     private StaticArrayNode arrayNode;
     private boolean ptr;
+    private boolean global;
+    private int declSize = -1;
 
     public DeclarationNode(TypeNode type, VarIDNode id) {
         super(Declaration.VAR, id.token);
@@ -32,6 +34,23 @@ public class DeclarationNode extends Declaration {
         this.type = type;
         this.id = id;
         this.ptr = ptr;
+    }
+
+    public void setGlobal() {
+        global = true;
+    }
+
+    public boolean isGlobal() {
+        return global;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            if (array) {
+                declSize = arrayNode.getDeclSize();
+            } else declSize = 1;
+        }
+        return declSize;
     }
 
     public boolean isArray() {

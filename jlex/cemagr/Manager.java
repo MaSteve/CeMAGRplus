@@ -11,8 +11,12 @@ public class Manager {
         //System.out.println(block);
         block.initGlobalReferences();
         GlobalBlockNode.initReferences();
-        System.out.println("CHECK: " + GlobalBlockNode.typeChecker());
-        //System.out.println(GlobalBlockNode.getRefs());
+        boolean check = GlobalBlockNode.typeChecker();
+        System.out.println("CHECK: " + check);
+        //System.out.println("Memory: " + block1.getDeclSize());
+        if (check && Application.isOK() && GlobalBlockNode.hasMain()) {
+            block1.translate();
+        }
         System.out.println("FIN");
     }
 }

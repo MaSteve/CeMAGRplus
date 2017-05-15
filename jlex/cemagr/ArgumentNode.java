@@ -20,6 +20,10 @@ public class ArgumentNode extends DeclarationNode {
         //super(Declaration.ARG);
     }
 
+    public int getDeclSize() {
+        return 1;
+    }
+
     /*@Override
     public String toString() {
         return "Arg: " + type + (ptr? "ptr":"") + (array? arrayNode: "") + " ID: " + id;

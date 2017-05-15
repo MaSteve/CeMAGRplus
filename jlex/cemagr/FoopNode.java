@@ -10,6 +10,7 @@ public class FoopNode extends ParserNode{
     private ParserNode cond;
     private ParserNode postamble;
     private ParserNode block;
+    private int declSize = -1;
 
     public FoopNode(ParserNode preamble, ParserNode cond, ParserNode postamble, ParserNode block) {
         this.preamble = preamble;
@@ -35,6 +36,13 @@ public class FoopNode extends ParserNode{
                 && postambleType == blockType && blockType == Type.OK) TYPE = Type.OK;
         else TYPE = Type.FAIL;
         return TYPE;
+    }
+
+    public int getDeclSize() {
+        if (declSize == -1) {
+            declSize = preamble.getDeclSize() + postamble.getDeclSize() + block.getDeclSize();
+        }
+        return declSize;
     }
 
     @Override
