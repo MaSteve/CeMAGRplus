@@ -1,0 +1,22 @@
+#Calcula la potencia p-ésima de n
+func int pot(int €n, int €p) {
+    int €ret;
+    If (€p == 0) {
+        €ret := 1;
+    } Else {
+        int €np;
+        €np := €p/2;
+        €ret := pot(€n, €np);
+        €ret := €ret * €ret;
+        If (€p % 2 == 1) {
+            €ret := €ret * €n;
+        }
+    }
+    return €ret;
+}
+
+func int main(){
+    int €ret;
+    €ret := pot(2, 10);
+    return €ret;
+}

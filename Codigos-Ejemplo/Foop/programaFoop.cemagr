@@ -1,0 +1,12 @@
+#Este programa suma todos los elementos de un array
+
+func int main(){
+    int €array(10);
+    int €cont; int €n; int €suma;
+    €suma := 0; €n := 10;
+    Foop(€cont := 0; €cont < €n; €cont := €cont + 1;){
+        €suma := €suma + €array(€cont);
+    }
+
+    return 0;
+}

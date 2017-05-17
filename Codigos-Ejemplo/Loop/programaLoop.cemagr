@@ -1,0 +1,28 @@
+#Este programa suma todos los elementos de un array. La version de arriba tiene
+#un monton de errores. La que aparece debajo de ella sería la correcta.
+
+int main(){
+    int array(10);
+    int €cont; int €n; int €suma;
+    €suma := 0; €n := 10;
+    €cont := 0;
+    Loop(€cont < €n){
+        suma := suma + array(€cont);
+        €cont := cont + 1;
+    }
+}
+
+################################################################################
+
+func int main(){
+    int €array(10);
+    int €cont; int €n; int €suma;
+    €suma := 0; €n := 10;
+    €cont := 0;
+    Loop(€cont < €n){
+        €suma := €suma + €array(€cont);
+        €cont := €cont + 1;
+    }
+
+    return 0;
+}
