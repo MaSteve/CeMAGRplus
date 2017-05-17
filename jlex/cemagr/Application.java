@@ -41,6 +41,8 @@ public class Application {
         System.out.println(s);
     }
 
+    public static final String LEX_MSG = "Error léxico: ";
+    public static final String SYNTAX_MSG = "Error sintáctico: ";
     public static final String DUPLICATED_MSG = "Símbolo duplicado";
     public static final String UNKNOWN_MSG = "Símbolo desconocido";
     public static final String TYPE_MSG = "Lío de tipos";

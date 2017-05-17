@@ -35,7 +35,8 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | loop_inst:node {: RESULT = node; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
-       | decl:node {: RESULT = node; :};
+       | decl:node {: RESULT = node; :}
+       | error SEMI:token {: Application.notifyError(Application.SYNTAX_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :};
 
 global_inst ::= decl:node {: RESULT = node; :}
               | func_decl:node {: RESULT = node; :};
