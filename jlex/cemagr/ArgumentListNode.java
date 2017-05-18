@@ -67,6 +67,13 @@ public class ArgumentListNode extends ParserNode {
         return declSize;
     }
 
+    public int sizeAndSolve(AddressSolver solver) {
+        if (next != null) next.sizeAndSolve(solver);
+        arg.sizeAndSolve(solver);
+        declSize = solver.getSize();
+        return declSize;
+    }
+
     @Override
     public String toString() {
         return (next == null? "": next + ", " ) + arg;

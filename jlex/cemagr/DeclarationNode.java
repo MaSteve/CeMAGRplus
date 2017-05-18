@@ -53,7 +53,7 @@ public class DeclarationNode extends Declaration {
         return declSize;
     }
 
-    public int getDeclSize(AddressSolver solver) {
+    public int sizeAndSolve(AddressSolver solver) {
         declSize = getDeclSize();
         address = solver.getAddress(declSize);
         return declSize;

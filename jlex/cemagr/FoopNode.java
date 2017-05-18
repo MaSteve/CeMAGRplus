@@ -39,15 +39,8 @@ public class FoopNode extends ParserNode{
         return TYPE;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            declSize = preamble.getDeclSize() + postamble.getDeclSize() + block.getDeclSize();
-        }
-        return declSize;
-    }
-
-    public int getDeclSize(AddressSolver solver) {
-        declSize = preamble.getDeclSize(solver) + postamble.getDeclSize(solver) + block.getDeclSize(solver);
+    public int sizeAndSolve(AddressSolver solver) {
+        declSize = preamble.sizeAndSolve(solver) + postamble.sizeAndSolve(solver) + block.sizeAndSolve(solver);
         return declSize;
     }
 

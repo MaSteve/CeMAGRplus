@@ -53,19 +53,11 @@ public class CaseNode extends ParserNode {
         return TYPE;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            if (next == null) declSize = block.getDeclSize();
-            else declSize = next.getDeclSize() + block.getDeclSize();
-        }
-        return declSize;
-    }
-
-    public int getDeclSize(AddressSolver solver) {
+    public int sizeAndSolve(AddressSolver solver) {
         declSize = 0;
-        if (next != null) next.getDeclSize(solver);
+        if (next != null) next.sizeAndSolve(solver);
         AddressSolver solver1 = new AddressSolver(solver);
-        block.getDeclSize(solver1);
+        block.sizeAndSolve(solver1);
         solver.max(solver1);
         declSize = solver.getSize();
         return declSize;

@@ -42,19 +42,10 @@ public class IfNode extends ParserNode {
         return TYPE;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            declSize = block1.getDeclSize();
-            if (elseBranch && block2.getDeclSize() > declSize)
-                declSize = block2.getDeclSize();
-        }
-        return declSize;
-    }
-
-    public int getDeclSize(AddressSolver solver) {
+    public int sizeAndSolve(AddressSolver solver) {
         AddressSolver solver1 = new AddressSolver(solver);
-        block1.getDeclSize(solver);
-        if (elseBranch) block2.getDeclSize(solver1);
+        block1.sizeAndSolve(solver);
+        if (elseBranch) block2.sizeAndSolve(solver1);
         solver.max(solver1);
         declSize = solver.getSize();
         return declSize;

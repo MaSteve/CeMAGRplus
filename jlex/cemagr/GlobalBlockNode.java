@@ -43,8 +43,7 @@ public class GlobalBlockNode extends ParserNode {
             functions.put(inst.getID(), (FuncDeclarationNode) inst);
         } else {
             ((DeclarationNode) inst).setGlobal();
-            inst.setAddress(addressSolver.getAddress());
-            declSize += inst.getDeclSize();
+            declSize += inst.sizeAndSolve(addressSolver);
         }
         //initReferences();
     }

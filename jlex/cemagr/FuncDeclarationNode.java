@@ -68,7 +68,9 @@ public class FuncDeclarationNode extends Declaration{
 
     public int getDeclSize() {
         if (declSize == -1) {
-            declSize = block.getDeclSize();//+ (arguments? arg.getDeclSize(): 0);
+            AddressSolver solver = new AddressSolver( 5);
+            if (arguments) arg.sizeAndSolve(solver);
+            declSize = block.sizeAndSolve(solver);
         }
         return declSize;
     }

@@ -66,26 +66,19 @@ public class BlockNode extends ParserNode {
         inst.solveReferences(ref);
     }
 
-    public int getDeclSize() {
+    public int sizeAndSolve(AddressSolver solver) {
         if (declSize == -1) {
-            AddressSolver addressSolver = new AddressSolver(5);
-            getDeclSize(addressSolver);
+            declSize = 0;
+            if (next != null) next.sizeAndSolve(solver);
+            if (inst.isDecl()) {
+                inst.sizeAndSolve(solver);
+            } else if (inst.isControlStructure()) {
+                AddressSolver solver1 = new AddressSolver(solver);
+                inst.sizeAndSolve(solver1);
+                solver.max(solver1);
+            }
+            declSize = solver.getSize();
         }
-        return declSize;
-    }
-
-    public int getDeclSize(AddressSolver solver) {
-        declSize = 0;
-        if (next != null) next.getDeclSize(solver);
-        if (inst.isDecl()) {
-            inst.getDeclSize(solver);
-        }
-        else if (inst.isControlStructure()) {
-            AddressSolver solver1 = new AddressSolver(solver);
-            inst.getDeclSize(solver1);
-            solver.max(solver1);
-        }
-        declSize = solver.getSize();
         return declSize;
     }
 

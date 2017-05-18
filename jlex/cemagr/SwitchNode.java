@@ -32,15 +32,8 @@ public class SwitchNode extends ParserNode {
         return TYPE;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            declSize = cases.getDeclSize() + defaultBlock.getDeclSize();
-        }
-        return declSize;
-    }
-
-    public int getDeclSize(AddressSolver solver) {
-        declSize = cases.getDeclSize(solver) + defaultBlock.getDeclSize(solver);
+    public int sizeAndSolve(AddressSolver solver) {
+        declSize = cases.sizeAndSolve(solver) + defaultBlock.sizeAndSolve(solver);
         return declSize;
     }
 

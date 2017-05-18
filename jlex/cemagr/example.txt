@@ -16,3 +16,17 @@ func int main() {
     #€ret := test2(€n + @€pointer - €arr(10)(1), YEAH && (NO), €pointer);
     return €ret + 0;
 }
+
+func int name(int €arg) {
+    int €ret;
+    If (YEAH) {
+        int €decl1;
+        int €decl2;
+        int €decl3;
+    } Else {
+        int €decl1;
+        int €decl2;
+    }
+    int €decl2;
+    return €ret + 0;
+}

@@ -14,12 +14,11 @@ public class Manager {
             GlobalBlockNode.initReferences();
             boolean check = GlobalBlockNode.typeChecker();
             System.out.println("CHECK: " + check);
-            //System.out.println("Memory: " + block1.getDeclSize());
+            //System.out.println("Memory: " + block1.sizeAndSolve());
             if (check && Application.isOK() && GlobalBlockNode.hasMain()) {
                 block.translate();
             }
         }
         System.out.println("FIN");
-
     }
 }

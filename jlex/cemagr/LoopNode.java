@@ -27,15 +27,8 @@ public class LoopNode extends ParserNode{
         return TYPE;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            declSize = block.getDeclSize();
-        }
-        return declSize;
-    }
-
-    public int getDeclSize(AddressSolver solver) {
-        declSize = block.getDeclSize(solver);
+    public int sizeAndSolve(AddressSolver solver) {
+        declSize = block.sizeAndSolve(solver);
         return declSize;
     }
 
