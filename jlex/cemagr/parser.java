@@ -8,7 +8,7 @@ package cemagr;
 import java_cup.runtime.*;
 import java.io.FileInputStream;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -479,33 +479,22 @@ public class parser extends java_cup.runtime.lr_parser {
 	}
 
 	public void report_error(String message, Object info) {
-           	StringBuffer m = new StringBuffer("Error");
-           	//Application.notifyError(message);
-    		Application.notifyError(info.toString());
-    		if(info instanceof java_cup.runtime.Symbol) {
-    			java_cup.runtime.Symbol s=((java_cup.runtime.Symbol)info);
-    			//System.out.println(s.left);
-    			//System.out.println(s.right);
 
-    		}
-    		m.append(" : "+message);
-    		//Application.notifyError(Application.SYNTAX_MSG + m);
-    		//System.err.println(m);
-        }
+    }
 
-        public void report_fatal_error(String message, Object info) {
-           	report_error(message, info);
-    		System.exit(1);
-        }
+    public void report_fatal_error(String message, Object info) {
+       	Application.notifyError(message + " " + info);
+        System.exit(1);
+    }
 
-        protected void report_expected_token_ids() {
-        	  List<Integer> ids = expected_token_ids();
-        	  LinkedList<String> list = new LinkedList<String>();
-        	  for (Integer expected : ids)
-        		  list.add(symbl_name_from_id(expected));
-        	  String msg = "Los tokens esperados son: " + list;
-        	  Application.notifyError(msg);
-        	}
+    protected void report_expected_token_ids() {
+    	List<Integer> ids = expected_token_ids();
+        ArrayList<String> list = new ArrayList<>();
+        for (Integer expected : ids)
+        	list.add(symbl_name_from_id(expected));
+        String msg = "Los tokens esperados son: " + list;
+        Application.notifyError(msg);
+    }
 
 
 
