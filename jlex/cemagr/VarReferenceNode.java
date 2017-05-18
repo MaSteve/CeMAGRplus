@@ -118,6 +118,10 @@ public class VarReferenceNode extends ParserNode{
         return TYPE;
     }
 
+    public void codeL() {
+
+    }
+
     @Override
     public String toString() {
         return "Ref: " + (dereference? "ptr ":"")  + id + (array? arrayNode: "");

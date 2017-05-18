@@ -48,7 +48,9 @@ public class AssNode extends ParserNode {
     }
 
     public void translate() {
+        var.codeL();
         exp.translate();
+        Application.newInst("sto");
     }
 
 }

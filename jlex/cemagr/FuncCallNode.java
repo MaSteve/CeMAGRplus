@@ -81,6 +81,10 @@ public class FuncCallNode extends ParserNode {
         return TYPE;
     }
 
+    public int getInstSize() {
+        return list.getInstSize() + 2;
+    }
+
     public void translate() {
         Application.newInst("mst " + 1);
         list.translate();
