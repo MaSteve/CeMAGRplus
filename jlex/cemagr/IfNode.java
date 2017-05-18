@@ -59,6 +59,16 @@ public class IfNode extends ParserNode {
         return instSize;
     }
 
+    public void translate() {
+        cond.translate();
+        Application.newInst("fjp " + Application.jump(block1.getInstSize()));
+        block1.translate();
+        if (elseBranch) {
+            Application.newInst("ujp " + Application.jump(block2.getInstSize()));
+            block2.translate();
+        }
+    }
+
     @Override
     public String toString() {
         return "If: " + cond + " ; " + " { " + block1 + " } " + (elseBranch? "Else { " + block2 + " } ": "");

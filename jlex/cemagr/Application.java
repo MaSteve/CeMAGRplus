@@ -36,6 +36,14 @@ public class Application {
         instID++;
     }
 
+    public static int jump(int len) {
+        return instID + len + 1;
+    }
+
+    public static int getInstID() {
+        return instID;
+    }
+
     private static void save(String s) {
         //TODO: Use a file.
         System.out.println(s);
