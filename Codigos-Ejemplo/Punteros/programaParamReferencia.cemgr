@@ -1,0 +1,12 @@
+func int funcion(ptr int €n, ptr int €m) {
+   @€n := @€n + 2;
+   @€m := @€m - 5;
+   return @€n + @€m;
+}
+
+func int main() {
+   int €a; int €b; int €ret;
+   €a := 10; €b := 20;
+   €ret := funcion(:€a, :€b);
+   return 0;
+}

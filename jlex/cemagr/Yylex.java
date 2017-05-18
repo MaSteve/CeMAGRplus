@@ -381,8 +381,9 @@ class Yylex implements java_cup.runtime.Scanner {
 						break;
 					case 4:
 						{
-        System.out.println("Illegal character: <" + yytext() + ">");
-	Utility.error(Utility.E_UNMATCHED);
+        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
+        //System.out.println("Illegal character: <" + yytext() + ">");
+	    //Utility.error(Utility.E_UNMATCHED);
 }
 					case -6:
 						break;
@@ -549,8 +550,9 @@ class Yylex implements java_cup.runtime.Scanner {
 						break;
 					case 37:
 						{
-        System.out.println("Illegal character: <" + yytext() + ">");
-	Utility.error(Utility.E_UNMATCHED);
+        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
+        //System.out.println("Illegal character: <" + yytext() + ">");
+	    //Utility.error(Utility.E_UNMATCHED);
 }
 					case -39:
 						break;
@@ -560,22 +562,25 @@ class Yylex implements java_cup.runtime.Scanner {
 						break;
 					case 39:
 						{
-        System.out.println("Illegal character: <" + yytext() + ">");
-	Utility.error(Utility.E_UNMATCHED);
+        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
+        //System.out.println("Illegal character: <" + yytext() + ">");
+	    //Utility.error(Utility.E_UNMATCHED);
 }
 					case -41:
 						break;
 					case 40:
 						{
-        System.out.println("Illegal character: <" + yytext() + ">");
-	Utility.error(Utility.E_UNMATCHED);
+        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
+        //System.out.println("Illegal character: <" + yytext() + ">");
+	    //Utility.error(Utility.E_UNMATCHED);
 }
 					case -42:
 						break;
 					case 41:
 						{
-        System.out.println("Illegal character: <" + yytext() + ">");
-	Utility.error(Utility.E_UNMATCHED);
+        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
+        //System.out.println("Illegal character: <" + yytext() + ">");
+	    //Utility.error(Utility.E_UNMATCHED);
 }
 					case -43:
 						break;

@@ -159,6 +159,7 @@ COMMENT_TEXT=([^\n])*
 <COMMENT> {END_LINE} { yybegin(YYINITIAL); col_offset = yychar + yytext().length(); }
 
 <YYINITIAL,COMMENT> . {
-        System.out.println("Illegal character: <" + yytext() + ">");
-	Utility.error(Utility.E_UNMATCHED);
+        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
+        //System.out.println("Illegal character: <" + yytext() + ">");
+	    //Utility.error(Utility.E_UNMATCHED);
 }

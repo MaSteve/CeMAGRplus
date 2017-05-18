@@ -1,12 +1,33 @@
 package cemagr;
 import java_cup.runtime.*;
 import java.io.FileInputStream;
+import java.util.List;
+import java.util.ArrayList;
 
 parser code {:
-	public static void main(String args[]) throws Exception {
-        System.setIn(new FileInputStream("cemagr/example.txt"));
-		new parser(new Yylex(System.in)).parse();
-	}
+    public static void main(String args[]) throws Exception {
+        System.setIn(new FileInputStream(args[0]));
+        new parser(new Yylex(System.in)).parse();
+    }
+
+    public void report_error(String message, Object info) {
+
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        Application.notifyError(message + " " + info);
+        System.exit(1);
+    }
+
+    protected void report_expected_token_ids() {
+        List<Integer> ids = expected_token_ids();
+        ArrayList<String> list = new ArrayList<>();
+        for (Integer expected : ids)
+            list.add(symbl_name_from_id(expected));
+        String msg = "Los tokens esperados son: " + list;
+        Application.notifyError(msg);
+    }
+
 :}
 
 terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT, GE, LT, LE, NUM;
@@ -35,7 +56,8 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | loop_inst:node {: RESULT = node; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
-       | decl:node {: RESULT = node; :};
+       | decl:node {: RESULT = node; :}
+       | error SEMI:token {: Application.notifyError(Application.SYNTAX_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :};
 
 global_inst ::= decl:node {: RESULT = node; :}
               | func_decl:node {: RESULT = node; :};
