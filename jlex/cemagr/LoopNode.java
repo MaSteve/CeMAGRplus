@@ -39,6 +39,13 @@ public class LoopNode extends ParserNode{
         return instSize;
     }
 
+    public void translate() {
+        cond.translate();
+        Application.newInst("fjp " + Application.jump(block.getInstSize()));
+        block.translate();
+        Application.newInst("ujp " + Application.jump(-(block.getInstSize()+cond.getInstSize()+2)));
+    }
+
     @Override
     public String toString() {
         return "While: " + cond + " { " + block + " } ";
