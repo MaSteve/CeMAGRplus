@@ -473,25 +473,25 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
 
-	public static void main(String args[]) throws Exception {
-        System.setIn(new FileInputStream("cemagr/example.txt"));
-		new parser(new Yylex(System.in)).parse();
-	}
+    public static void main(String args[]) throws Exception {
+        System.setIn(new FileInputStream(args[0]));
+        new parser(new Yylex(System.in)).parse();
+    }
 
-	public void report_error(String message, Object info) {
+    public void report_error(String message, Object info) {
 
     }
 
     public void report_fatal_error(String message, Object info) {
-       	Application.notifyError(message + " " + info);
+        Application.notifyError(message + " " + info);
         System.exit(1);
     }
 
     protected void report_expected_token_ids() {
-    	List<Integer> ids = expected_token_ids();
+        List<Integer> ids = expected_token_ids();
         ArrayList<String> list = new ArrayList<>();
         for (Integer expected : ids)
-        	list.add(symbl_name_from_id(expected));
+            list.add(symbl_name_from_id(expected));
         String msg = "Los tokens esperados son: " + list;
         Application.notifyError(msg);
     }

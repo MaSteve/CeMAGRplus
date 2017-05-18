@@ -1,35 +1,35 @@
 func bool ej27(int €V(4), int €a, int €b, int €ceros, int €unos){
-	bool €ret;
-	If(€a == €b){
-		If(€V(€a) == 0){ €ceros := €ceros + 1;}
-		Else {
+    bool €ret;
+    If(€a == €b){
+        If(€V(€a) == 0){ €ceros := €ceros + 1;}
+        Else {
             If(€V(€a) == 1){ €unos := €unos + 1;}
         }
-	}
+    }
 
-	If(€a < €b) {
-		int €m; bool €ret; bool €aux1; bool €aux2;
-		€m := (€a + €b)/2;
+    If(€a < €b) {
+        int €m; bool €ret; bool €aux1; bool €aux2;
+        €m := (€a + €b)/2;
 
         €aux1 := ej27(€V, €a, €m, €ceros, €unos);
         €aux2 := ej27(€V, €m + 1, €b, €ceros, €unos);
 
-		If(€ceros == 2 * €unos){
-			€ret := YEAH;
-		}
-		Else{
-			€ret := NO;
-		}
-	}
-	return €ret;
+        If(€ceros == 2 * €unos){
+            €ret := YEAH;
+        }
+        Else{
+            €ret := NO;
+        }
+    }
+    return €ret;
 }
 
 func int main(){
-	int €V(4);# := {1,1,0,1};
-	int €ret;
-	int €i; int €ceros; int €unos;
+    int €V(4);# := {1,1,0,1};
+    int €ret;
+    int €i; int €ceros; int €unos;
     €i := 3; €ceros := 0; €unos := 0;
-	If(ej27(€V, 0, €i, €ceros, €unos)) {€ret := 0;}
-	Else {€ret := -1;}
+    If(ej27(€V, 0, €i, €ceros, €unos)) {€ret := 0;}
+    Else {€ret := -1;}
     return €ret;
 }
