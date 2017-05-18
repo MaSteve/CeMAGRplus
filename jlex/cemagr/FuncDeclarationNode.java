@@ -68,7 +68,7 @@ public class FuncDeclarationNode extends Declaration{
 
     public int getDeclSize() {
         if (declSize == -1) {
-            declSize = block.getDeclSize() + (arguments? arg.getDeclSize(): 0);
+            declSize = block.getDeclSize();//+ (arguments? arg.getDeclSize(): 0);
         }
         return declSize;
     }
@@ -81,6 +81,8 @@ public class FuncDeclarationNode extends Declaration{
     }
 
     public void translate() {
+        // Stack (Local variables)
+        Application.newInst("ssp " + (getDeclSize()));
         block.translate();
         returnExp.translate();
         Application.newInst("retf");

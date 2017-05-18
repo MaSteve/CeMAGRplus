@@ -22,6 +22,7 @@ public class CaseNode extends ParserNode {
         this.cond = cond;
         this.block = block;
         next = node;
+        controlStructure = true;
     }
 
     public void setNext(CaseNode node) {
@@ -57,6 +58,16 @@ public class CaseNode extends ParserNode {
             if (next == null) declSize = block.getDeclSize();
             else declSize = next.getDeclSize() + block.getDeclSize();
         }
+        return declSize;
+    }
+
+    public int getDeclSize(AddressSolver solver) {
+        declSize = 0;
+        if (next != null) next.getDeclSize(solver);
+        AddressSolver solver1 = new AddressSolver(solver);
+        block.getDeclSize(solver1);
+        solver.max(solver1);
+        declSize = solver.getSize();
         return declSize;
     }
 

@@ -13,6 +13,7 @@ public class LoopNode extends ParserNode{
     public LoopNode(ParserNode cond, ParserNode block) {
         this.cond = cond;
         this.block = block;
+        controlStructure = true;
     }
 
     public void solveReferences(HashMap<String, Declaration> previous) {
@@ -30,6 +31,11 @@ public class LoopNode extends ParserNode{
         if (declSize == -1) {
             declSize = block.getDeclSize();
         }
+        return declSize;
+    }
+
+    public int getDeclSize(AddressSolver solver) {
+        declSize = block.getDeclSize(solver);
         return declSize;
     }
 

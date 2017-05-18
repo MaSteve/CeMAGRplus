@@ -39,6 +39,11 @@ public class SwitchNode extends ParserNode {
         return declSize;
     }
 
+    public int getDeclSize(AddressSolver solver) {
+        declSize = cases.getDeclSize(solver) + defaultBlock.getDeclSize(solver);
+        return declSize;
+    }
+
     @Override
     public String toString() {
         return "Switch: " + exp + " { " + cases + " => " + defaultBlock + " } ";

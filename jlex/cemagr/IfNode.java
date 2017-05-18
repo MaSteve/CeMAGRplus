@@ -17,12 +17,14 @@ public class IfNode extends ParserNode {
         this.block1 = block1;
         this.block2 = block2;
         elseBranch = true;
+        controlStructure = true;
     }
 
     public IfNode(ParserNode cond, ParserNode block1) {
         this.cond = cond;
         this.block1 = block1;
         elseBranch = false;
+        controlStructure = true;
     }
 
     public void solveReferences(HashMap<String, Declaration> previous) {
@@ -42,8 +44,19 @@ public class IfNode extends ParserNode {
 
     public int getDeclSize() {
         if (declSize == -1) {
-            declSize = block1.getDeclSize() + (elseBranch? block2.getDeclSize(): 0);
+            declSize = block1.getDeclSize();
+            if (elseBranch && block2.getDeclSize() > declSize)
+                declSize = block2.getDeclSize();
         }
+        return declSize;
+    }
+
+    public int getDeclSize(AddressSolver solver) {
+        AddressSolver solver1 = new AddressSolver(solver);
+        block1.getDeclSize(solver);
+        if (elseBranch) block2.getDeclSize(solver1);
+        solver.max(solver1);
+        declSize = solver.getSize();
         return declSize;
     }
 

@@ -7,8 +7,9 @@ import java.util.HashMap;
  */
 public abstract class ParserNode {
     protected Yytoken token;
-    protected boolean decl; //TODO: Refactor
-    protected Type TYPE;
+    protected boolean decl = false; //TODO: Refactor
+    protected boolean controlStructure = false;
+    protected Type TYPE = Type.UNKNOWN;
 
 
     public void solveReferences(HashMap<String, Declaration> previous) {
@@ -17,14 +18,10 @@ public abstract class ParserNode {
 
     public ParserNode() {
         token = null;
-        decl = false;
-        TYPE = Type.UNKNOWN;
     }
 
     public ParserNode(Yytoken token) {
         this.token = token;
-        decl = false;
-        TYPE = Type.UNKNOWN;
     }
 
     public int getLine() {
@@ -37,6 +34,10 @@ public abstract class ParserNode {
 
     public boolean isDecl() {
         return decl;
+    }
+
+    public boolean isControlStructure() {
+        return controlStructure;
     }
 
     protected void setTYPE(Type type) {
@@ -56,6 +57,10 @@ public abstract class ParserNode {
 
     public int getDeclSize() {
         return 0;
+    }
+
+    public int getDeclSize(AddressSolver solver) {
+        return getDeclSize();
     }
 
     public void translate() {

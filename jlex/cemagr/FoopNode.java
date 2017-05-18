@@ -17,6 +17,7 @@ public class FoopNode extends ParserNode{
         this.cond = cond;
         this.postamble = postamble;
         this.block = block;
+        controlStructure = true;
     }
 
     public void solveReferences(HashMap<String, Declaration> previous) {
@@ -42,6 +43,11 @@ public class FoopNode extends ParserNode{
         if (declSize == -1) {
             declSize = preamble.getDeclSize() + postamble.getDeclSize() + block.getDeclSize();
         }
+        return declSize;
+    }
+
+    public int getDeclSize(AddressSolver solver) {
+        declSize = preamble.getDeclSize(solver) + postamble.getDeclSize(solver) + block.getDeclSize(solver);
         return declSize;
     }
 

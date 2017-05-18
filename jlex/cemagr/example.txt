@@ -3,11 +3,16 @@ int €firstvalue; #Variable global
 
 func int main() {
     int €ret;
-    €firstvalue := 1;
-    €ret := €firstvalue + 2;
-    first . oi;
-    €ret := €firstvalue + 2;
-    foejfowphwoi ;
+    #€firstvalue := 1;
+    #€ret := €firstvalue + 2;
+    #€ret := €firstvalue + 2;
+    If (YEAH) {
+        int €decl1;
+    } Else {
+        int €decl1;
+        int €decl2;
+    }
+    int €decl2;
     #€ret := test2(€n + @€pointer - €arr(10)(1), YEAH && (NO), €pointer);
     return €ret + 0;
 }
