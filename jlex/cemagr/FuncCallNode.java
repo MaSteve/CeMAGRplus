@@ -78,27 +78,13 @@ public class FuncCallNode extends ParserNode {
                         + " (" + getLine() + ", " + getColumn() + ")");
             }
         }
-
-        /*if (array) {
-            if (((DeclarationNode)def).isArray()){
-                StaticArrayNode staticArrayNode = (((DeclarationNode)def).getArrayNode());
-                Type arrayType = arrayNode.getTYPE();
-                if (staticArrayNode.getLen() == arrayNode.getLen() && arrayType == Type.OK) {
-                    TYPE = def.getDeclTYPE();
-                } else {
-                    Application.notifyError(Application.TYPE_MSG + ": "
-                            + Application.ARRAY2_MSG + id
-                            + " (" + getLine() + ", " + getColumn() + ")");
-                    TYPE = Type.FAIL;
-                }
-            } else {
-                Application.notifyError(Application.TYPE_MSG + ": "
-                        + Application.ARRAY_MSG + id
-                        + " (" + getLine() + ", " + getColumn() + ")");
-                TYPE = Type.FAIL;
-            }
-        }*/
         return TYPE;
+    }
+
+    public void translate() {
+        Application.newInst("mst " + 1);
+        list.translate();
+        Application.newInst("cup " + (arg? list.getSize(): 0) + " " + def.getAddress());
     }
 
     @Override

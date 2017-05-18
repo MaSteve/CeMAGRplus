@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class VarListNode extends ParserNode{
     private ParserNode var;
     private VarListNode next;
+    private int size = -1;
 
     public VarListNode(ParserNode var) {
         init(var, null);
@@ -32,6 +33,19 @@ public class VarListNode extends ParserNode{
 
     public VarListNode getNext() {
         return next;
+    }
+
+    public int getSize() {
+        if (size == -1) {
+            if (next == null) size = 1;
+            else size = next.getSize() + 1;
+        }
+        return size;
+    }
+
+    public void translate() {
+        if (next != null) next.translate();
+        var.translate();
     }
 
     @Override

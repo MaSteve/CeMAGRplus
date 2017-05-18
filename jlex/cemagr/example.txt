@@ -13,11 +13,12 @@ func int main() {
         int €decl2;
     }
     int €decl2;
+    €decl2 := name(1, 34);
     #€ret := test2(€n + @€pointer - €arr(10)(1), YEAH && (NO), €pointer);
     return €ret + 0;
 }
 
-func int name(int €arg) {
+func int name(int €arg, int €arg2) {
     int €ret;
     If (YEAH) {
         int €decl1;
