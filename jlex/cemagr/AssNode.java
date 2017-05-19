@@ -42,7 +42,7 @@ public class AssNode extends ParserNode {
 
     public int getInstSize() {
         if (instSize == -1) {
-            instSize = var.getInstSize() + exp.getInstSize() + 1;
+            instSize = var.getInstSize() + exp.getInstSize();
         }
         return instSize;
     }
@@ -50,7 +50,7 @@ public class AssNode extends ParserNode {
     public void translate() {
         var.codeL();
         exp.translate();
-        Application.newInst("sto");
+        Application.newInst("sto"); // This one belongs to VarReferenceNode TODO: Some explanation...
     }
 
 }

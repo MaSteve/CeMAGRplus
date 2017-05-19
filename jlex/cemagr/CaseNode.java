@@ -46,7 +46,7 @@ public class CaseNode extends ParserNode {
         Type blockType = block.getTYPE();
         if (expType != TYPE && TYPE != Type.FAIL) {
             Application.notifyError(Application.TYPE_MSG + ": " + Application.TYPE_EXP_MSG + TYPE
-                    + " (" + getLine() + ", " + getColumn() + ")");
+                    + " (" + cond.getLine() + ", " + cond.getColumn() + ")");
         }
         if (blockType == Type.OK && expType == casesType && expType != Type.FAIL) TYPE = casesType;
         else TYPE = Type.FAIL;

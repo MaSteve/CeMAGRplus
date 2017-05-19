@@ -118,8 +118,25 @@ public class VarReferenceNode extends ParserNode{
         return TYPE;
     }
 
-    public void codeL() {
+    public int getInstSize() {
+        return 2;
+    }
 
+    public void translate() {
+        codeDir();
+        Application.newInst("ind");
+    }
+
+    public void codeL() {
+        codeDir();
+    }
+
+    private void codeDir() {
+        if (((DeclarationNode)def).isGlobal()) {
+            Application.newInst("ldc " + def.getAddress());
+        } else {
+            Application.newInst("lda " + 0 + " " + def.getAddress());
+        }
     }
 
     @Override

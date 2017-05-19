@@ -77,16 +77,17 @@ public class FuncDeclarationNode extends Declaration{
 
     public int getInstSize() {
         if (instSize == -1) {
-            instSize = block.getInstSize() + returnExp.getInstSize() + 10; //TODO
+            instSize = block.getInstSize() + returnExp.getInstSize() + 3; //TODO
         }
         return instSize;
     }
 
     public void translate() {
         // Stack (Local variables)
-        Application.newInst("ssp " + (getDeclSize()));
+        Application.newInst("ssp " + (5 + getDeclSize()));
         block.translate();
         returnExp.translate();
+        Application.newInst("str 0 0");
         Application.newInst("retf");
     }
 
