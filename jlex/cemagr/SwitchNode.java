@@ -11,6 +11,7 @@ public class SwitchNode extends ParserNode {
     private ParserNode defaultBlock;
     private int declSize = -1, instSize = -1;
     private int min, max;
+    private HashMap <Integer, Integer> casesMap;
 
     public SwitchNode(ParserNode cond, CaseNode cases, ParserNode defaultBlock) {
         this.exp = cond;
@@ -41,15 +42,16 @@ public class SwitchNode extends ParserNode {
 
     public int getInstSize() {
         if (instSize == -1) {
-            instSize = exp.getInstSize() + 12 + cases.getInstSize()
+            instSize = exp.getInstSize() + 13 + cases.getInstSize()
                     + defaultBlock.getInstSize() + max - min + 1; //TODO
         }
-        return 0;
+        return instSize;
     }
 
     public void translate() { //TODO
         // min, max, etc
 
+        casesMap = new HashMap<>();
         min = cases.getMin();
         max = cases.getMax();
 
@@ -66,27 +68,34 @@ public class SwitchNode extends ParserNode {
         Application.newInst("ldc " + max);
         Application.newInst("leq");
 
-        Application.newInst("fjp " + Application.jump(cases.getInstSize() + 4));
+        int defAddress = Application.jump(cases.getInstSize() + 4);
+        Application.newInst("fjp " + defAddress);
 
         // Calculated jump
 
         Application.newInst("ldc " + min);
         Application.newInst("sub");
         Application.newInst("neg");
-        Application.newInst("ixj " + Application.jump(cases.getInstSize() + defaultBlock.getInstSize() + max - min));
+        int jumpAddress = Application.jump(cases.getInstSize() + defaultBlock.getInstSize() + max - min);
+        Application.newInst("ixj " + jumpAddress);
 
         // Cases
 
+        jumpAddress++;
+        cases.setJumpAddress(jumpAddress);
+        cases.setCasesMap(casesMap);
         cases.translate();
 
         // Default
 
         defaultBlock.translate();
+        Application.newInst("ujp " + jumpAddress);
 
         // Lookup Table
 
         for (int i = max; i >= min; i--) {
-            Application.newInst("ujp " + "dir " + i);
+            if (casesMap.containsKey(i)) Application.newInst("ujp " + casesMap.get(i));
+            else Application.newInst("ujp " + defAddress);
         }
     }
 

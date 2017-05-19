@@ -9,8 +9,11 @@ public class CaseNode extends ParserNode {
     private ParserNode cond;
     private ParserNode block;
     private CaseNode next;
-    private int declSize = -1;
+    private int declSize = -1, instSize = -1;
     private int min, max;
+    private int jumpAddress;
+    private int caseAddress;
+    private HashMap <Integer, Integer> casesMap;
 
     public CaseNode(ParserNode cond, ParserNode block) {
         init(cond, block, null);
@@ -77,6 +80,33 @@ public class CaseNode extends ParserNode {
 
     public int getMax() {
         return max;
+    }
+
+    public int getInstSize() {
+        if (instSize == -1) {
+            instSize = (next == null? 0: next.getInstSize()) + block.getInstSize() + 1;
+        }
+        return instSize;
+    }
+
+    public void translate() {
+        if (next != null) {
+            next.setJumpAddress(jumpAddress);
+            next.setCasesMap(casesMap);
+            next.translate();
+        }
+        caseAddress = Application.getInstID();
+        casesMap.put(((NumNode) cond).getValue(), caseAddress);
+        block.translate();
+        Application.newInst("ujp " + jumpAddress);
+    }
+
+    public void setJumpAddress(int address) {
+        jumpAddress = address;
+    }
+
+    public void setCasesMap(HashMap<Integer, Integer> casesMap) {
+        this.casesMap = casesMap;
     }
 
     @Override
