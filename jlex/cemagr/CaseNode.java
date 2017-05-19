@@ -64,13 +64,6 @@ public class CaseNode extends ParserNode {
         block.sizeAndSolve(solver1);
         solver.max(solver1);
         declSize = solver.getSize();
-        // min, max
-        int val = ((NumNode)cond).getValue();
-        if (next == null) min = max = val;
-        else {
-            min = next.min < val? next.min: val;
-            max = next.max > val? next.max: val;
-        }
         return declSize;
     }
 
@@ -85,6 +78,13 @@ public class CaseNode extends ParserNode {
     public int getInstSize() {
         if (instSize == -1) {
             instSize = (next == null? 0: next.getInstSize()) + block.getInstSize() + 1;
+            // min, max
+            int val = ((NumNode)cond).getValue();
+            if (next == null) min = max = val;
+            else {
+                min = next.min < val? next.min: val;
+                max = next.max > val? next.max: val;
+            }
         }
         return instSize;
     }

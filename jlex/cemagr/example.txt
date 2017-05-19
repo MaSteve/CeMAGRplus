@@ -14,7 +14,7 @@ func int main() {
     If (€var3 == 120) {
         €ret := 1111;
     }
-    €var4 := test5(2);
+    €var4 := test5(2); #25
     return €ret + 0;
 }
 

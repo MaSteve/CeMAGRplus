@@ -43,7 +43,10 @@ public class SwitchNode extends ParserNode {
     public int getInstSize() {
         if (instSize == -1) {
             instSize = exp.getInstSize() + 13 + cases.getInstSize()
-                    + defaultBlock.getInstSize() + max - min + 1; //TODO
+                    + defaultBlock.getInstSize();
+            min = cases.getMin();
+            max = cases.getMax();
+            instSize += max - min + 1; //TODO
         }
         return instSize;
     }
@@ -52,8 +55,6 @@ public class SwitchNode extends ParserNode {
         // min, max, etc
 
         casesMap = new HashMap<>();
-        min = cases.getMin();
-        max = cases.getMax();
 
         // Exp
         exp.translate();
@@ -76,7 +77,7 @@ public class SwitchNode extends ParserNode {
         Application.newInst("ldc " + min);
         Application.newInst("sub");
         Application.newInst("neg");
-        int jumpAddress = Application.jump(cases.getInstSize() + defaultBlock.getInstSize() + max - min);
+        int jumpAddress = Application.jump(cases.getInstSize() + defaultBlock.getInstSize() + max - min + 1);
         Application.newInst("ixj " + jumpAddress);
 
         // Cases
