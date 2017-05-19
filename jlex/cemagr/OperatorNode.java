@@ -11,6 +11,7 @@ public class OperatorNode extends ParserNode {
         super(token);
         op = token.m_index;
         switch (op) { //TODO: Multitype operator
+            case NEG: TYPE = Type.INT; break;
             case ASS: TYPE = Type.OK; break;
             case LT: TYPE = Type.INT; break;
             case GT: TYPE = Type.INT; break;
@@ -32,6 +33,10 @@ public class OperatorNode extends ParserNode {
         }
     }
 
+    public void alt() {
+        if (op == MINUS) op = NEG;
+    }
+
     @Override
     public String toString() {
         return "OP" + op;
@@ -42,11 +47,12 @@ public class OperatorNode extends ParserNode {
     }
 
     public int getInstSize() {
-        return op == NEQ ? 2 : 1;
+        return 1;
     }
 
     public Type retType() {
         switch (op) {
+            case NEG: return TYPE.INT;
             case ASS: return TYPE.FAIL;
             case LT: return TYPE.BOOL;
             case GT: return TYPE.BOOL;
@@ -70,12 +76,13 @@ public class OperatorNode extends ParserNode {
 
     public void translate() {
         switch (op) {
+            case NEG: Application.newInst("neg"); break;
             case LT: Application.newInst("les"); break;
             case GT: Application.newInst("grt"); break;
             case LE: Application.newInst("leq"); break;
             case GE: Application.newInst("geq"); break;
             case EQ: Application.newInst("equ"); break;
-            case NEQ: Application.newInst("equ"); Application.newInst("not"); break;
+            case NEQ: Application.newInst("neq"); break;
             case PLUS: Application.newInst("add"); break;
             case MINUS: Application.newInst("sub"); break;
             case TIMES: Application.newInst("mul"); break;
@@ -87,6 +94,7 @@ public class OperatorNode extends ParserNode {
         }
     }
 
+    public static final int NEG = 0;
     public static final int ASS = 1;
     public static final int LT = 6;
     public static final int GT = 7;

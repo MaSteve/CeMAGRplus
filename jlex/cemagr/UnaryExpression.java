@@ -13,6 +13,7 @@ public class UnaryExpression extends ParserNode {
     public UnaryExpression(OperatorNode op, ParserNode exp) {
         this.op = op;
         this.exp = exp;
+        op.alt();
     }
 
     @Override
