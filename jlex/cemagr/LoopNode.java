@@ -41,7 +41,7 @@ public class LoopNode extends ParserNode{
 
     public void translate() {
         cond.translate();
-        Application.newInst("fjp " + Application.jump(block.getInstSize()));
+        Application.newInst("fjp " + Application.jump(block.getInstSize() + 1));
         block.translate();
         Application.newInst("ujp " + Application.jump(-(block.getInstSize()+cond.getInstSize()+2)));
     }

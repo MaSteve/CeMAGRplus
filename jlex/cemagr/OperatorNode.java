@@ -42,7 +42,7 @@ public class OperatorNode extends ParserNode {
     }
 
     public int getInstSize() {
-        return 1;
+        return op == NEQ ? 2 : 1;
     }
 
     public Type retType() {

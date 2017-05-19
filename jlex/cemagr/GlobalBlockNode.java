@@ -12,6 +12,7 @@ public class GlobalBlockNode extends ParserNode {
     private static final HashMap<String, FuncDeclarationNode> functions = new HashMap<>();
     private static final HashMap<String, Declaration> global_variables = new HashMap<>();
     private static final HashSet<String> ids = new HashSet<>();
+    private static final AddressSolver addressSolver = new AddressSolver();
 
     private Declaration inst;
     private GlobalBlockNode next;
@@ -31,7 +32,6 @@ public class GlobalBlockNode extends ParserNode {
     }
 
     public void initGlobalReferences() {
-        AddressSolver addressSolver = new AddressSolver();
         if (next != null) next.initGlobalReferences();
         global_variables.put(inst.getID(), inst);
         if (!ids.contains(inst.getID())) ids.add(inst.getID());

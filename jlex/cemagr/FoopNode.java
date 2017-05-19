@@ -54,7 +54,7 @@ public class FoopNode extends ParserNode{
     public void translate() {
         preamble.translate();
         cond.translate();
-        Application.newInst("fjp " + Application.jump(block.getInstSize() + postamble.getInstSize()));
+        Application.newInst("fjp " + Application.jump(block.getInstSize() + postamble.getInstSize() + 1));
         block.translate();
         postamble.translate();
         Application.newInst("ujp " + Application.jump(-(block.getInstSize()+postamble.getInstSize()+cond.getInstSize()+2)));

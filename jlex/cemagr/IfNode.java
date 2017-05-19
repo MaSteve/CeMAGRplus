@@ -61,7 +61,7 @@ public class IfNode extends ParserNode {
 
     public void translate() {
         cond.translate();
-        Application.newInst("fjp " + Application.jump(block1.getInstSize()));
+        Application.newInst("fjp " + Application.jump(block1.getInstSize() + (elseBranch? 1: 0)));
         block1.translate();
         if (elseBranch) {
             Application.newInst("ujp " + Application.jump(block2.getInstSize()));
