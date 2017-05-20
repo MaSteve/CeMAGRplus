@@ -1,5 +1,8 @@
 package cemagr;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * Created by marcoantonio on 12/5/17.
  */
@@ -7,13 +10,12 @@ public class Application {
     private static boolean debug = false;
     private static boolean error = false;
     private static int instID = 0;
+    private static String output = "a.asm";
+    private static FileOutputStream fileOutputStream;
+
 
     public static boolean debug() {
         return debug;
-    }
-
-    public static int nextRef() {
-        return instID;
     }
 
     public static boolean isOK() {
@@ -23,6 +25,14 @@ public class Application {
     public static void notifyError(String msg) {
         error = true;
         System.err.println("ERROR: " + msg);
+    }
+
+    public static void setFile(String output1) {
+        output = output1;
+    }
+
+    public static void prepare() throws IOException {
+        fileOutputStream = new FileOutputStream(output);
     }
 
     public static void newComment(String comment) {
@@ -45,8 +55,13 @@ public class Application {
     }
 
     private static void save(String s) {
-        //TODO: Use a file.
-        System.out.println(s);
+        if (debug) System.out.println(s);
+        try {
+            fileOutputStream.write((s + "\n").getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static final String LEX_MSG = "Error léxico: ";
@@ -63,4 +78,5 @@ public class Application {
     public static final String ARG_MSG = "No existe esa signatura para ";
     public static final String ZERO_MSG = "Tamaño 0";
     public static final String MAIN_MSG = "Función main no encontrada";
+    public static final String SWITCH_TYPE_MSG = "La estructura Switch solo admite tipos enteros.";
 }

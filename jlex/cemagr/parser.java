@@ -474,8 +474,11 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
     public static void main(String args[]) throws Exception {
-        System.setIn(new FileInputStream(args[0]));
-        new parser(new Yylex(System.in)).parse();
+        if (args.length == 2) {
+            Application.setFile(args[1]);
+            System.setIn(new FileInputStream(args[0]));
+            new parser(new Yylex(System.in)).parse();
+        }
     }
 
     public void report_error(String message, Object info) {

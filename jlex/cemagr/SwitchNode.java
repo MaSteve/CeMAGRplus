@@ -30,8 +30,11 @@ public class SwitchNode extends ParserNode {
         Type expType = exp.getTYPE();
         cases.setTYPE(expType);
         Type casesType = cases.getTYPE();
-        if (defaultBlock.getTYPE() == Type.OK && expType == casesType && expType != Type.FAIL) TYPE = Type.OK;
-        else TYPE = Type.FAIL;
+        if (defaultBlock.getTYPE() == Type.OK && expType == casesType && expType == Type.INT) TYPE = Type.OK;
+        else {
+            TYPE = Type.FAIL;
+            if (expType != Type.INT) Application.notifyError(Application.SWITCH_TYPE_MSG);
+        }
         return TYPE;
     }
 
