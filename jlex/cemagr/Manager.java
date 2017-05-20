@@ -11,15 +11,15 @@ public class Manager {
     public static void init(GlobalBlockNode block1) throws IOException {
         if (Application.isOK()) {
             block = block1;
-            //System.out.println(block);
+            GlobalBlockNode.reset();
             block.initGlobalReferences();
             GlobalBlockNode.initReferences();
             boolean check = GlobalBlockNode.typeChecker();
             System.out.println("CHECK: " + check);
-            //System.out.println("Memory: " + block1.sizeAndSolve());
             if (check && Application.isOK() && GlobalBlockNode.hasMain()) {
                 Application.prepare();
                 block.translate();
+                Application.close();
             }
         }
         System.out.println("FIN");

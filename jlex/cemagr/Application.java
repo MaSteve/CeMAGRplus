@@ -32,7 +32,13 @@ public class Application {
     }
 
     public static void prepare() throws IOException {
+        instID = 0;
         fileOutputStream = new FileOutputStream(output);
+    }
+
+    public static void close() throws IOException {
+        fileOutputStream.flush();
+        fileOutputStream.close();
     }
 
     public static void newComment(String comment) {

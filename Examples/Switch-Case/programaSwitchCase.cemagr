@@ -1,0 +1,18 @@
+func int test(int €n) {
+    int €ret;
+    switch(€n) {
+        case 1 => €ret := 10;
+        case 2 => int €auxi;
+                  €auxi := 5;
+                  €ret := €auxi * €auxi;
+        case 5 => €ret := -2;
+        otherwise => €ret := -500;
+    }
+    return €ret;
+}
+
+func int main() {
+    int €ret;
+    €ret := test(7);
+    return €ret;
+}

@@ -9,15 +9,15 @@ import java.util.Map;
  * Created by celia on 30/4/17.
  */
 public class GlobalBlockNode extends ParserNode {
-    private static final HashMap<String, FuncDeclarationNode> functions = new HashMap<>();
-    private static final HashMap<String, Declaration> global_variables = new HashMap<>();
-    private static final HashSet<String> ids = new HashSet<>();
-    private static final AddressSolver addressSolver = new AddressSolver();
+    private static HashMap<String, FuncDeclarationNode> functions;
+    private static HashMap<String, Declaration> global_variables;
+    private static HashSet<String> ids;
+    private static AddressSolver addressSolver;
 
     private Declaration inst;
     private GlobalBlockNode next;
 
-    private static int declSize = 0;
+    private static int declSize;
 
     public GlobalBlockNode(Declaration inst) {
         init(inst, null);
@@ -48,6 +48,14 @@ public class GlobalBlockNode extends ParserNode {
         //initReferences();
     }
 
+    public static void reset() {
+        functions = new HashMap<>();
+        global_variables = new HashMap<>();
+        ids = new HashSet<>();
+        addressSolver = new AddressSolver();
+        declSize = 0;
+    }
+
     public static void initReferences() {
         for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
             entry.getValue().solveReferences(global_variables);
@@ -74,7 +82,7 @@ public class GlobalBlockNode extends ParserNode {
 
     public void translate() {
         // Stack (Global variables)
-        Application.newInst("ssp " + (getDeclSize()));
+        Application.newInst("ssp " + (getDeclSize() == 0? 1: getDeclSize()));
         // Call main
         Application.newInst("mst " + 0);
         Application.newInst("cup " + 0 + " " + 4);

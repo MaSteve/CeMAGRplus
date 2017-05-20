@@ -15,7 +15,7 @@ func int pot(int €n, int €p) {
     return €ret;
 }
 
-func int main(){
+func int main() {
     int €ret;
     €ret := pot(2, 10);
     return €ret;
