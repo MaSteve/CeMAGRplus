@@ -63,16 +63,12 @@ public class DeclarationNode extends Declaration {
         return array;
     }
 
-    public boolean isPointer() {
+    public boolean isPtr() {
         return ptr;
     }
 
     public StaticArrayNode getArrayNode() {
         return arrayNode;
-    }
-
-    public boolean isPtr() {
-        return ptr;
     }
 
     public Type getTYPE() {

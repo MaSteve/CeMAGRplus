@@ -27,12 +27,20 @@ public class ArrayNode extends ParserNode{
         exp.solveReferences(previous);
     }
 
-    public int getLen() {
+    public int getDim() {
         if (len == -1) {
             if (next == null) len = 1;
-            else len = next.getLen() + 1;
+            else len = next.getDim() + 1;
         }
         return len;
+    }
+
+    public ParserNode getExp(){
+        return exp;
+    }
+
+    public ArrayNode getArrayNode(){
+        return next;
     }
 
     public Type getTYPE() {

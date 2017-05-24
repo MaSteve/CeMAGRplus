@@ -21,12 +21,20 @@ public class StaticArrayNode extends ParserNode {
         next = node;
     }
 
-    public int getLen() {
+    public int getDim() {
         if (len == -1) {
             if (next == null) len = 1;
-            else len = next.getLen() + 1;
+            else len = next.getDim() + 1;
         }
         return len;
+    }
+
+    public StaticArrayNode getStaticArrayNode(){
+        return next;
+    }
+
+    public int getSize(){
+        return exp.getValue();
     }
 
     public int getDeclSize() {
