@@ -60,7 +60,9 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
        | decl:node {: RESULT = node; :}
-       | error SEMI:token {: Application.notifyError(Application.SYNTAX_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :};
+       | error SEMI:token {: Application.notifyError(Application.SYNTAX_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :}
+       | error LB:token inst_block RB {: Application.notifyError(Application.SYNTAX_MSG + Application.UNKNOWN_BLOCK_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :}
+       | LB:token error {: Application.notifyError(Application.SYNTAX_MSG + Application.UNKNOWN_BLOCK_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :} ;
 
 global_inst ::= decl:node {: RESULT = node; :}
               | func_decl:node {: RESULT = node; :};
@@ -131,7 +133,7 @@ if_inst ::= IF LP E0:cond RP LB inst_block:block RB {: RESULT = new IfNode(cond,
 
 loop_inst ::= LOOP LP E0:cond RP LB inst_block:block RB {: RESULT = new LoopNode(cond, block); :} ;
 
-foop_inst ::= FOOP LP inst_block:p1 E0:cond SEMI inst_block:p2 RP LB inst_block:block RB {: RESULT = new FoopNode(p1, cond, p2, block); :}  ;
+foop_inst ::= FOOP LP inst_block:p1 E0:cond SEMI inst_block:p2 RP LB inst_block:block RB {: RESULT = new FoopNode(p1, cond, p2, block); :} ;
 
 switch_inst ::= SWITCH LP E0:cond RP LB case_inst_list:cases otherwise_inst:defaultBlock RB {: RESULT = new SwitchNode(cond, (CaseNode) cases, defaultBlock); :} ;
 
@@ -146,7 +148,8 @@ call_inst ::= FUNC_ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (V
             | FUNC_ID:id LP RP {: RESULT = new FuncCallNode(id); :} ;
 
 func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, ret); :}
-            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, ret); :} ;
+            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, ret); :}
+            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block error RB:token {: Application.notifyError(Application.SYNTAX_MSG + "RETURN (" + token.m_line + ", " + token.m_col + ")"); :};
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}
