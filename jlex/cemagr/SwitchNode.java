@@ -49,12 +49,12 @@ public class SwitchNode extends ParserNode {
                     + defaultBlock.getInstSize();
             min = cases.getMin();
             max = cases.getMax();
-            instSize += max - min + 1; //TODO
+            instSize += max - min + 1;
         }
         return instSize;
     }
 
-    public void translate() { //TODO
+    public void translate() {
         // min, max, etc
 
         casesMap = new HashMap<>();

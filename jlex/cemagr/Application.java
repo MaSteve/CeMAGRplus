@@ -92,4 +92,5 @@ public class Application {
     public static final String ZERO_MSG = "Tamaño 0";
     public static final String MAIN_MSG = "Función main no encontrada";
     public static final String SWITCH_TYPE_MSG = "La estructura Switch solo admite tipos enteros.";
+    public static final String RETURN_TYPE_MSG = "Tipo del return erróneo.";
 }

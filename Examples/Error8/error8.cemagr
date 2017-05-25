@@ -7,4 +7,5 @@ func int funcion(){
 func int main(){
     int €num;
     €num := 0;
+    return 0;
 }

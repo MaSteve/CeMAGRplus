@@ -54,14 +54,16 @@ public class FuncDeclarationNode extends Declaration{
         block.solveReferences(variables);
         variables = block.getVariables();
         returnExp.solveReferences(variables);
-        //TODO: RETURN VALUE
     }
 
     public Type getTYPE() {
         if (block.getTYPE() == TYPE.OK) {
             Type ret = returnExp.getTYPE();
             if (ret == type.getTYPE() && ret != Type.FAIL) TYPE = Type.OK;
-            else TYPE = Type.FAIL;
+            else{
+                Application.notifyError(Application.RETURN_TYPE_MSG);
+                TYPE = Type.FAIL;
+            }
         } else  TYPE = Type.FAIL;
         return TYPE;
     }
@@ -77,7 +79,7 @@ public class FuncDeclarationNode extends Declaration{
 
     public int getInstSize() {
         if (instSize == -1) {
-            instSize = block.getInstSize() + returnExp.getInstSize() + 3; //TODO
+            instSize = block.getInstSize() + returnExp.getInstSize() + 3;
         }
         return instSize;
     }

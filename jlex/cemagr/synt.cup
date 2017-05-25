@@ -100,11 +100,11 @@ ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
 
-EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ :};
+EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); :};
 
 VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
       | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}
-      | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ :} ;
+      | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); :} ;
 
 VAR_LIST ::= VAR_LIST:list COMMA E0:exp {: RESULT = new VarListNode(exp, (VarListNode) list); :}
            | E0:exp {: RESULT = new VarListNode(exp); :};
@@ -150,4 +150,4 @@ func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block R
 
 decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}
-       | PTR TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); /* TODO: Modify node in this case */ :} ;
+       | PTR TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); :} ;

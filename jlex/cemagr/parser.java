@@ -1158,7 +1158,7 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Yytoken id = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ 
+		 RESULT = new VarReferenceNode(id, new OperatorNode(op)); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("EPTR",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1200,7 +1200,7 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Yytoken id = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new VarReferenceNode(id, new OperatorNode(op)); /* TODO */ 
+		 RESULT = new VarReferenceNode(id, new OperatorNode(op)); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("VAR",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1641,7 +1641,7 @@ class CUP$parser$actions {
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Yytoken var = (Yytoken)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); /* TODO: Modify node in this case */ 
+		 RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("decl",14, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
