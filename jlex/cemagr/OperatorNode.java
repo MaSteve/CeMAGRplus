@@ -87,7 +87,11 @@ public class OperatorNode extends ParserNode {
             case MINUS: Application.newInst("sub"); break;
             case TIMES: Application.newInst("mul"); break;
             case DIV: Application.newInst("div"); break;
-            case MOD: Application.newInst("ERROR"); break;
+            case MOD: {
+                Application.newInst("mod");
+                /* Esta operación no pertenece al repertorio original de instrucciones
+                 * This operation is not allowed originally */
+            } break;
             case AND: Application.newInst("and"); break;
             case OR: Application.newInst("or"); break;
             case NOT: Application.newInst("not"); break;

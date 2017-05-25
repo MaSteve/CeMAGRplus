@@ -5,6 +5,9 @@ func int main(){
     int €cont; int €n; int €suma;
     €suma := 0; €n := 10;
     Foop(€cont := 0; €cont < €n; €cont := €cont + 1;){
+        €array(€cont) := €cont + 1;
+    }
+    Foop(€cont := 0; €cont < €n; €cont := €cont + 1;){
         €suma := €suma + €array(€cont);
     }
 

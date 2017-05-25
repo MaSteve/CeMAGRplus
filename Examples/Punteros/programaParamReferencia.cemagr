@@ -8,5 +8,5 @@ func int main() {
    int €a; int €b; int €ret;
    €a := 10; €b := 20;
    €ret := funcion(:€a, :€b);
-   return 0;
+   return €ret;
 }

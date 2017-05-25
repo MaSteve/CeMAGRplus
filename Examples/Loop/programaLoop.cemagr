@@ -20,6 +20,10 @@ func int main(){
     €suma := 0; €n := 10;
     €cont := 0;
     Loop(€cont < €n){
+        €array(€cont) := €cont + 1;
+    }
+    €cont := 0;
+    Loop(€cont < €n){
         €suma := €suma + €array(€cont);
         €cont := €cont + 1;
     }
