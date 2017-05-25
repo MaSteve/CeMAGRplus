@@ -60,13 +60,17 @@ public class IfNode extends ParserNode {
     }
 
     public void translate() {
+        Application.newComment(" IF ");
         cond.translate();
         Application.newInst("fjp " + Application.jump(block1.getInstSize() + (elseBranch? 1: 0)));
+        Application.newComment(" THEN ");
         block1.translate();
         if (elseBranch) {
             Application.newInst("ujp " + Application.jump(block2.getInstSize()));
+            Application.newComment(" ELSE ");
             block2.translate();
         }
+        Application.newComment(" END IF ");
     }
 
     @Override

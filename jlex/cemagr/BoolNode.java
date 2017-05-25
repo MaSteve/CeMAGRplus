@@ -21,6 +21,7 @@ public class BoolNode extends ParserNode {
 
     public void translate() {
         Application.newInst("ldc " + value);
+        Application.newComment(" bool: " + value + " ");
     }
 
     @Override

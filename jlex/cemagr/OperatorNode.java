@@ -39,7 +39,27 @@ public class OperatorNode extends ParserNode {
 
     @Override
     public String toString() {
-        return "OP" + op;
+        switch (op) {
+            case NEG: return " - ";
+            case ASS: return " := ";
+            case LT: return " < ";
+            case GT: return " > ";
+            case LE: return " <= ";
+            case GE: return " >= ";
+            case EQ: return " == ";
+            case NEQ: return " != ";
+            case PLUS: return " + ";
+            case MINUS: return " - ";
+            case TIMES: return " * ";
+            case DIV: return " / ";
+            case MOD: return " % ";
+            case AND: return " and ";
+            case OR: return " or ";
+            case NOT: return " not ";
+            case ADDRESS: return " address ";
+            case DEREFERENCE: return " dereference ";
+            default: return " ERROR ";
+        }
     }
 
     public int getOp() {
@@ -96,6 +116,7 @@ public class OperatorNode extends ParserNode {
             case OR: Application.newInst("or"); break;
             case NOT: Application.newInst("not"); break;
         }
+        Application.newComment(this.toString());
     }
 
     public static final int NEG = 0;

@@ -40,10 +40,13 @@ public class LoopNode extends ParserNode{
     }
 
     public void translate() {
+        Application.newComment(" WHILE ");
         cond.translate();
         Application.newInst("fjp " + Application.jump(block.getInstSize() + 1));
+        Application.newComment(" DO ");
         block.translate();
         Application.newInst("ujp " + Application.jump(-(block.getInstSize()+cond.getInstSize()+2)));
+        Application.newComment(" END WHILE ");
     }
 
     @Override
