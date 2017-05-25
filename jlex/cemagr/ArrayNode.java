@@ -9,6 +9,8 @@ public class ArrayNode extends ParserNode{
     private ParserNode exp;
     private ArrayNode next;
     private int len = -1;
+    private StaticArrayNode def;
+    private int d = 1;
 
     public ArrayNode(ParserNode exp) {
         init(exp, null);
@@ -35,20 +37,26 @@ public class ArrayNode extends ParserNode{
         return len;
     }
 
-    public ParserNode getExp(){
-        return exp;
-    }
-
-    public ArrayNode getArrayNode(){
-        return next;
-    }
-
     public Type getTYPE() {
         Type nextType = Type.OK;
         if (next != null) nextType = next.getTYPE();
         if (nextType == Type.OK && exp.getTYPE() == Type.INT) TYPE = Type.OK;
         else TYPE = Type.FAIL;
         return TYPE;
+    }
+
+    public void setStaticArrayNode(StaticArrayNode node) {
+        def = node;
+        if (next != null) next.setStaticArrayNode(node.getStaticArrayNode());
+     }
+
+    public void translate(){
+
+        exp.translate();
+        Application.newInst("chk " + 0 + " " + def.getSize());
+        if (next != null) d = d * def.getSize() * next.d;
+        Application.newInst("ixa " + d);
+        next.translate();
     }
 
     @Override
