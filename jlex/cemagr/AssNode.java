@@ -49,6 +49,7 @@ public class AssNode extends ParserNode {
 
     public void translate() {
         var.codeL();
+        Application.newComment(" := ");
         exp.translate();
         Application.newInst("sto"); // This one belongs to VarReferenceNode
         /* GetInstSize don't care about 'sto' instruction because it's assumed by VarReferenceNode.

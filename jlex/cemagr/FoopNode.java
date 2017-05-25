@@ -52,12 +52,15 @@ public class FoopNode extends ParserNode{
     }
 
     public void translate() {
+        Application.newComment(" FOR ");
         preamble.translate();
         cond.translate();
         Application.newInst("fjp " + Application.jump(block.getInstSize() + postamble.getInstSize() + 1));
+        Application.newComment(" DO ");
         block.translate();
         postamble.translate();
         Application.newInst("ujp " + Application.jump(-(block.getInstSize()+postamble.getInstSize()+cond.getInstSize()+2)));
+        Application.newComment(" END FOR ");
     }
 
     @Override

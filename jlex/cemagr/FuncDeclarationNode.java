@@ -86,11 +86,14 @@ public class FuncDeclarationNode extends Declaration{
 
     public void translate() {
         // Stack (Local variables)
+        Application.newComment(" FUNC " + id + " ");
         Application.newInst("ssp " + (5 + getDeclSize()));
         block.translate();
         returnExp.translate();
         Application.newInst("str 0 0");
+        Application.newComment(" RETURN ");
         Application.newInst("retf");
+        Application.newComment(" END FUNC ");
     }
 
     @Override

@@ -25,6 +25,7 @@ public class NumNode extends cemagr.ParserNode {
 
     public void translate() {
         Application.newInst("ldc " + value);
+        Application.newComment(" cte: " + value + " ");
     }
 
     @Override

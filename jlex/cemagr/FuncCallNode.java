@@ -86,6 +86,7 @@ public class FuncCallNode extends ParserNode {
     }
 
     public void translate() {
+        Application.newComment(" call: " + id + " ");
         Application.newInst("mst " + 1);
         list.translate();
         Application.newInst("cup " + (arg? list.getSize(): 0) + " " + def.getAddress());

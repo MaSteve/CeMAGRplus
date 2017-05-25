@@ -99,6 +99,7 @@ public class CaseNode extends ParserNode {
         }
         caseAddress = Application.getInstID();
         casesMap.put(((NumNode) cond).getValue(), caseAddress);
+        Application.newComment(" CASE " + ((NumNode) cond).getValue() + " ");
         block.translate();
         Application.newInst("ujp " + jumpAddress);
     }

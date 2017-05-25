@@ -138,6 +138,7 @@ public class VarReferenceNode extends ParserNode{
     }
 
     private void codeDir() {
+        Application.newComment(" " + id + " ");
         if (((DeclarationNode)def).isGlobal()) {
             Application.newInst("ldc " + def.getAddress());
         } else {

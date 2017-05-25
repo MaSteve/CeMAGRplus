@@ -69,6 +69,7 @@ public class ArrayNode extends ParserNode{
         Application.newInst("chk " + 0 + " " + def.getSize());
         Application.newInst("ixa " + d);
         if (next != null) next.translate();
+        Application.newComment("[idx]");
     }
 
     @Override

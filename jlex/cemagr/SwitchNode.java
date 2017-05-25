@@ -59,6 +59,8 @@ public class SwitchNode extends ParserNode {
 
         casesMap = new HashMap<>();
 
+        Application.newComment(" SWITCH ");
+
         // Exp
         exp.translate();
         // Default check
@@ -92,6 +94,8 @@ public class SwitchNode extends ParserNode {
 
         // Default
 
+        Application.newComment(" DEFAULT ");
+
         defaultBlock.translate();
         Application.newInst("ujp " + jumpAddress);
 
@@ -101,6 +105,8 @@ public class SwitchNode extends ParserNode {
             if (casesMap.containsKey(i)) Application.newInst("ujp " + casesMap.get(i));
             else Application.newInst("ujp " + defAddress);
         }
+
+        Application.newComment(" END SWITCH ");
     }
 
     @Override
