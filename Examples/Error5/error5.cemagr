@@ -10,8 +10,16 @@ func int funcion(int €array(2)(2)){
     int €cont := 0;
     int €cont;
     €cont := 0;
+
+    }
+
     loop(€cont < €N){
         €array(€cont)(0) := €array(€cont)(0) + €array(€cont)(1);
+    }
+    {hrueaho ;}
+
+    }
+
     }
     return 0;
 }

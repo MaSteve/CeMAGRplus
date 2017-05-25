@@ -1,4 +1,6 @@
 ERROR: Los tokens esperados son: []
 ERROR: Error sintáctico:  (9, 18)
-ERROR: Los tokens esperados son: [error, VAR_NAME, DEREFERENCE, IF, LOOP, FOOP, RETURN, SWITCH, PTR, TYPE]
-ERROR: Couldn't repair and continue parse #0
+ERROR: Los tokens esperados son: [error, VAR_NAME, LB, DEREFERENCE, IF, LOOP, FOOP, RETURN, SWITCH, PTR, TYPE]
+ERROR: Error sintáctico: Bloque desconocido (15, 20)
+ERROR: Los tokens esperados son: [error]
+ERROR: Error sintáctico: Bloque desconocido (18, 4)

@@ -1,0 +1,3 @@
+ERROR: Los tokens esperados son: [LB, DEREFERENCE, IF, LOOP, FOOP, RETURN, SWITCH, PTR, TYPE]
+ERROR: Error léxico: <.> (9, 15)
+ERROR: Error sintáctico: RETURN (12, 0)
