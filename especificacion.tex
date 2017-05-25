@@ -31,11 +31,11 @@ Nuestra intención para este lenguaje de programación es escoger lo mejor y lo 
 \subsection*{Declaración de variables y definición de funciones}
 Empecemos por lo más básico:
 \begin{verbatim}
-<declaración-variable> ::= <tipo> <declarador>
+<declaración-variable> ::= <tipo> <declarador> | ptr <tipo> €<identificador>
 <tipo> ::= bool | int
 <declarador> ::= €<identificador> | <declarador>(<expresión-constante-arit>)
 \end{verbatim}
-\lname cuenta con dos tipos: booleanos y enteros. Los nombres de variables van precedidos por el símbolo del euro (PHP nos inspira) y se permite la declaración de arrays multidimensionales declarando la dimensión entre paréntesis (MATLAB nos inspira pero menos).\\
+\lname cuenta con dos tipos: booleanos y enteros. Los nombres de variables van precedidos por el símbolo del euro (PHP nos inspira) y se permite la declaración de arrays multidimensionales declarando la dimensión entre paréntesis (MATLAB nos inspira pero menos). Además, permitimos la declaración de punteros simples que van precedidos por la palabra reservada ptr.\\
 
 \lname es un lenguaje sin orientación a objetos pero que permite el uso de funciones.
 \begin{verbatim}
@@ -43,7 +43,7 @@ Empecemos por lo más básico:
 <variables-entrada> ::= <declaración-variable>
                         | <variables-entrada>, <declaración-variable>
 \end{verbatim}
-donde bloque-func será un bloque de instrucciones.
+donde bloque-func será un bloque de instrucciones. Cabe destacar que se permite el paso de parámetros por referencia.
 \subsection*{Instrucciones}
 Las instrucciones deben de usarse dentro de una función y el punto de entrada para nuestro programa es la función main.\\
 
@@ -57,7 +57,7 @@ Todo bloque de instrucciones de una función tiene que terminar con la instrucci
 \end{verbatim}
 Hablemos en primer lugar de la asignación.
 \begin{verbatim}
-<asignación> ::= <declarador> := <expresion>
+<asignación> ::= <declarador> := <expresion>;
 <expresion> ::= <exp-arit> | <exp-bool>
 <exp-arit> ::= <expresión-constante-arit> | <declarador> | <llamada-func>
                | <exp-arit> + <exp-arit> | <exp-arit> - <exp-arit>
@@ -82,8 +82,22 @@ Por último, hablemos de las estructuras de control de ejecución.
 <bloque-if> ::= If (<exp-bool>) {<bloque>}
               | If (<exp-bool>) {<bloque>} Else {<bloque>}
 <bloque-loop> ::= Loop (<exp-bool>) {<bloque>}
-<bloque-foop> ::= Foop (<asignación>; <exp-bool>; <asignación>) {<bloque>}
+<bloque-foop> ::= Foop (<bloque> <exp-bool>; <bloque>) {<bloque>}
+<bloque-swith> ::= switch (<exp-arit>) {<bloques-case> <otherwise>}
+<bloques-case> ::= <bloques-case> <bloque-case> | <bloque-case>
+<bloque-case> ::= case <numero> => <bloque>
+<otherwise> ::= otherwise => <bloque>
 \end{verbatim}
+
+Sabiendo cómo se declaran los punteros, pasemos ahora a hablar de las operaciones que podemos realizar sobre ellos:
+
+\begin{verbatim}
+<address> ::= @€<identificador>
+<derreference> ::= :€<identificador>
+\end{verbatim}
+
+Con el operador @ podremos acceder a la posición apuntada por el puntero; mientras que con el operador : accedemos al valor.
+
 \subsection*{Ejemplos}
 \subsubsection*{Fibonacci}
 \begin{verbatim}
