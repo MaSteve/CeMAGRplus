@@ -1,2 +1,1 @@
-ERROR: Los tokens esperados son: [DEREFERENCE, IF, LOOP, FOOP, RETURN, SWITCH, PTR, TYPE]
-ERROR: Couldn't repair and continue parse #0
+ERROR: Tipo del return erróneo.

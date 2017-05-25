@@ -1,10 +1,11 @@
 func int funcion(){
     int €num;
     €num := 0;
-    return YEAH; #error detectado pero no dice nada 
+    return YEAH; #error detectado pero no dice nada
 }
 
 func int main(){
     int €num;
     €num := 0;
+    return 0;
 }
