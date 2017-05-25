@@ -10,7 +10,7 @@ public class ArrayNode extends ParserNode{
     private ArrayNode next;
     private int len = -1;
     private StaticArrayNode def;
-    private int d = 1;
+    private int d = -1;
 
     public ArrayNode(ParserNode exp) {
         init(exp, null);
@@ -47,15 +47,18 @@ public class ArrayNode extends ParserNode{
 
     public void setStaticArrayNode(StaticArrayNode node) {
         def = node;
-        if (next != null) next.setStaticArrayNode(node.getStaticArrayNode());
+        d = 1;
+        if (next != null){
+            next.setStaticArrayNode(node.getStaticArrayNode());
+            d = next.def.getSize() * next.d;
+        }
      }
 
     public void translate(){
         exp.translate();
         Application.newInst("chk " + 0 + " " + def.getSize());
-        if (next != null) d = d * def.getSize() * next.d;
         Application.newInst("ixa " + d);
-        next.translate();
+        if (next != null) next.translate();
     }
 
     @Override
