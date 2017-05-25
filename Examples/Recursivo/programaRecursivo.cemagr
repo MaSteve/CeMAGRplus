@@ -26,6 +26,10 @@ func bool ej27(int €V(4), int €a, int €b, int €ceros, int €unos){
 
 func int main(){
     int €V(4);# := {1,1,0,1};
+    €V(0) := 1;
+    €V(1) := 1;
+    €V(2) := 0;
+    €V(3) := 1;
     int €ret;
     int €i; int €ceros; int €unos;
     €i := 3; €ceros := 0; €unos := 0;
