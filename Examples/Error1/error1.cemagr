@@ -1,0 +1,6 @@
+func int main(){
+    int €entero;
+    bool €booleano;
+    €entero := YEAH;
+    return 0;
+}

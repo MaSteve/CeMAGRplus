@@ -1,0 +1,9 @@
+func int main() {
+    int €ret
+    €ret := 0;
+    int €arg; int arg2;
+    Foop (int €i; €i := €arg; €i <= €arg2; €i := €i + 1;) {
+         €ret := €ret + €i;
+    }
+    return €ret;
+}

@@ -1,0 +1,8 @@
+error1: error de tipos
+error2: array con dimensiones equivocadas
+error3: derreferenciar una variable que no es un puntero
+error4: olvidarse un ; y un €
+error5: declarar y asignar la variable en la misma "instruccion" +  Loop declarado como loop
+error6: strings... no hay
+error7: usar variables no declaradas
+error8: funcion que debería devolver un tipo y devuelve otro + olvidarse return al final de una funcion
