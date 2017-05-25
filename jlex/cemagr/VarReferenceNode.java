@@ -1,10 +1,6 @@
 package cemagr;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import static cemagr.OperatorNode.ADDRESS;
-import static cemagr.OperatorNode.DEREFERENCE;
 
 /**
  * Created by marcoantonio on 29/4/17.
@@ -40,8 +36,8 @@ public class VarReferenceNode extends ParserNode{
         super(token);
         id = token.m_text;
         array = false;
-        if (opNode.op == DEREFERENCE) dereference = true; //TODO: Refactor
-        else if (opNode.op == ADDRESS) address = true;
+        if (opNode.op == OperatorNode.DEREFERENCE) dereference = true; //TODO: Refactor
+        else if (opNode.op == OperatorNode.ADDRESS) address = true;
     }
 
     public boolean isArray() {
@@ -164,7 +160,7 @@ public class VarReferenceNode extends ParserNode{
         return "Ref: " + (dereference? "ptr ":"")  + id + (array? arrayNode: "");
     }
 
-    public boolean isRefenceNode() {
+    public boolean isReferenceNode() {
         return true;
     }
 }

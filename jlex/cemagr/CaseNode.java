@@ -58,12 +58,14 @@ public class CaseNode extends ParserNode {
     }
 
     public int sizeAndSolve(AddressSolver solver) {
-        declSize = 0;
-        if (next != null) next.sizeAndSolve(solver);
-        AddressSolver solver1 = new AddressSolver(solver);
-        block.sizeAndSolve(solver1);
-        solver.max(solver1);
-        declSize = solver.getSize();
+        if (declSize == -1) {
+            declSize = 0;
+            if (next != null) next.sizeAndSolve(solver);
+            AddressSolver solver1 = new AddressSolver(solver);
+            block.sizeAndSolve(solver1);
+            solver.max(solver1);
+            declSize = solver.getSize();
+        }
         return declSize;
     }
 

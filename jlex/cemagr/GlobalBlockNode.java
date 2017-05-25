@@ -45,7 +45,6 @@ public class GlobalBlockNode extends ParserNode {
             ((DeclarationNode) inst).setGlobal();
             declSize += inst.sizeAndSolve(addressSolver);
         }
-        //initReferences();
     }
 
     public static void reset() {

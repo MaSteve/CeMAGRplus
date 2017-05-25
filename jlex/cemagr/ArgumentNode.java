@@ -23,14 +23,4 @@ public class ArgumentNode extends DeclarationNode {
     public int getDeclSize() {
         return 1;
     }
-
-    /*@Override
-    public String toString() {
-        return "Arg: " + type + (ptr? "ptr":"") + (array? arrayNode: "") + " ID: " + id;
-    }
-
-    @Override
-    public String getID() {
-        return id.toString();
-    }*/
 }

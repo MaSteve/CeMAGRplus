@@ -51,7 +51,7 @@ public abstract class ParserNode {
     @Override
     public abstract String toString();
 
-    public boolean isRefenceNode() {
+    public boolean isReferenceNode() {
         return false;
     }
 

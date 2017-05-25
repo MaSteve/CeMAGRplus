@@ -18,7 +18,7 @@ public class TypeNode extends ParserNode {
 
     public Type getTYPE() {
         switch (value) {
-            case "int": return TYPE.INT;
+            case "int": return Type.INT;
             case "bool": return Type.BOOL;
             default: return Type.FAIL;
         }
