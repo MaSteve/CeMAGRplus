@@ -51,7 +51,6 @@ public class ArrayNode extends ParserNode{
      }
 
     public void translate(){
-
         exp.translate();
         Application.newInst("chk " + 0 + " " + def.getSize());
         if (next != null) d = d * def.getSize() * next.d;

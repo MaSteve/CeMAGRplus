@@ -2,7 +2,6 @@ package cemagr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 import static cemagr.OperatorNode.ADDRESS;
 import static cemagr.OperatorNode.DEREFERENCE;
@@ -121,12 +120,20 @@ public class VarReferenceNode extends ParserNode{
     }
 
     public int getInstSize() {
-        return 2;
+        int ret = 1;
+        if (((DeclarationNode) def).isArray()) {
+            arrayNode.getInstSize();
+        }
+        if (dereference) {
+            ret++;
+        }
+        if (!(isArray() || address)) ret++;
+        return ret;
     }
 
     public void translate() {
         codeDir();
-        Application.newInst("ind");
+        if (!(isArray() || address)) Application.newInst("ind");
     }
 
     public void codeL() {
@@ -140,39 +147,13 @@ public class VarReferenceNode extends ParserNode{
             Application.newInst("lda " + 0 + " " + def.getAddress());
         }
 
-        if(((DeclarationNode) def).isArray()){
-            int num_dim = ((DeclarationNode) def).getArrayNode().getDim();
-            ArrayNode arrayAux = arrayNode;
-            Type type = def.getTYPE(); //arrayNode.getTYPE();
-            StaticArrayNode staticAux =  ((DeclarationNode) def).getArrayNode();
-            int size;
-            ArrayList<Integer> sizes = new ArrayList<>();
-            ArrayList<Integer> ds = new ArrayList<>();
-            for (int j = 0; j < num_dim; j++){
-                size = staticAux.getSize();
-                sizes.add(size);
-                staticAux = staticAux.getStaticArrayNode();
-            }
-            ds.add(1);
-            for (int j = num_dim - 2; j >= 0; j--){
-                size = sizes.get(j);
-                ds.add(size * ds.get(j+1));
-            }
-
-            for(int i = 0; i < num_dim; i++){
-                //size = staticAux.getSize();
-                arrayAux.getExp().translate();
-                Application.newInst("chk " + 0 + " " + sizes.get(i)); //Application.newInst("chk " + 0 + " " + size);
-                Application.newInst("ixa " + type.ordinal()*ds.get(i)); //TODO: necesito size(type)
-                arrayAux = arrayAux.getArrayNode();
-                //staticAux = staticAux.getStaticArrayNode();
-            }
-            Application.newInst("dec " + 0); //TODO: no sé qué tiene que seguirle
+        if (((DeclarationNode) def).isArray()) {
+            arrayNode.setStaticArrayNode(((DeclarationNode) def).getArrayNode());
+            arrayNode.translate();
         }
 
-        if(((DeclarationNode) def).isPtr()){
-            Application.newInst("ind ");
-            //TODO: no sé si hay que poner más cosas
+        if (dereference) {
+            Application.newInst("ind");
         }
     }
 
