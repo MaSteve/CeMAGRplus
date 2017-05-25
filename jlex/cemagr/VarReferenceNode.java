@@ -122,7 +122,8 @@ public class VarReferenceNode extends ParserNode{
     public int getInstSize() {
         int ret = 1;
         if (array) {
-            arrayNode.getInstSize();
+            if (def.getClassType() == Declaration.ARG) ret++;
+            ret += arrayNode.getInstSize();
         }
         if (dereference) {
             ret++;
@@ -147,6 +148,7 @@ public class VarReferenceNode extends ParserNode{
             Application.newInst("lda " + 0 + " " + def.getAddress());
         }
         if (array) {
+            if (def.getClassType() == Declaration.ARG) Application.newInst("ind");
             arrayNode.setStaticArrayNode(((DeclarationNode) def).getArrayNode());
             arrayNode.translate();
         }

@@ -4,7 +4,7 @@ package cemagr;
  * Created by marcoantonio on 12/5/17.
  */
 public abstract class Declaration extends ParserNode {
-    private int typeClass;
+    protected int typeClass;
     protected TypeNode type;
     protected int address;
     public static final int FUNC = 0;

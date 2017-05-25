@@ -7,17 +7,17 @@ public class ArgumentNode extends DeclarationNode {
 
     public ArgumentNode(TypeNode type, VarIDNode id) {
         super(type, id);
-        //super(Declaration.ARG);
+        typeClass = Declaration.ARG;
     }
 
     public ArgumentNode(TypeNode type, VarIDNode id, StaticArrayNode arrayNode) {
         super(type, id, arrayNode);
-        //super(Declaration.ARG);
+        typeClass = Declaration.ARG;
     }
 
     public ArgumentNode(TypeNode type, VarIDNode id, boolean ptr) {
         super(type, id, ptr);
-        //super(Declaration.ARG);
+        typeClass = Declaration.ARG;
     }
 
     public int getDeclSize() {

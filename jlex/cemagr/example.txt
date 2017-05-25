@@ -18,12 +18,12 @@ func int main() {
     int €arr(5)(4);
     Foop (int €i; €i := 0; €i < 5; €i := €i + 1;) {
             Foop (int €j; €j := 0; €j < 4; €j := €j + 1;) {
-                €arr(€i)(€j) := €i*5 + €j;
+                €arr(€i)(€j) := €i*4 + €j;
             }
     }
     int €off;
     €off := 10;
-    €var5 := test6(€arr, :€off);
+    €var5 := test6(€arr, :€off); #200
     return €ret + 0;
 }
 
