@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Application {
     private static boolean debug = false;
     private static boolean error = false;
+    private static boolean verbose = true;
     private static int instID = 0;
     private static String output = "a.asm";
     private static FileOutputStream fileOutputStream;
@@ -36,14 +37,20 @@ public class Application {
         fileOutputStream = new FileOutputStream(output);
     }
 
+    public static void reset() {
+        error = false;
+    }
+
     public static void close() throws IOException {
         fileOutputStream.flush();
         fileOutputStream.close();
     }
 
     public static void newComment(String comment) {
-        String output = "{" + instID + "}";
-        save(comment);
+        if (verbose) {
+            String output = "{" + comment + "}";
+            save(output);
+        }
     }
 
     public static void newInst(String inst) {

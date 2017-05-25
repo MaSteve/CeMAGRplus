@@ -21,6 +21,7 @@ public class TestManager {
                             nargs[1] = test.getCanonicalPath() + "/a.asm";
                             try {
                                 System.setErr(new PrintStream(test.getCanonicalPath() + "/out.err"));
+                                Application.reset();
                                 parser.main(nargs);
                                 System.err.flush();
                             } catch (Exception e) {
