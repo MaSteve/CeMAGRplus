@@ -1,0 +1,4 @@
+func int main{
+    €no-declarada := 0;
+    return 0;
+}

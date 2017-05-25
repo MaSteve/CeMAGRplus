@@ -1,0 +1,5 @@
+func int main(){
+    int €array(5)(5)(5);
+    €array(1)(2) := 2;
+    return 0;
+}

@@ -1,0 +1,4 @@
+ERROR: Los tokens esperados son: []
+ERROR: Error sintáctico:  (2, 13)
+ERROR: Los tokens esperados son: [VAR_NAME]
+ERROR: Error sintáctico:  (3, 22)

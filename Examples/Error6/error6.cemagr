@@ -1,0 +1,5 @@
+func int main(){
+    string €cadena;
+    €cadena := "Hola";
+    return 0;
+}
