@@ -20,7 +20,11 @@ public class Manager {
                 Application.prepare();
                 block.translate();
                 Application.close();
+            } else {
+                System.out.println("Compilation error");
             }
+        } else {
+            System.out.println("Compilation error");
         }
         System.out.println("FIN");
     }
