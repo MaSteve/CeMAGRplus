@@ -23,11 +23,12 @@
 \newcommand{\lname}[0]{CeMAGR+ }
 
 \begin{document}
-\title{\lname: primer boceto}
+\title{\lname: memoria}
 \author{Marco Antonio Garrido y Celia de Frutos}
 \date{}
 \maketitle
-Nuestra intención para este lenguaje de programación es escoger lo mejor y lo peor de cada lenguaje que conocemos y juntarlo todo en un único lenguaje para acabar con las discusión de oficina en las que unos se burlan de otros por ser de C++ y no de Java.
+\section*{Introducción}
+Nuestra intención para este lenguaje de programación es escoger lo mejor y lo peor de cada lenguaje que conocemos y juntarlo todo en un único lenguaje para acabar con las discusiones de oficina en las que unos se burlan de otros por ser de C++ y no de Java.
 \subsection*{Declaración de variables y definición de funciones}
 Empecemos por lo más básico:
 \begin{verbatim}
@@ -43,7 +44,7 @@ Empecemos por lo más básico:
 <variables-entrada> ::= <declaración-variable>
                         | <variables-entrada>, <declaración-variable>
 \end{verbatim}
-donde bloque-func será un bloque de instrucciones. Cabe destacar que se permite el paso de parámetros por referencia.
+donde bloque-func será un bloque de instrucciones. Cabe destacar que se permite el paso de parámetros por referencia haciendo uso de los punteros simples.
 \subsection*{Instrucciones}
 Las instrucciones deben de usarse dentro de una función y el punto de entrada para nuestro programa es la función main.\\
 
@@ -69,6 +70,7 @@ Hablemos en primer lugar de la asignación.
                | <exp-arit> != <exp-arit> | <exp-arit> < <exp-arit>
                | <exp-arit> > <exp-arit> | <exp-arit> <= <exp-arit>
                | <exp-arit> >= <exp-arit> | (<exp-bool>)
+<expresión-constante-bool> ::= YEAH | NO
 \end{verbatim}
 Solo existe un operador de asignación. Nadie necesita los `+=' de C.\\
 
@@ -96,7 +98,17 @@ Sabiendo cómo se declaran los punteros, pasemos ahora a hablar de las operacion
 <derreference> ::= :€<identificador>
 \end{verbatim}
 
-Con el operador @ podremos acceder a la posición apuntada por el puntero; mientras que con el operador : accedemos al valor.
+Con el operador ``@'' podremos acceder a la posición apuntada por el puntero; mientras que con el operador ``:'' accedemos al valor.
+
+\subsection*{One more thing\ldots}
+
+¿Te gusta la recursión mutua? ¿Odias tener que duplicar la cabecera de las funciones para ello? \lname es tu lenguaje.\\
+
+¿Te gusta que tu compilador te aburra con una gran multitud de errores? Nosotros hacemos lo posible por agradarte entonces. Intentamos mostrarte la mayor cantidad de errores posibles sin tener que obligarte a compilar por cada error que detectemos.\\
+
+¿Te gusta el software libre? \lname lo será en cuanto nos den permiso para liberar la práctica.\\
+
+Si has leido todo esto, es hora de jugar con el lenguaje.
 
 \subsection*{Ejemplos}
 \subsubsection*{Fibonacci}
@@ -117,7 +129,7 @@ func int fib(int €n) {
 }
 \end{verbatim}
 \subsubsection*{Potencia (recursivo)}
-Vamos a calcular la potencia p-ésima de n en tiempo logarítmico:
+Vamos a calcular la potencia p-ésima de n en tiempo logarítmico\footnote{Necesitamos una operación módulo en el repertorio de instrucciones de la Máquina-P. Aún estamos en negociaciones\ldots}:
 \begin{verbatim}
 func int pot(int €n, int €p) {
     int €ret;
@@ -135,4 +147,11 @@ func int pot(int €n, int €p) {
     return €ret;
 }
 \end{verbatim}
+\section*{Proyecto}
+El repositorio de \lname con tres carpetas:
+\begin{itemize}
+    \item Examples. Carpeta con test para hacer pruebas con el compilador. Cada subcarpeta cuenta con un archivo ``a.asm'' (compilado), un fichero ``out.err'' (vacio si no hay problemas) y un archivo .cemagr con el código del ejemplo. El fichero con la traducción ha sido generado con el flag verbose por lo que cuenta con comentario con pistas para la depuración que indican la instrucción de la que procede la traducción.
+    \item maquina-P. Contiene el código del interprete junto con instrucciones de uso.
+    \item cemagr. Carpeta con el código del compilador. La carpeta ``Nodes'' tiene los nódos del árbol de sintaxis abstracta. ``Parser'' contiene las clases necesarias para la gramática y el léxico de nuestro lenguaje. ``Manager.java'' es la clase que contiene el método main del compilador mientras que ``TestManager.java'' ejecuta el compilador para la carpeta de ``Examples''.
+\end{itemize}
 \end{document}
