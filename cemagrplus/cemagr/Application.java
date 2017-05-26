@@ -94,4 +94,5 @@ public class Application {
     public static final String SWITCH_TYPE_MSG = "La estructura Switch solo admite tipos enteros.";
     public static final String RETURN_TYPE_MSG = "Tipo del return erróneo.";
     public static final String UNKNOWN_BLOCK_MSG = "Bloque desconocido";
+    public static final String ARG_LEN_MSG = "Son necesarios dos paths: <archivo fuente> <output>";
 }

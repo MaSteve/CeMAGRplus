@@ -1,6 +1,7 @@
 package cemagr;
 
 import cemagr.Nodes.GlobalBlockNode;
+import cemagr.parser.parser;
 
 import java.io.IOException;
 
@@ -9,6 +10,14 @@ import java.io.IOException;
  */
 public class Manager {
     private static GlobalBlockNode block;
+
+    public static void main(String args[]) throws Exception {
+        if (args.length != 2) {
+            System.out.println(Application.ARG_LEN_MSG);
+            return;
+        }
+        parser.main(args);
+    }
 
     public static void init(GlobalBlockNode block1) throws IOException {
         if (Application.isOK()) {
