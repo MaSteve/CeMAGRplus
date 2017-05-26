@@ -4,7 +4,7 @@
 {3} stp;
 { FUNC main }
 {4} ssp 13;
-{ €V }
+{ $V }
 {5} lda 0 5;
 {6} ldc 0;
 { cte: 0 }
@@ -15,7 +15,7 @@
 {9} ldc 1;
 { cte: 1 }
 {10} sto;
-{ €V }
+{ $V }
 {11} lda 0 5;
 {12} ldc 1;
 { cte: 1 }
@@ -26,7 +26,7 @@
 {15} ldc 1;
 { cte: 1 }
 {16} sto;
-{ €V }
+{ $V }
 {17} lda 0 5;
 {18} ldc 2;
 { cte: 2 }
@@ -37,7 +37,7 @@
 {21} ldc 0;
 { cte: 0 }
 {22} sto;
-{ €V }
+{ $V }
 {23} lda 0 5;
 {24} ldc 3;
 { cte: 3 }
@@ -48,19 +48,19 @@
 {27} ldc 1;
 { cte: 1 }
 {28} sto;
-{ €i }
+{ $i }
 {29} lda 0 10;
 { := }
 {30} ldc 3;
 { cte: 3 }
 {31} sto;
-{ €ceros }
+{ $ceros }
 {32} lda 0 11;
 { := }
 {33} ldc 0;
 { cte: 0 }
 {34} sto;
-{ €unos }
+{ $unos }
 {35} lda 0 12;
 { := }
 {36} ldc 0;
@@ -69,23 +69,23 @@
 { IF }
 { call: ej27 }
 {38} mst 1;
-{ €V }
+{ $V }
 {39} lda 0 5;
 {40} ldc 0;
 { cte: 0 }
-{ €i }
+{ $i }
 {41} lda 0 10;
 {42} ind;
-{ €ceros }
+{ $ceros }
 {43} lda 0 11;
 {44} ind;
-{ €unos }
+{ $unos }
 {45} lda 0 12;
 {46} ind;
 {47} cup 5 61;
 {48} fjp 53;
 { THEN }
-{ €ret }
+{ $ret }
 {49} lda 0 9;
 { := }
 {50} ldc 0;
@@ -93,7 +93,7 @@
 {51} sto;
 {52} ujp 57;
 { ELSE }
-{ €ret }
+{ $ret }
 {53} lda 0 9;
 { := }
 {54} ldc 1;
@@ -102,7 +102,7 @@
 { - }
 {56} sto;
 { END IF }
-{ €ret }
+{ $ret }
 {57} lda 0 9;
 {58} ind;
 {59} str 0 0;
@@ -112,10 +112,10 @@
 { FUNC ej27 }
 {61} ssp 15;
 { IF }
-{ €a }
+{ $a }
 {62} lda 0 6;
 {63} ind;
-{ €b }
+{ $b }
 {64} lda 0 7;
 {65} ind;
 {66} equ;
@@ -123,10 +123,10 @@
 {67} fjp 101;
 { THEN }
 { IF }
-{ €V }
+{ $V }
 {68} lda 0 5;
 {69} ind;
-{ €a }
+{ $a }
 {70} lda 0 6;
 {71} ind;
 {72} chk 0 4;
@@ -139,10 +139,10 @@
 { == }
 {77} fjp 85;
 { THEN }
-{ €ceros }
+{ $ceros }
 {78} lda 0 8;
 { := }
-{ €ceros }
+{ $ceros }
 {79} lda 0 8;
 {80} ind;
 {81} ldc 1;
@@ -153,10 +153,10 @@
 {84} ujp 101;
 { ELSE }
 { IF }
-{ €V }
+{ $V }
 {85} lda 0 5;
 {86} ind;
-{ €a }
+{ $a }
 {87} lda 0 6;
 {88} ind;
 {89} chk 0 4;
@@ -169,10 +169,10 @@
 { == }
 {94} fjp 101;
 { THEN }
-{ €unos }
+{ $unos }
 {95} lda 0 9;
 { := }
-{ €unos }
+{ $unos }
 {96} lda 0 9;
 {97} ind;
 {98} ldc 1;
@@ -184,23 +184,23 @@
 { END IF }
 { END IF }
 { IF }
-{ €a }
+{ $a }
 {101} lda 0 6;
 {102} ind;
-{ €b }
+{ $b }
 {103} lda 0 7;
 {104} ind;
 {105} les;
 { < }
 {106} fjp 159;
 { THEN }
-{ €m }
+{ $m }
 {107} lda 0 11;
 { := }
-{ €a }
+{ $a }
 {108} lda 0 6;
 {109} ind;
-{ €b }
+{ $b }
 {110} lda 0 7;
 {111} ind;
 {112} add;
@@ -210,59 +210,59 @@
 {114} div;
 { / }
 {115} sto;
-{ €aux1 }
+{ $aux1 }
 {116} lda 0 13;
 { := }
 { call: ej27 }
 {117} mst 1;
-{ €V }
+{ $V }
 {118} lda 0 5;
-{ €a }
+{ $a }
 {119} lda 0 6;
 {120} ind;
-{ €m }
+{ $m }
 {121} lda 0 11;
 {122} ind;
-{ €ceros }
+{ $ceros }
 {123} lda 0 8;
 {124} ind;
-{ €unos }
+{ $unos }
 {125} lda 0 9;
 {126} ind;
 {127} cup 5 61;
 {128} sto;
-{ €aux2 }
+{ $aux2 }
 {129} lda 0 14;
 { := }
 { call: ej27 }
 {130} mst 1;
-{ €V }
+{ $V }
 {131} lda 0 5;
-{ €m }
+{ $m }
 {132} lda 0 11;
 {133} ind;
 {134} ldc 1;
 { cte: 1 }
 {135} add;
 { + }
-{ €b }
+{ $b }
 {136} lda 0 7;
 {137} ind;
-{ €ceros }
+{ $ceros }
 {138} lda 0 8;
 {139} ind;
-{ €unos }
+{ $unos }
 {140} lda 0 9;
 {141} ind;
 {142} cup 5 61;
 {143} sto;
 { IF }
-{ €ceros }
+{ $ceros }
 {144} lda 0 8;
 {145} ind;
 {146} ldc 2;
 { cte: 2 }
-{ €unos }
+{ $unos }
 {147} lda 0 9;
 {148} ind;
 {149} mul;
@@ -271,7 +271,7 @@
 { == }
 {151} fjp 156;
 { THEN }
-{ €ret }
+{ $ret }
 {152} lda 0 12;
 { := }
 {153} ldc true;
@@ -279,7 +279,7 @@
 {154} sto;
 {155} ujp 159;
 { ELSE }
-{ €ret }
+{ $ret }
 {156} lda 0 12;
 { := }
 {157} ldc false;
@@ -287,7 +287,7 @@
 {158} sto;
 { END IF }
 { END IF }
-{ €ret }
+{ $ret }
 {159} lda 0 10;
 {160} ind;
 {161} str 0 0;

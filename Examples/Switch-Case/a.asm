@@ -4,7 +4,7 @@
 {3} stp;
 { FUNC main }
 {4} ssp 6;
-{ €ret }
+{ $ret }
 {5} lda 0 5;
 { := }
 { call: test }
@@ -13,7 +13,7 @@
 { cte: 7 }
 {8} cup 1 14;
 {9} sto;
-{ €ret }
+{ $ret }
 {10} lda 0 5;
 {11} ind;
 {12} str 0 0;
@@ -23,7 +23,7 @@
 { FUNC test }
 {14} ssp 8;
 { SWITCH }
-{ €n }
+{ $n }
 {15} lda 0 5;
 {16} ind;
 {17} dpl;
@@ -39,7 +39,7 @@
 {27} neg;
 {28} ixj 58;
 { CASE 1 }
-{ €ret }
+{ $ret }
 {29} lda 0 6;
 { := }
 {30} ldc 10;
@@ -47,19 +47,19 @@
 {31} sto;
 {32} ujp 59;
 { CASE 2 }
-{ €auxi }
+{ $auxi }
 {33} lda 0 7;
 { := }
 {34} ldc 5;
 { cte: 5 }
 {35} sto;
-{ €ret }
+{ $ret }
 {36} lda 0 6;
 { := }
-{ €auxi }
+{ $auxi }
 {37} lda 0 7;
 {38} ind;
-{ €auxi }
+{ $auxi }
 {39} lda 0 7;
 {40} ind;
 {41} mul;
@@ -67,7 +67,7 @@
 {42} sto;
 {43} ujp 59;
 { CASE 5 }
-{ €ret }
+{ $ret }
 {44} lda 0 6;
 { := }
 {45} ldc 2;
@@ -77,7 +77,7 @@
 {47} sto;
 {48} ujp 59;
 { DEFAULT }
-{ €ret }
+{ $ret }
 {49} lda 0 6;
 { := }
 {50} ldc 500;
@@ -92,7 +92,7 @@
 {57} ujp 33;
 {58} ujp 29;
 { END SWITCH }
-{ €ret }
+{ $ret }
 {59} lda 0 6;
 {60} ind;
 {61} str 0 0;

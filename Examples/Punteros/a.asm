@@ -4,30 +4,30 @@
 {3} stp;
 { FUNC main }
 {4} ssp 8;
-{ €a }
+{ $a }
 {5} lda 0 5;
 { := }
 {6} ldc 10;
 { cte: 10 }
 {7} sto;
-{ €b }
+{ $b }
 {8} lda 0 6;
 { := }
 {9} ldc 20;
 { cte: 20 }
 {10} sto;
-{ €ret }
+{ $ret }
 {11} lda 0 7;
 { := }
 { call: funcion }
 {12} mst 1;
-{ €a }
+{ $a }
 {13} lda 0 5;
-{ €b }
+{ $b }
 {14} lda 0 6;
 {15} cup 2 21;
 {16} sto;
-{ €ret }
+{ $ret }
 {17} lda 0 7;
 {18} ind;
 {19} str 0 0;
@@ -36,11 +36,11 @@
 { END FUNC }
 { FUNC funcion }
 {21} ssp 7;
-{ €n }
+{ $n }
 {22} lda 0 5;
 {23} ind;
 { := }
-{ €n }
+{ $n }
 {24} lda 0 5;
 {25} ind;
 {26} ind;
@@ -49,11 +49,11 @@
 {28} add;
 { + }
 {29} sto;
-{ €m }
+{ $m }
 {30} lda 0 6;
 {31} ind;
 { := }
-{ €m }
+{ $m }
 {32} lda 0 6;
 {33} ind;
 {34} ind;
@@ -62,11 +62,11 @@
 {36} sub;
 { - }
 {37} sto;
-{ €n }
+{ $n }
 {38} lda 0 5;
 {39} ind;
 {40} ind;
-{ €m }
+{ $m }
 {41} lda 0 6;
 {42} ind;
 {43} ind;

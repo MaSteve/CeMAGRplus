@@ -4,7 +4,7 @@
 {3} stp;
 { FUNC main }
 {4} ssp 6;
-{ €ret }
+{ $ret }
 {5} lda 0 5;
 { := }
 { call: pot }
@@ -15,7 +15,7 @@
 { cte: 10 }
 {9} cup 2 15;
 {10} sto;
-{ €ret }
+{ $ret }
 {11} lda 0 5;
 {12} ind;
 {13} str 0 0;
@@ -25,7 +25,7 @@
 { FUNC pot }
 {15} ssp 9;
 { IF }
-{ €p }
+{ $p }
 {16} lda 0 6;
 {17} ind;
 {18} ldc 0;
@@ -34,7 +34,7 @@
 { == }
 {20} fjp 25;
 { THEN }
-{ €ret }
+{ $ret }
 {21} lda 0 7;
 { := }
 {22} ldc 1;
@@ -42,10 +42,10 @@
 {23} sto;
 {24} ujp 60;
 { ELSE }
-{ €np }
+{ $np }
 {25} lda 0 8;
 { := }
-{ €p }
+{ $p }
 {26} lda 0 6;
 {27} ind;
 {28} ldc 2;
@@ -53,33 +53,33 @@
 {29} div;
 { / }
 {30} sto;
-{ €ret }
+{ $ret }
 {31} lda 0 7;
 { := }
 { call: pot }
 {32} mst 1;
-{ €n }
+{ $n }
 {33} lda 0 5;
 {34} ind;
-{ €np }
+{ $np }
 {35} lda 0 8;
 {36} ind;
 {37} cup 2 15;
 {38} sto;
-{ €ret }
+{ $ret }
 {39} lda 0 7;
 { := }
-{ €ret }
+{ $ret }
 {40} lda 0 7;
 {41} ind;
-{ €ret }
+{ $ret }
 {42} lda 0 7;
 {43} ind;
 {44} mul;
 { * }
 {45} sto;
 { IF }
-{ €p }
+{ $p }
 {46} lda 0 6;
 {47} ind;
 {48} ldc 2;
@@ -92,13 +92,13 @@
 { == }
 {52} fjp 60;
 { THEN }
-{ €ret }
+{ $ret }
 {53} lda 0 7;
 { := }
-{ €ret }
+{ $ret }
 {54} lda 0 7;
 {55} ind;
-{ €n }
+{ $n }
 {56} lda 0 5;
 {57} ind;
 {58} mul;
@@ -106,7 +106,7 @@
 {59} sto;
 { END IF }
 { END IF }
-{ €ret }
+{ $ret }
 {60} lda 0 7;
 {61} ind;
 {62} str 0 0;

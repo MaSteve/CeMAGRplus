@@ -4,45 +4,45 @@
 {3} stp;
 { FUNC main }
 {4} ssp 18;
-{ €suma }
+{ $suma }
 {5} lda 0 17;
 { := }
 {6} ldc 0;
 { cte: 0 }
 {7} sto;
-{ €n }
+{ $n }
 {8} lda 0 16;
 { := }
 {9} ldc 10;
 { cte: 10 }
 {10} sto;
 { FOR }
-{ €cont }
+{ $cont }
 {11} lda 0 15;
 { := }
 {12} ldc 0;
 { cte: 0 }
 {13} sto;
-{ €cont }
+{ $cont }
 {14} lda 0 15;
 {15} ind;
-{ €n }
+{ $n }
 {16} lda 0 16;
 {17} ind;
 {18} les;
 { < }
 {19} fjp 37;
 { DO }
-{ €array }
+{ $array }
 {20} lda 0 5;
-{ €cont }
+{ $cont }
 {21} lda 0 15;
 {22} ind;
 {23} chk 0 10;
 {24} ixa 1;
 {[idx]}
 { := }
-{ €cont }
+{ $cont }
 {25} lda 0 15;
 {26} ind;
 {27} ldc 1;
@@ -50,10 +50,10 @@
 {28} add;
 { + }
 {29} sto;
-{ €cont }
+{ $cont }
 {30} lda 0 15;
 { := }
-{ €cont }
+{ $cont }
 {31} lda 0 15;
 {32} ind;
 {33} ldc 1;
@@ -64,31 +64,31 @@
 {36} ujp 14;
 { END FOR }
 { FOR }
-{ €cont }
+{ $cont }
 {37} lda 0 15;
 { := }
 {38} ldc 0;
 { cte: 0 }
 {39} sto;
-{ €cont }
+{ $cont }
 {40} lda 0 15;
 {41} ind;
-{ €n }
+{ $n }
 {42} lda 0 16;
 {43} ind;
 {44} les;
 { < }
 {45} fjp 64;
 { DO }
-{ €suma }
+{ $suma }
 {46} lda 0 17;
 { := }
-{ €suma }
+{ $suma }
 {47} lda 0 17;
 {48} ind;
-{ €array }
+{ $array }
 {49} lda 0 5;
-{ €cont }
+{ $cont }
 {50} lda 0 15;
 {51} ind;
 {52} chk 0 10;
@@ -98,10 +98,10 @@
 {55} add;
 { + }
 {56} sto;
-{ €cont }
+{ $cont }
 {57} lda 0 15;
 { := }
-{ €cont }
+{ $cont }
 {58} lda 0 15;
 {59} ind;
 {60} ldc 1;
