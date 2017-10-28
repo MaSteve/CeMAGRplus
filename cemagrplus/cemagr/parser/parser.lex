@@ -1,7 +1,7 @@
 package cemagr.parser;
 
 import cemagr.Application;
-import cemagr.sym;
+import cemagr.parser.sym;
 
 class Sample {
     public static void main(String argv[]) throws java.io.IOException {
@@ -59,7 +59,7 @@ COMMENT_TEXT=([^\n])*
 %%
 
 <YYINITIAL> ";" { return (new Yytoken(sym.SEMI, 0,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-<YYINITIAL> ":=" { return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+<YYINITIAL> "=" { return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 <YYINITIAL> "{" { return (new Yytoken(sym.LB, 2,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "}" { return (new Yytoken(sym.RB, 3,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "(" { return (new Yytoken(sym.LP, 4,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
@@ -82,6 +82,8 @@ COMMENT_TEXT=([^\n])*
 <YYINITIAL> "=>" { return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 <YYINITIAL> ":" { return (new Yytoken(sym.ADDRESS, 22,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 <YYINITIAL> "@" { return (new Yytoken(sym.DEREFERENCE, 23,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "[" { return (new Yytoken(sym.LBR, 24,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+<YYINITIAL> "]" { return (new Yytoken(sym.RBR, 25,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 
 
 <YYINITIAL> {END_LINE} { col_offset = yychar + yytext().length(); }
@@ -104,17 +106,15 @@ COMMENT_TEXT=([^\n])*
 <YYINITIAL> {DIGIT}+ {
 	return (new Yytoken(sym.NUM, 42,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
 }
-<YYINITIAL> {EURO}{ALPHA}({ALPHA}|{DIGIT}|_)* {
-	return (new Yytoken(sym.VAR_NAME, 43,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-}
 <YYINITIAL> {ALPHA}({ALPHA}|{DIGIT}|_)* {
     String str = yytext();
     switch(str) {
-        case "If": return (new Yytoken(sym.IF, 50, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Else": return (new Yytoken(sym.ELSE, 51, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Loop": return (new Yytoken(sym.LOOP, 52, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Foop": return (new Yytoken(sym.FOOP, 53, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "if": return (new Yytoken(sym.IF, 50, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "else": return (new Yytoken(sym.ELSE, 51, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "while": return (new Yytoken(sym.LOOP, 52, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "for": return (new Yytoken(sym.FOOP, 53, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "func": return (new Yytoken(sym.FUNC, 54, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "process": return (new Yytoken(sym.PROC, 54, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "return": return (new Yytoken(sym.RETURN, 55, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "switch": return (new Yytoken(sym.SWITCH, 56, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "case": return (new Yytoken(sym.CASE, 57, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
@@ -123,9 +123,9 @@ COMMENT_TEXT=([^\n])*
         case "int": return (new Yytoken(sym.TYPE, 60, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "bool": return (new Yytoken(sym.TYPE, 61, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "string": return (new Yytoken(sym.TYPE, 62, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "YEAH": return (new Yytoken(sym.BOOL, 70, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "NO": return (new Yytoken(sym.BOOL, 71, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        default: return (new Yytoken(sym.FUNC_ID, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "true": return (new Yytoken(sym.BOOL, 70, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "false": return (new Yytoken(sym.BOOL, 71, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        default: return (new Yytoken(sym.ID, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
     }
 }
 

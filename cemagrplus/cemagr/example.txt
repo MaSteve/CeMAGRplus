@@ -1,99 +1,100 @@
 # Esto es un comentario
-int €var1;
-int €var2;
-int €var3;
-int €var4;
-int €var5;
+int var1;
+int var2;
+int var3;
+int var4;
+int var5;
 
-func int main() {
-    int €ret;
-    €ret := 0;
-    €var1 := test1(3, 10); #52
-    €var2 := test2(12); #89
-    €var3 := test3(5); #120
-    If (€var3 == 120) {
-        €ret := 1111;
+int main() {
+    int ret;
+    ret = 0;
+    var1 = test1(3, 10); #52
+    var2 = test2(10); #34
+    var3 = test3(5); #120
+    if (var3 == 120) {
+        int var;
+        int ret;
+        int var9;
+        ret = 1111;
     }
-    €var4 := test5(2); #25
-    int €arr(5)(4);
-    Foop (int €i; €i := 0; €i < 5; €i := €i + 1;) {
-            Foop (int €j; €j := 0; €j < 4; €j := €j + 1;) {
-                €arr(€i)(€j) := €i*4 + €j;
+    var4 = test5(2); #25
+    int arr[5][4];
+    for (int i; i = 0; i < 5; i = i + 1;) {
+            for (int j; j = 0; j < 4; j = j + 1;) {
+                arr[i][j] = i*4 + j;
             }
     }
-    int €off;
-    €off := 10;
-    €var5 := test6(€arr, :€off); #200
-    return €ret + 0;
+    int off;
+    off = 10;
+    var5 = test6(arr, :off); #200
+    return ret + 0;
 }
 
-func int test1(int €arg, int €arg2) {
-    int €ret;
-    €ret := 0;
-    Foop (int €i; €i := €arg; €i <= €arg2; €i := €i + 1;) {
-         €ret := €ret + €i;
+int test1(int arg, int arg2) {
+    int ret;
+    ret = 0;
+    for (int i; i = arg; i <= arg2; i = i + 1;) {
+         ret = ret + i;
     }
-    return €ret;
+    return ret;
 }
 
-func int test2(int €n) {
-    int €fib;
-    int €post;
-    int €i;
-    €fib := 0;
-    €post := 1;
-    €i := 1;
-    Loop (€i < €n) {
-        int €auxi;
-        €auxi := €fib + €post;
-        €fib := €post;
-        €post := €auxi;
-        €i := €i + 1;
+int test2(int n) {
+    int fib;
+    int post;
+    int i;
+    fib = 0;
+    post = 1;
+    i = 1;
+    while (i < n) {
+        int auxi;
+        auxi = fib + post;
+        fib = post;
+        post = auxi;
+        i = i + 1;
     }
-    return €fib;
+    return fib;
 }
 
-func int test3(int €n) {
-    int €fact;
-    If ((€n == 0) || (€n == 1)) {
-        €fact := 1;
-    } Else {
-        €fact := test4(€n - 1) * €n;
+int test3(int n) {
+    int fact;
+    if ((n == 0) || (n == 1)) {
+        fact = 1;
+    } else {
+        fact = test4(n - 1) * n;
     }
-    return €fact;
+    return fact;
 }
 
-func int test4(int €n) {
-    int €fact;
-    If ((€n == 0) || (€n == 1)) {
-        €fact := 1;
-    } Else {
-        €fact := test3(€n - 1) * €n;
+int test4(int n) {
+    if ((n == 0) || (n == 1)) {
+        return 1;
+    } else {
+        return test3(n - 1) * n;
     }
-    return €fact;
 }
 
-func int test5(int €n) {
-    int €ret;
-    switch(€n) {
-        case 1 => €ret := 10;
-        case 2 => int €auxi;
-                  €auxi := 5;
-                  €ret := €auxi * €auxi;
-        case 5 => €ret := -2;
-        otherwise => €ret := -1;
+int test5(int n) {
+    int ret;
+    switch(n) {
+        case 1 => ret = 10;
+        case 2 => int auxi;
+                  auxi = 5;
+                  ret = auxi * auxi;
+        case 5 => ret = -2;
+        otherwise => ret = -1;
     }
-    return €ret;
+    return ret;
 }
 
 
-func int test6(int €arr(5)(4), ptr int €off) {
-    int €ret;
-    €ret := @€off;
-    Foop (int €i; €i := 0; €i < 5; €i := €i + 1;) {
-        Foop (int €j; €j := 0; €j < 4; €j := €j + 1;) {
-            €ret := €ret + €arr(€i)(€j);
+process int test6(int arr[5][4], ptr int off) {
+    int ret;
+    ret = @off;
+    for (int i; i = 0; i < 5; i = i + 1;) {
+        for (int j; j = 0; j < 4; j = j + 1;) {
+            ret = ret + arr[i][j];
         }
     }
-    return €ret;
+    return ret;
 }

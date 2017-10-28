@@ -21,7 +21,8 @@ public class Manager {
 
     public static void init(GlobalBlockNode block1) throws IOException {
         if (Application.isOK()) {
-            block = block1;
+            System.out.println("OK");
+            /*block = block1;
             GlobalBlockNode.reset();
             block.initGlobalReferences();
             GlobalBlockNode.initReferences();
@@ -33,7 +34,7 @@ public class Manager {
                 Application.close();
             } else {
                 System.out.println("Compilation error");
-            }
+            }*/
         } else {
             System.out.println("Compilation error");
         }

@@ -1,5 +1,6 @@
 package cemagr.parser;
 import cemagr.Application;
+import cemagr.parser.sym;
 class Sample {
     public static void main(String argv[]) throws java.io.IOException {
         /*Yylex yy = new Yylex(System.in);
@@ -86,7 +87,7 @@ class Yylex implements java_cup.runtime.Scanner {
 	private final int COMMENT = 1;
 	private final int yy_state_dtrans[] = {
 		0,
-		34
+		35
 	};
 	private void yybegin (int state) {
 		yy_lexical_state = state;
@@ -279,22 +280,20 @@ class Yylex implements java_cup.runtime.Scanner {
 		/* 37 */ YY_NO_ANCHOR,
 		/* 38 */ YY_NO_ANCHOR,
 		/* 39 */ YY_NO_ANCHOR,
-		/* 40 */ YY_NO_ANCHOR,
-		/* 41 */ YY_NO_ANCHOR
+		/* 40 */ YY_NO_ANCHOR
 	};
 	private int yy_cmap[] = unpackFromString(1,65538,
-"29:8,21:2,20,29:2,23,29:18,21,10,22,28,29,15,16,29,6,7,13,11,18,12,29,14,24" +
-":10,2,1,8,3,9,29,19,26:26,29:4,27,29,26:26,4,17,5,29:8238,25,29:57171,0:2")[0];
+"30:8,23:2,22,30:2,25,30:18,23,9,24,29,30,14,15,30,5,6,12,10,17,11,30,13,26:" +
+"10,18,1,7,2,8,30,19,27:26,20,30,21,30,28,30,27:26,3,16,4,30:65410,0:2")[0];
 
-	private int yy_rmap[] = unpackFromString(1,42,
-"0,1:2,2,3,1:4,4,5,6,1:7,7,8,9,10,1:10,11,12,13,14,15,16,17,18,1")[0];
+	private int yy_rmap[] = unpackFromString(1,41,
+"0,1:2,2,1:4,3,4,5,1:5,6,1:5,7,8,9,10,1:9,11,12,13,14,15,1")[0];
 
-	private int yy_nxt[][] = unpackFromString(19,30,
-"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,37,39,17,18,36,19,20,-1,21,40,22,41," +
-"23,41,-1:33,24,-1:29,25,-1:5,26,-1:23,27,-1:29,28,-1:29,29,-1:47,19,-1:9,20" +
-":19,-1,20,32,20:7,-1:24,21,-1:29,22,-1,22:2,-1:26,33,-1,33:2,-1:2,1,38:19,3" +
-"5,38:9,-1:20,35,-1:29,36,-1:25,30,-1:14,38:19,-1,38:9,-1:17,31,-1:38,33,-1:" +
-"3");
+	private int yy_nxt[][] = unpackFromString(16,31,
+"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,38,17,18,19,20,21,37,22,23,-1,24,25," +
+"40,26,40,-1:33,27,-1:5,28,-1:24,29,-1:30,30,-1:30,31,-1:43,32,-1:38,22,-1:8" +
+",23:21,-1,23,34,23:6,-1:26,24,-1:30,25:3,-1:2,1,39:21,36,39:8,-1:22,36,-1:3" +
+"0,37,-1:24,33,-1:15,39:21,-1,39:8");
 
 	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
@@ -353,63 +352,63 @@ class Yylex implements java_cup.runtime.Scanner {
 					case -4:
 						break;
 					case 3:
-						{ return (new Yytoken(sym.ADDRESS, 22,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -5:
 						break;
 					case 4:
+						{ return (new Yytoken(sym.LB, 2,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -6:
+						break;
+					case 5:
+						{ return (new Yytoken(sym.RB, 3,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -7:
+						break;
+					case 6:
+						{ return (new Yytoken(sym.LP, 4,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -8:
+						break;
+					case 7:
+						{ return (new Yytoken(sym.RP, 5,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -9:
+						break;
+					case 8:
+						{ return (new Yytoken(sym.LT, 6,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -10:
+						break;
+					case 9:
+						{ return (new Yytoken(sym.GT, 7,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -11:
+						break;
+					case 10:
+						{ return (new Yytoken(sym.NOT, 19,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -12:
+						break;
+					case 11:
+						{ return (new Yytoken(sym.PLUS, 12,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -13:
+						break;
+					case 12:
+						{ return (new Yytoken(sym.MINUS, 13,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -14:
+						break;
+					case 13:
+						{ return (new Yytoken(sym.TIMES, 14,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -15:
+						break;
+					case 14:
+						{ return (new Yytoken(sym.DIV, 15,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -16:
+						break;
+					case 15:
+						{ return (new Yytoken(sym.MOD, 16,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -17:
+						break;
+					case 16:
 						{
         Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
         //System.out.println("Illegal character: <" + yytext() + ">");
 	    //Utility.error(Utility.E_UNMATCHED);
 }
-					case -6:
-						break;
-					case 5:
-						{ return (new Yytoken(sym.LB, 2,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -7:
-						break;
-					case 6:
-						{ return (new Yytoken(sym.RB, 3,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -8:
-						break;
-					case 7:
-						{ return (new Yytoken(sym.LP, 4,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -9:
-						break;
-					case 8:
-						{ return (new Yytoken(sym.RP, 5,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -10:
-						break;
-					case 9:
-						{ return (new Yytoken(sym.LT, 6,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -11:
-						break;
-					case 10:
-						{ return (new Yytoken(sym.GT, 7,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -12:
-						break;
-					case 11:
-						{ return (new Yytoken(sym.NOT, 19,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -13:
-						break;
-					case 12:
-						{ return (new Yytoken(sym.PLUS, 12,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -14:
-						break;
-					case 13:
-						{ return (new Yytoken(sym.MINUS, 13,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -15:
-						break;
-					case 14:
-						{ return (new Yytoken(sym.TIMES, 14,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -16:
-						break;
-					case 15:
-						{ return (new Yytoken(sym.DIV, 15,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
-					case -17:
-						break;
-					case 16:
-						{ return (new Yytoken(sym.MOD, 16,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 					case -18:
 						break;
 					case 17:
@@ -417,37 +416,50 @@ class Yylex implements java_cup.runtime.Scanner {
 					case -19:
 						break;
 					case 18:
-						{ return (new Yytoken(sym.DEREFERENCE, 23,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+						{ return (new Yytoken(sym.ADDRESS, 22,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 					case -20:
 						break;
 					case 19:
-						{ }
+						{ return (new Yytoken(sym.DEREFERENCE, 23,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
 					case -21:
 						break;
 					case 20:
+						{ return (new Yytoken(sym.LBR, 24,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -22:
+						break;
+					case 21:
+						{ return (new Yytoken(sym.RBR, 25,yytext(),yyline,yychar,yychar+1,yychar-col_offset)); }
+					case -23:
+						break;
+					case 22:
+						{ }
+					case -24:
+						break;
+					case 23:
 						{
 	String str =  yytext().substring(1,yytext().length());
 	Utility.error(Utility.E_UNCLOSEDSTR);
 	Utility.assertExp(str.length() == yytext().length() - 1);
 	return (new Yytoken(sym.SEMI, 41,str,yyline,yychar,yychar + str.length(), yychar-col_offset));
 }
-					case -22:
+					case -25:
 						break;
-					case 21:
+					case 24:
 						{
 	return (new Yytoken(sym.NUM, 42,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
 }
-					case -23:
+					case -26:
 						break;
-					case 22:
+					case 25:
 						{
     String str = yytext();
     switch(str) {
-        case "If": return (new Yytoken(sym.IF, 50, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Else": return (new Yytoken(sym.ELSE, 51, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Loop": return (new Yytoken(sym.LOOP, 52, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "Foop": return (new Yytoken(sym.FOOP, 53, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "if": return (new Yytoken(sym.IF, 50, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "else": return (new Yytoken(sym.ELSE, 51, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "while": return (new Yytoken(sym.LOOP, 52, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "for": return (new Yytoken(sym.FOOP, 53, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "func": return (new Yytoken(sym.FUNC, 54, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "process": return (new Yytoken(sym.PROC, 54, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "return": return (new Yytoken(sym.RETURN, 55, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "switch": return (new Yytoken(sym.SWITCH, 56, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "case": return (new Yytoken(sym.CASE, 57, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
@@ -456,93 +468,75 @@ class Yylex implements java_cup.runtime.Scanner {
         case "int": return (new Yytoken(sym.TYPE, 60, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "bool": return (new Yytoken(sym.TYPE, 61, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
         case "string": return (new Yytoken(sym.TYPE, 62, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "YEAH": return (new Yytoken(sym.BOOL, 70, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        case "NO": return (new Yytoken(sym.BOOL, 71, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-        default: return (new Yytoken(sym.FUNC_ID, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "true": return (new Yytoken(sym.BOOL, 70, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        case "false": return (new Yytoken(sym.BOOL, 71, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
+        default: return (new Yytoken(sym.ID, 44, yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
     }
 }
-					case -24:
-						break;
-					case 23:
-						{ yybegin(COMMENT); }
-					case -25:
-						break;
-					case 24:
-						{ return (new Yytoken(sym.ASS, 1,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
-					case -26:
-						break;
-					case 25:
-						{ return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -27:
 						break;
 					case 26:
-						{ return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+						{ yybegin(COMMENT); }
 					case -28:
 						break;
 					case 27:
-						{ return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+						{ return (new Yytoken(sym.EQ, 10,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -29:
 						break;
 					case 28:
-						{ return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+						{ return (new Yytoken(sym.THEN, 21,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -30:
 						break;
 					case 29:
-						{ return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+						{ return (new Yytoken(sym.LE, 8,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -31:
 						break;
 					case 30:
-						{ return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+						{ return (new Yytoken(sym.GE, 9,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -32:
 						break;
 					case 31:
-						{ return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+						{ return (new Yytoken(sym.NEQ, 11,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
 					case -33:
 						break;
 					case 32:
+						{ return (new Yytoken(sym.AND, 17,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+					case -34:
+						break;
+					case 33:
+						{ return (new Yytoken(sym.OR, 18,yytext(),yyline,yychar,yychar+2,yychar-col_offset)); }
+					case -35:
+						break;
+					case 34:
 						{
 	String str =  yytext().substring(1,yytext().length() - 1);
 	Utility.assertExp(str.length() == yytext().length() - 2);
 	return (new Yytoken(sym.STRING, 40,str,yyline,yychar,yychar + str.length(), yychar-col_offset));
 }
-					case -34:
-						break;
-					case 33:
-						{
-	return (new Yytoken(sym.VAR_NAME, 43,yytext(),yyline,yychar,yychar + yytext().length(), yychar-col_offset));
-}
-					case -35:
-						break;
-					case 34:
-						{ }
 					case -36:
 						break;
 					case 35:
-						{ yybegin(YYINITIAL); col_offset = yychar + yytext().length(); }
+						{ }
 					case -37:
 						break;
 					case 36:
-						{ col_offset = yychar + yytext().length(); }
+						{ yybegin(YYINITIAL); col_offset = yychar + yytext().length(); }
 					case -38:
 						break;
 					case 37:
-						{
-        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
-        //System.out.println("Illegal character: <" + yytext() + ">");
-	    //Utility.error(Utility.E_UNMATCHED);
-}
+						{ col_offset = yychar + yytext().length(); }
 					case -39:
 						break;
 					case 38:
-						{ }
-					case -40:
-						break;
-					case 39:
 						{
         Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
         //System.out.println("Illegal character: <" + yytext() + ">");
 	    //Utility.error(Utility.E_UNMATCHED);
 }
+					case -40:
+						break;
+					case 39:
+						{ }
 					case -41:
 						break;
 					case 40:
@@ -552,14 +546,6 @@ class Yylex implements java_cup.runtime.Scanner {
 	    //Utility.error(Utility.E_UNMATCHED);
 }
 					case -42:
-						break;
-					case 41:
-						{
-        Application.notifyError(Application.LEX_MSG + "<" + yytext() + "> (" + yyline + ", " + (yychar-col_offset) + ")");
-        //System.out.println("Illegal character: <" + yytext() + ">");
-	    //Utility.error(Utility.E_UNMATCHED);
-}
-					case -43:
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);

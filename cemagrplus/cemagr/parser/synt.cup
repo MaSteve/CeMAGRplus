@@ -8,6 +8,11 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cemagr.Nodes.ControlStructures.*;
+import cemagr.Nodes.Expressions.*;
+import cemagr.Nodes.Variables.*;
+import cemagr.Nodes.Functions.*;
+
 parser code {:
     public static void main(String args[]) throws Exception {
         if (args.length == 2) {
@@ -37,12 +42,12 @@ parser code {:
 
 :}
 
-terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, VAR_NAME, ASS, EQ, NEQ, GT, GE, LT, LE, NUM;
+terminal Yytoken SEMI, PLUS, MINUS, TIMES, DIV, MOD, ID, ASS, EQ, NEQ, GT, GE, LT, LE, NUM;
 terminal Yytoken AND, OR, NOT, BOOL;
-terminal Yytoken RP, LP, RB, LB, COMMA, THEN, ADDRESS, DEREFERENCE;
+terminal Yytoken RP, LP, RB, LB, RBR, LBR, COMMA, THEN, ADDRESS, DEREFERENCE;
 
-non terminal ParserNode inicio, global_inst_block, inst_block, global_inst, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, decl, func_decl;
-terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, FUNC_ID, RETURN, STRING, SWITCH, CASE, OTHERWISE, PTR;
+non terminal ParserNode inicio, global_inst_block, inst_block, global_inst, inst, ass_inst, if_inst, loop_inst, foop_inst, switch_inst, case_inst_list, case_inst, otherwise_inst, call_inst, return_inst, decl, func_decl, proc_decl;
+terminal Yytoken IF, ELSE, LOOP, FOOP, FUNC, PROC, RETURN, STRING, SWITCH, CASE, OTHERWISE, PTR;
 non terminal ParserNode E0, OP0, E1, OP1, E2, OP2, E3, OP3, E4, ECONST, EPTR;
 non terminal ParserNode VAR, ARRAY, ARRAY_LIST, STATIC_ARRAY_LIST, STATIC_ARRAY, ARG, ARG_LIST, VAR_LIST;
 terminal Yytoken TYPE;
@@ -63,13 +68,15 @@ inst ::= ass_inst:ass {: RESULT = ass; :}
        | loop_inst:node {: RESULT = node; :}
        | foop_inst:node {: RESULT = node; :}
        | switch_inst:node {: RESULT = node; :}
+       | return_inst:node {: RESULT = node; :}
        | decl:node {: RESULT = node; :}
        | error SEMI:token {: Application.notifyError(Application.SYNTAX_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :}
        | error LB:token inst_block RB {: Application.notifyError(Application.SYNTAX_MSG + Application.UNKNOWN_BLOCK_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :}
        | LB:token error {: Application.notifyError(Application.SYNTAX_MSG + Application.UNKNOWN_BLOCK_MSG + " (" + token.m_line + ", " + token.m_col + ")"); :} ;
 
 global_inst ::= decl:node {: RESULT = node; :}
-              | func_decl:node {: RESULT = node; :};
+              | func_decl:node {: RESULT = node; :}
+              | proc_decl:node {: RESULT = node; :};
 
 ass_inst ::= VAR:var ASS:token E0:exp SEMI {: RESULT = new AssNode(token, (VarReferenceNode) var, exp); :};
 E0 ::= E1:exp1 OP0:op E1:exp2 {: RESULT = new BinaryExpression(exp1, (OperatorNode) op, exp2); :}
@@ -106,11 +113,11 @@ ECONST ::= NUM:num {: RESULT = new NumNode(num); :}
          | BOOL:bool {: RESULT = new BoolNode(bool); :}
          | STRING:string {: RESULT = new StringNode(string); :} ;
 
-EPTR ::= ADDRESS:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); :};
+EPTR ::= ADDRESS:op ID:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); :};
 
-VAR ::= VAR_NAME:id {: RESULT = new VarReferenceNode(id); :}
-      | VAR_NAME:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}
-      | DEREFERENCE:op VAR_NAME:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); :} ;
+VAR ::= ID:id {: RESULT = new VarReferenceNode(id); :}
+      | ID:id ARRAY_LIST:arr {: RESULT = new VarReferenceNode(id, (ArrayNode) arr); :}
+      | DEREFERENCE:op ID:id {: RESULT = new VarReferenceNode(id, new OperatorNode(op)); :} ;
 
 VAR_LIST ::= VAR_LIST:list COMMA E0:exp {: RESULT = new VarListNode(exp, (VarListNode) list); :}
            | E0:exp {: RESULT = new VarListNode(exp); :};
@@ -118,18 +125,18 @@ VAR_LIST ::= VAR_LIST:list COMMA E0:exp {: RESULT = new VarListNode(exp, (VarLis
 ARRAY_LIST ::= ARRAY_LIST:next ARRAY:exp {: RESULT = new ArrayNode(exp, (ArrayNode) next); :}
              | ARRAY:exp {: RESULT = new ArrayNode(exp); :} ;
 
-ARRAY ::= LP E1:exp RP {: RESULT = exp; :};
+ARRAY ::= LBR E1:exp RBR {: RESULT = exp; :};
 
 ARG_LIST ::= ARG_LIST:next COMMA ARG:arg {: RESULT = new ArgumentListNode((ArgumentNode) arg, (ArgumentListNode) next); :}
            | ARG:arg {: RESULT = new ArgumentListNode((ArgumentNode) arg); :} ;
 
-ARG ::= TYPE:type VAR_NAME:id STATIC_ARRAY_LIST:arr {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), (StaticArrayNode) arr); :}
-      | TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :}
-      | PTR TYPE:type VAR_NAME:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), true);:} ;
+ARG ::= TYPE:type ID:id STATIC_ARRAY_LIST:arr {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), (StaticArrayNode) arr); :}
+      | TYPE:type ID:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id)); :}
+      | PTR TYPE:type ID:id {: RESULT = new ArgumentNode(new TypeNode(type), new VarIDNode(id), true);:} ;
 
 STATIC_ARRAY_LIST ::= STATIC_ARRAY_LIST:next STATIC_ARRAY:exp {: RESULT = new StaticArrayNode((NumNode) exp, (StaticArrayNode) next); :}
                     | STATIC_ARRAY:exp {: RESULT = new StaticArrayNode((NumNode) exp); :} ;
-STATIC_ARRAY ::= LP NUM:num RP {: RESULT = new NumNode(num); :};
+STATIC_ARRAY ::= LBR NUM:num RBR {: RESULT = new NumNode(num); :};
 
 
 if_inst ::= IF LP E0:cond RP LB inst_block:block RB {: RESULT = new IfNode(cond, block); :}
@@ -148,13 +155,17 @@ case_inst ::= CASE ECONST:cond THEN inst_block:block {: RESULT = new CaseNode(co
 
 otherwise_inst ::= OTHERWISE THEN inst_block:block {: RESULT = block; :} ;
 
-call_inst ::= FUNC_ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (VarListNode) list); :}
-            | FUNC_ID:id LP RP {: RESULT = new FuncCallNode(id); :} ;
+call_inst ::= ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (VarListNode) list); :}
+            | ID:id LP RP {: RESULT = new FuncCallNode(id); :} ;
 
-func_decl ::= FUNC TYPE:type FUNC_ID:id LP ARG_LIST:arg RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, ret); :}
-            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block RETURN E0:ret SEMI RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, ret); :}
-            | FUNC TYPE:type FUNC_ID:id LP RP LB inst_block:block error RB:token {: Application.notifyError(Application.SYNTAX_MSG + "RETURN (" + token.m_line + ", " + token.m_col + ")"); :};
+return_inst ::= RETURN E0:ret SEMI {: RESULT = new ReturnNode(ret); :} ;
 
-decl ::= TYPE:type VAR_NAME:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
-       | TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}
-       | PTR TYPE:type VAR_NAME:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); :} ;
+func_decl ::= TYPE:type ID:id LP ARG_LIST:arg RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, null); :}
+            | TYPE:type ID:id LP RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, null); :} ;
+
+proc_decl ::= PROC TYPE:type ID:id LP ARG_LIST:arg RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, null); :}
+            | PROC TYPE:type ID:id LP RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, null); :} ;
+
+decl ::= TYPE:type ID:var STATIC_ARRAY_LIST:arr SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
+       | TYPE:type ID:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}
+       | PTR TYPE:type ID:var SEMI {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), true); :} ;

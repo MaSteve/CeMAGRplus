@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by marcoantonio on 12/5/17.
  */
 public class Application {
-    private static boolean debug = false;
+    private static boolean debug = true;
     private static boolean error = false;
     private static boolean verbose = true;
     private static int instID = 0;
