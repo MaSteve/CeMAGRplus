@@ -19,8 +19,8 @@ int main() {
     }
     var4 = test5(2); #25
     int arr[5][4];
-    for (int i; i = 0; i < 5; i = i + 1;) {
-            for (int j; j = 0; j < 4; j = j + 1;) {
+    for (int i = 0; i < 5; i = i + 1) {
+            for (int j = 0; j < 4; j = j + 1) {
                 arr[i][j] = i*4 + j;
             }
     }
@@ -33,7 +33,7 @@ int main() {
 int test1(int arg, int arg2) {
     int ret;
     ret = 0;
-    for (int i; i = arg; i <= arg2; i = i + 1;) {
+    for (int i = arg; i <= arg2; i = i + 1) {
          ret = ret + i;
     }
     return ret;
@@ -91,8 +91,8 @@ int test5(int n) {
 process int test6(int arr[5][4], ptr int off) {
     int ret;
     ret = @off;
-    for (int i; i = 0; i < 5; i = i + 1;) {
-        for (int j; j = 0; j < 4; j = j + 1;) {
+    for (int i = 0; i < 5; i = i + 1) {
+        for (int j = 0; j < 4; j = j + 1) {
             ret = ret + arr[i][j];
         }
     }
