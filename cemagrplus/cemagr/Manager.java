@@ -22,13 +22,13 @@ public class Manager {
     public static void init(GlobalBlockNode block1) throws IOException {
         if (Application.isOK()) {
             System.out.println("OK");
-            /*block = block1;
+            block = block1;
             GlobalBlockNode.reset();
             block.initGlobalReferences();
             GlobalBlockNode.initReferences();
             boolean check = GlobalBlockNode.typeChecker();
             System.out.println("CHECK: " + check);
-            if (check && Application.isOK() && GlobalBlockNode.hasMain()) {
+            /*if (check && Application.isOK() && GlobalBlockNode.hasMain()) {
                 Application.prepare();
                 block.translate();
                 Application.close();

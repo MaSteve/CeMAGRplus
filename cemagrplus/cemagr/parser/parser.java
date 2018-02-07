@@ -1713,7 +1713,7 @@ class CUP$parser$actions {
 		int blockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int blockright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		ParserNode block = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, null); 
+		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_decl",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1731,7 +1731,7 @@ class CUP$parser$actions {
 		int blockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int blockright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		ParserNode block = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, null); 
+		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_decl",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1752,7 +1752,7 @@ class CUP$parser$actions {
 		int blockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int blockright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		ParserNode block = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, null); 
+		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("proc_decl",19, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1770,7 +1770,7 @@ class CUP$parser$actions {
 		int blockleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int blockright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		ParserNode block = (ParserNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, null); 
+		 RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("proc_decl",19, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

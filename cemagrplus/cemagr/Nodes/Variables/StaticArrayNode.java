@@ -5,75 +5,60 @@ import cemagr.Nodes.Expressions.NumNode;
 import cemagr.Nodes.ParserNode;
 import cemagr.Utils.Type;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by marcoantonio on 29/4/17.
  */
 public class StaticArrayNode extends ParserNode {
-    private NumNode exp;
-    private StaticArrayNode next;
-    private int len = -1;
-    private int declSize = -1;
+    private List<NumNode> expressions;
 
     public StaticArrayNode(NumNode exp) {
-        init(exp, null);
+        expressions = new ArrayList<>();
+        expressions.add(exp);
     }
     public StaticArrayNode(NumNode exp, StaticArrayNode node) {
-        init(exp, node);
+        expressions = node.getExpressions();
+        expressions.add(exp);
     }
 
-    private void init(NumNode exp, StaticArrayNode node) {
-        this.exp = exp;
-        next = node;
+    public List<NumNode> getExpressions() {
+        return expressions;
     }
 
     public int getDim() {
-        if (len == -1) {
-            if (next == null) len = 1;
-            else len = next.getDim() + 1;
-        }
-        return len;
-    }
-
-    public StaticArrayNode getStaticArrayNode(){
-        return next;
-    }
-
-    public int getSize(){
-        return exp.getValue();
-    }
-
-    public int getDeclSize() {
-        if (declSize == -1) {
-            if (next == null) declSize = exp.getValue();
-            else declSize = next.getDeclSize()*exp.getValue();
-        }
-        return declSize;
+        return expressions.size();
     }
 
     public static boolean check(StaticArrayNode node1, StaticArrayNode node2) {
-        if (node1 == null && node2 == null) return true;
-        else if (node1 != null && node2 != null) {
-            return check(node1.next, node2.next) && node1.exp.getValue() == node2.exp.getValue();
+        List<NumNode> exps1 = node1.getExpressions();
+        List<NumNode> exps2 = node2.getExpressions();
+        boolean ok = exps1.size() == exps2.size();
+        for (int i = 0; i < exps1.size() && ok; i++) {
+            ok = exps1.get(i).getValue() == exps2.get(i).getValue();
         }
-        return false;
+        return ok;
     }
 
     public Type getTYPE() {
-        Type nextType = Type.OK;
-        if (next != null) nextType = next.getTYPE();
-        if (nextType == Type.OK) {
-            if (exp.getValue() > 0) TYPE = Type.OK;
-            else {
+        TYPE = Type.OK;
+        for (NumNode exp : expressions) {
+            if (exp.getValue() <= 0) {
                 Application.notifyError(Application.ZERO_MSG
-                                + " (" + exp.getLine() + ", " + exp.getColumn() + ")");
-                        TYPE = Type.FAIL;
+                        + " (" + exp.getLine() + ", " + exp.getColumn() + ")");
+                TYPE = Type.FAIL;
             }
-        } else TYPE = Type.FAIL;
+        }
         return TYPE;
     }
 
     @Override
     public String toString() {
-        return (next == null? "": next) + "[" + exp + "]";
+        String s = "";
+        for (ParserNode exp : expressions) {
+            s += "[" + exp.toString() + "]";
+        }
+        return s;
     }
 }

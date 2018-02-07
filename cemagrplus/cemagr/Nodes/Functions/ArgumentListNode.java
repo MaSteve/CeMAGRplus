@@ -5,82 +5,61 @@ import cemagr.Nodes.Declaration;
 import cemagr.Nodes.ParserNode;
 import cemagr.Utils.AddressSolver;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by marcoantonio on 29/4/17.
  */
 public class ArgumentListNode extends ParserNode {
-    private ArgumentNode arg;
-    private ArgumentListNode next;
     private HashMap<String, Declaration> variables;
     private HashSet<String> ids;
     private int declSize = -1;
 
+    private List<ArgumentNode> arguments;
+
     public ArgumentListNode(ArgumentNode arg) {
-        init(arg, null);
+        arguments = new ArrayList<>();
+        arguments.add(arg);
     }
     public ArgumentListNode(ArgumentNode arg, ArgumentListNode node) {
-        init(arg, node);
+        arguments = node.getArguments();
+        arguments.add(arg);
     }
 
-    private void init(ArgumentNode arg, ArgumentListNode node) {
-        this.arg = arg;
-        next = node;
+    public List<ArgumentNode> getArguments() {
+        return arguments;
     }
 
     public void solveReferences(HashMap<String, Declaration> previous) {
         variables = new HashMap<>();
-        ids = new HashSet<>();
+        ids = new HashSet<>(); // TODO: WTF
         for (Map.Entry<String, Declaration> entry: previous.entrySet()) {
             variables.put(entry.getKey(), entry.getValue());
         }
-        initBlockReferences(variables, ids);
-    }
 
-    private void initBlockReferences(HashMap<String, Declaration> ref,  HashSet<String> ids) {
-        variables = ref;
-        this.ids = ids;
-        if (next != null) next.initBlockReferences(ref, ids);
-        ref.put(arg.getID(), arg);
-        if (!ids.contains(arg.getID()))
-            ids.add(arg.getID());
-        else Application.notifyError(Application.DUPLICATED_MSG
-                + " " + arg.getID()
-                + " (" + arg.getLine() + ", " + arg.getColumn() + ")");
-    }
-
-    public ArgumentNode getArgument() {
-        return arg;
-    }
-
-    public ArgumentListNode getNext() {
-        return next;
-    }
-
-    public HashMap<String, Declaration> getVariables() {
-        return variables;
-    }
-
-    public int getDeclSize() {
-        if (declSize == -1) {
-            if (next == null) declSize = arg.getDeclSize();
-            else declSize = next.getDeclSize() + arg.getDeclSize();
+        for (ArgumentNode arg : arguments) {
+            variables.put(arg.getID(), arg);
+            if (!ids.contains(arg.getID()))
+                ids.add(arg.getID());
+            else Application.notifyError(Application.DUPLICATED_MSG
+                    + " " + arg.getID()
+                    + " (" + arg.getLine() + ", " + arg.getColumn() + ")");
         }
-        return declSize;
     }
 
-    public int sizeAndSolve(AddressSolver solver) {
-        if (next != null) next.sizeAndSolve(solver);
-        arg.sizeAndSolve(solver);
-        declSize = solver.getSize();
-        return declSize;
+    public HashMap<String, Declaration> getVariables() { // TODO: Rename
+        return variables;
     }
 
     @Override
     public String toString() {
-        return (next == null? "": next + ", " ) + arg;
+        String s = "";
+        boolean first = false;
+        for (ArgumentNode arg : arguments) {
+            if (first) s += ", ";
+            else first = true;
+            s += arg.toString();
+        }
+        return s;
     }
 }

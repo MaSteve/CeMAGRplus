@@ -48,31 +48,14 @@ public class IfNode extends ParserNode {
         return TYPE;
     }
 
-    public int sizeAndSolve(AddressSolver solver) {
-        AddressSolver solver1 = new AddressSolver(solver);
-        block1.sizeAndSolve(solver);
-        if (elseBranch) block2.sizeAndSolve(solver1);
-        solver.max(solver1);
-        declSize = solver.getSize();
-        return declSize;
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = cond.getInstSize() + block1.getInstSize() + 1;
-            if (elseBranch) instSize += block2.getInstSize() + 1;
-        }
-        return instSize;
-    }
-
     public void translate() {
         Application.newComment(" IF ");
         cond.translate();
-        Application.newInst("fjp " + Application.jump(block1.getInstSize() + (elseBranch? 1: 0)));
+        //Application.newInst("fjp " + Application.jump(block1.getInstSize() + (elseBranch? 1: 0)));
         Application.newComment(" THEN ");
         block1.translate();
         if (elseBranch) {
-            Application.newInst("ujp " + Application.jump(block2.getInstSize()));
+            //Application.newInst("ujp " + Application.jump(block2.getInstSize()));
             Application.newComment(" ELSE ");
             block2.translate();
         }

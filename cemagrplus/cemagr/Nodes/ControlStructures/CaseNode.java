@@ -64,38 +64,12 @@ public class CaseNode extends ParserNode {
         return TYPE;
     }
 
-    public int sizeAndSolve(AddressSolver solver) {
-        if (declSize == -1) {
-            declSize = 0;
-            if (next != null) next.sizeAndSolve(solver);
-            AddressSolver solver1 = new AddressSolver(solver);
-            block.sizeAndSolve(solver1);
-            solver.max(solver1);
-            declSize = solver.getSize();
-        }
-        return declSize;
-    }
-
     public int getMin() {
         return min;
     }
 
     public int getMax() {
         return max;
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = (next == null? 0: next.getInstSize()) + block.getInstSize() + 1;
-            // min, max
-            int val = ((NumNode)cond).getValue();
-            if (next == null) min = max = val;
-            else {
-                min = next.min < val? next.min: val;
-                max = next.max > val? next.max: val;
-            }
-        }
-        return instSize;
     }
 
     public void translate() {

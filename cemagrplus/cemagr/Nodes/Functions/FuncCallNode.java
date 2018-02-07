@@ -10,6 +10,7 @@ import cemagr.Utils.Type;
 import cemagr.parser.Yytoken;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by marcoantonio on 29/4/17.
@@ -46,23 +47,28 @@ public class FuncCallNode extends ParserNode {
     }
 
     private boolean argChecker(VarListNode list, ArgumentListNode arg) {
-        if (list == null && arg == null) return true;
-        else if (list != null && arg != null) {
-            boolean ok = argChecker(list.getNext(), arg.getNext());
-            if (list.getExp().isReferenceNode() && ((VarReferenceNode) list.getExp()).isArray() && arg.getArgument().isArray()) {
-                return StaticArrayNode.check(((DeclarationNode)((VarReferenceNode)list.getExp()).getDef()).getArrayNode(),
-                        arg.getArgument().getArrayNode()) && ok;
-            } else if (!arg.getArgument().isArray()) {
-                if (list.getExp().isReferenceNode() && ((VarReferenceNode) list.getExp()).isArray()) return false;
-                Type varType = list.getExp().getTYPE();
-                Type argType = arg.getArgument().getDeclTYPE();
-                if (arg.getArgument().isPtr()) {
-                    argType = arg.getArgument().getDeclTYPE();
-                    if (argType == Type.INT) argType = Type.PTR_INT;
-                    if (argType == Type.BOOL) argType = Type.PTR_BOOL;
+        List<ParserNode> variables = list.getVariables();
+        List<ArgumentNode> arguments = arg.getArguments();
+        if (arguments.size() == variables.size()) {
+            boolean ok = true;
+            for (int i = 0; i < arguments.size(); i++) {
+                if (variables.get(i).isReferenceNode() && ((VarReferenceNode) variables.get(i)).isArray() && arguments.get(i).isArray()) {
+                    ok = StaticArrayNode.check(((DeclarationNode) ((VarReferenceNode) variables.get(i)).getDef()).getArrayNode(),
+                            arguments.get(i).getArrayNode()) && ok;
+                } else if (!arguments.get(i).isArray()) {
+                    if (variables.get(i).isReferenceNode() && ((VarReferenceNode) variables.get(i)).isArray()) ok = false;
+                    Type varType = variables.get(i).getTYPE();
+                    Type argType = arguments.get(i).getDeclTYPE();
+                    if (arguments.get(i).isPtr()) {
+                        argType = arguments.get(i).getDeclTYPE();
+                        if (argType == Type.INT) argType = Type.PTR_INT;
+                        if (argType == Type.BOOL) argType = Type.PTR_BOOL;
+                    }
+                    ok &= varType == argType && argType != Type.FAIL;
                 }
-                if (varType == argType && argType != Type.FAIL && ok) return true;
             }
+
+            return ok;
         }
         return false;
     }
@@ -90,15 +96,11 @@ public class FuncCallNode extends ParserNode {
         return TYPE;
     }
 
-    public int getInstSize() {
-        return list.getInstSize() + 2;
-    }
-
     public void translate() {
         Application.newComment(" call: " + id + " ");
         Application.newInst("mst " + 1);
         list.translate();
-        Application.newInst("cup " + (arg? list.getSize(): 0) + " " + def.getAddress());
+        //Application.newInst("cup " + (arg? list.getSize(): 0) + " " + def.getAddress());
     }
 
     @Override

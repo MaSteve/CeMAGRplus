@@ -13,7 +13,7 @@ public class BoolNode extends ParserNode {
 
     public BoolNode(Yytoken token) {
         super(token);
-        value = token.m_text.equals("YEAH");
+        value = token.m_text.equals("true");
     }
 
     public Type getTYPE() {

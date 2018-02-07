@@ -45,13 +45,6 @@ public class AssNode extends ParserNode {
         return TYPE;
     }
 
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = var.getInstSize() + exp.getInstSize();
-        }
-        return instSize;
-    }
-
     public void translate() {
         var.codeL();
         Application.newComment(" := ");

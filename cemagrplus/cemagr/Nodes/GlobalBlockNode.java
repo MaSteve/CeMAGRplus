@@ -7,9 +7,7 @@ import cemagr.Nodes.Variables.DeclarationNode;
 import cemagr.Utils.AddressSolver;
 import cemagr.Utils.Type;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by celia on 30/4/17.
@@ -20,36 +18,36 @@ public class GlobalBlockNode extends ParserNode {
     private static HashSet<String> ids;
     private static AddressSolver addressSolver;
 
-    private Declaration inst;
-    private GlobalBlockNode next;
+    private List<Declaration> declarations;
 
     private static int declSize;
 
     public GlobalBlockNode(Declaration inst) {
-        init(inst, null);
+        declarations = new ArrayList<>();
+        declarations.add(inst);
     }
     public GlobalBlockNode(Declaration inst, GlobalBlockNode node) {
-        init(inst, node);
+        declarations = node.getDeclarations();
+        declarations.add(inst);
     }
 
-    private void init(Declaration inst, GlobalBlockNode node) {
-        this.inst = inst;
-        next = node;
+    public List<Declaration> getDeclarations() {
+        return declarations;
     }
 
     public void initGlobalReferences() {
-        if (next != null) next.initGlobalReferences();
-        global_variables.put(inst.getID(), inst);
-        if (!ids.contains(inst.getID())) ids.add(inst.getID());
-        else Application.notifyError(Application.DUPLICATED_MSG
+        for (Declaration inst : declarations) {
+            global_variables.put(inst.getID(), inst);
+            if (!ids.contains(inst.getID())) ids.add(inst.getID());
+            else Application.notifyError(Application.DUPLICATED_MSG
                     + " " + inst.getID()
                     + " (" + inst.getLine() + ", " + inst.getColumn() + ")");
 
-        if (inst.getClassType() == Declaration.FUNC) {
-            functions.put(inst.getID(), (FuncDeclarationNode) inst);
-        } else {
-            ((DeclarationNode) inst).setGlobal();
-            declSize += inst.sizeAndSolve(addressSolver);
+            if (inst.getClassType() == Declaration.FUNC) {
+                functions.put(inst.getID(), (FuncDeclarationNode) inst);
+            } else {
+                ((DeclarationNode) inst).setGlobal();
+            }
         }
     }
 
@@ -94,12 +92,12 @@ public class GlobalBlockNode extends ParserNode {
         // Stop
         Application.newInst("stp");
         // Solve addresses
-        int address = functions.get("main").getInstSize() + 4;
+        //int address = functions.get("main").getInstSize() + 4;
         functions.get("main").setAddress(1);
         for (Map.Entry<String, FuncDeclarationNode> entry: functions.entrySet()) {
             if (!entry.getKey().equals("main")) {
-                entry.getValue().setAddress(address);
-                address += entry.getValue().getInstSize();
+                //entry.getValue().setAddress(address);
+                //address += entry.getValue().getInstSize();
             }
         }
         // Main
@@ -120,7 +118,14 @@ public class GlobalBlockNode extends ParserNode {
 
     @Override
     public String toString() {
-        return (next == null? "": next + "\n" ) + inst + ";";
+        String s = "";
+        boolean first = false;
+        for (Declaration inst : declarations) {
+            if (first) s += "\n";
+            else first = true;
+            s += inst.toString() + ";";
+        }
+        return s;
     }
 
     public static String getRefs() {

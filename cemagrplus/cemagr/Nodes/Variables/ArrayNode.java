@@ -5,80 +5,66 @@ import cemagr.Nodes.Declaration;
 import cemagr.Nodes.ParserNode;
 import cemagr.Utils.Type;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by marcoantonio on 29/4/17.
  */
 public class ArrayNode extends ParserNode {
-    private ParserNode exp;
-    private ArrayNode next;
-    private int len = -1;
     private StaticArrayNode def;
-    private int d = -1;
-    private int instSize = -1;
+
+    private List<ParserNode> expressions;
 
     public ArrayNode(ParserNode exp) {
-        init(exp, null);
+        expressions = new ArrayList<>();
+        expressions.add(exp);
     }
     public ArrayNode(ParserNode exp, ArrayNode node) {
-        init(exp, node);
+        expressions = node.getExpressions();
+        expressions.add(exp);
     }
 
-    private void init(ParserNode exp, ArrayNode node) {
-        this.exp = exp;
-        next = node;
+    public List<ParserNode> getExpressions() {
+        return expressions;
     }
 
     public void solveReferences(HashMap<String, Declaration> previous) {
-        if (next != null) next.solveReferences(previous);
-        exp.solveReferences(previous);
+        for (ParserNode exp : expressions)
+            exp.solveReferences(previous);
     }
 
     public int getDim() {
-        if (len == -1) {
-            if (next == null) len = 1;
-            else len = next.getDim() + 1;
-        }
-        return len;
+        return expressions.size();
     }
 
     public Type getTYPE() {
-        Type nextType = Type.OK;
-        if (next != null) nextType = next.getTYPE();
-        if (nextType == Type.OK && exp.getTYPE() == Type.INT) TYPE = Type.OK;
-        else TYPE = Type.FAIL;
+        TYPE = Type.OK;
+        for (ParserNode exp : expressions) {
+            if (exp.getTYPE() != Type.INT) TYPE = Type.FAIL;
+        }
         return TYPE;
     }
 
     public void setStaticArrayNode(StaticArrayNode node) {
         def = node;
-        d = 1;
-        if (next != null) {
-            next.setStaticArrayNode(node.getStaticArrayNode());
-            d = next.def.getSize() * next.d;
-        }
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = 0;
-            if (next != null) instSize = next.getInstSize();
-            instSize += exp.getInstSize() +  2;
-        }
-        return instSize;
     }
 
     public void translate(){
-        exp.translate();
+        /*exp.translate();
         Application.newInst("chk " + 0 + " " + def.getSize());
         Application.newInst("ixa " + d);
         if (next != null) next.translate();
-        Application.newComment("[idx]");
+        Application.newComment("[idx]");*/
     }
 
     @Override
     public String toString() {
-        return (next == null? "": next) + "[" + exp + "]";
+        String s = "";
+        for (ParserNode exp : expressions) {
+            s += "[" + exp.toString() + "]";
+        }
+        return s;
     }
 }

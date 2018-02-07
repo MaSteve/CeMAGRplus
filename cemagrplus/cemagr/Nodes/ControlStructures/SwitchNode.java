@@ -44,22 +44,6 @@ public class SwitchNode extends ParserNode {
         return TYPE;
     }
 
-    public int sizeAndSolve(AddressSolver solver) {
-        declSize = cases.sizeAndSolve(solver) + defaultBlock.sizeAndSolve(solver);
-        return declSize;
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = exp.getInstSize() + 13 + cases.getInstSize()
-                    + defaultBlock.getInstSize();
-            min = cases.getMin();
-            max = cases.getMax();
-            instSize += max - min + 1;
-        }
-        return instSize;
-    }
-
     public void translate() {
         // min, max, etc
 
@@ -74,27 +58,27 @@ public class SwitchNode extends ParserNode {
         Application.newInst("ldc " + min);
         Application.newInst("geq");
 
-        Application.newInst("fjp " + Application.jump(cases.getInstSize() + 8));
+        //Application.newInst("fjp " + Application.jump(cases.getInstSize() + 8));
 
         Application.newInst("dpl");
         Application.newInst("ldc " + max);
         Application.newInst("leq");
 
-        int defAddress = Application.jump(cases.getInstSize() + 4);
-        Application.newInst("fjp " + defAddress);
+        //int defAddress = Application.jump(cases.getInstSize() + 4);
+        //Application.newInst("fjp " + defAddress);
 
         // Calculated jump
 
         Application.newInst("ldc " + min);
         Application.newInst("sub");
         Application.newInst("neg");
-        int jumpAddress = Application.jump(cases.getInstSize() + defaultBlock.getInstSize() + max - min + 1);
-        Application.newInst("ixj " + jumpAddress);
+        //int jumpAddress = Application.jump(cases.getInstSize() + defaultBlock.getInstSize() + max - min + 1);
+        //Application.newInst("ixj " + jumpAddress);
 
         // Cases
 
-        jumpAddress++;
-        cases.setJumpAddress(jumpAddress);
+        //jumpAddress++;
+        //cases.setJumpAddress(jumpAddress);
         cases.setCasesMap(casesMap);
         cases.translate();
 
@@ -103,13 +87,13 @@ public class SwitchNode extends ParserNode {
         Application.newComment(" DEFAULT ");
 
         defaultBlock.translate();
-        Application.newInst("ujp " + jumpAddress);
+        //Application.newInst("ujp " + jumpAddress);
 
         // Lookup Table
 
         for (int i = max; i >= min; i--) {
             if (casesMap.containsKey(i)) Application.newInst("ujp " + casesMap.get(i));
-            else Application.newInst("ujp " + defAddress);
+            //else Application.newInst("ujp " + defAddress);
         }
 
         Application.newComment(" END SWITCH ");

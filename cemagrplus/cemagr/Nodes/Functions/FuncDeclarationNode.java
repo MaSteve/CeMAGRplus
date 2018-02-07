@@ -21,26 +21,22 @@ public class FuncDeclarationNode extends Declaration {
     private boolean arguments;
     private BlockNode block;
     private ParserNode returnExp;
-    private int declSize = -1;
-    private int instSize = -1;
 
-    public FuncDeclarationNode(Yytoken token, TypeNode type, ArgumentListNode arg, BlockNode block, ParserNode returnExp) {
+    public FuncDeclarationNode(Yytoken token, TypeNode type, ArgumentListNode arg, BlockNode block) {
         super(Declaration.FUNC, token);
         id = token.m_text;
         this.type = type;
         this.arg = arg;
         arguments = true;
         this.block = block;
-        this.returnExp = returnExp;
     }
 
-    public FuncDeclarationNode(Yytoken token, TypeNode type, BlockNode block, ParserNode returnExp) {
+    public FuncDeclarationNode(Yytoken token, TypeNode type, BlockNode block) {
         super(Declaration.FUNC, token);
         id = token.m_text;
         this.type = type;
         arguments = false;
         this.block = block;
-        this.returnExp = returnExp;
     }
 
     public boolean hasArguments() {
@@ -62,12 +58,12 @@ public class FuncDeclarationNode extends Declaration {
         }
         block.solveReferences(variables);
         variables = block.getVariables();
-        returnExp.solveReferences(variables);
+        //returnExp.solveReferences(variables);
     }
 
     public Type getTYPE() {
         if (block.getTYPE() == TYPE.OK) {
-            Type ret = returnExp.getTYPE();
+            Type ret = type.getTYPE();//returnExp.getTYPE();
             if (ret == type.getTYPE() && ret != Type.FAIL) TYPE = Type.OK;
             else{
                 Application.notifyError(Application.RETURN_TYPE_MSG);
@@ -77,26 +73,10 @@ public class FuncDeclarationNode extends Declaration {
         return TYPE;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            AddressSolver solver = new AddressSolver( 5);
-            if (arguments) arg.sizeAndSolve(solver);
-            declSize = block.sizeAndSolve(solver);
-        }
-        return declSize;
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = block.getInstSize() + returnExp.getInstSize() + 3;
-        }
-        return instSize;
-    }
-
     public void translate() {
         // Stack (Local variables)
         Application.newComment(" FUNC " + id + " ");
-        Application.newInst("ssp " + (5 + getDeclSize()));
+        //Application.newInst("ssp " + (5 + getDeclSize()));
         block.translate();
         returnExp.translate();
         Application.newInst("str 0 0");

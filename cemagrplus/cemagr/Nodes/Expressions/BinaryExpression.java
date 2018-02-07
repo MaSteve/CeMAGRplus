@@ -37,13 +37,6 @@ public class BinaryExpression extends ParserNode {
         return TYPE;
     }
 
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = exp1.getInstSize() + exp2.getInstSize() + op.getInstSize();
-        }
-        return instSize;
-    }
-
     public void translate() {
         exp1.translate();
         exp2.translate();

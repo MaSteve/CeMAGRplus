@@ -49,13 +49,6 @@ public class UnaryExpression extends ParserNode {
         return TYPE;
     }
 
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = exp.getInstSize() + op.getInstSize();
-        }
-        return instSize;
-    }
-
     public void translate() {
         exp.translate();
         op.translate();

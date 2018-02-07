@@ -46,27 +46,15 @@ public class FoopNode extends ParserNode {
         return TYPE;
     }
 
-    public int sizeAndSolve(AddressSolver solver) {
-        declSize = preamble.sizeAndSolve(solver) + postamble.sizeAndSolve(solver) + block.sizeAndSolve(solver);
-        return declSize;
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            instSize = cond.getInstSize() + block.getInstSize() + preamble.getInstSize() + postamble.getInstSize() + 2;
-        }
-        return instSize;
-    }
-
     public void translate() {
         Application.newComment(" FOR ");
         preamble.translate();
         cond.translate();
-        Application.newInst("fjp " + Application.jump(block.getInstSize() + postamble.getInstSize() + 1));
+        //Application.newInst("fjp " + Application.jump(block.getInstSize() + postamble.getInstSize() + 1));
         Application.newComment(" DO ");
         block.translate();
         postamble.translate();
-        Application.newInst("ujp " + Application.jump(-(block.getInstSize()+postamble.getInstSize()+cond.getInstSize()+2)));
+        //Application.newInst("ujp " + Application.jump(-(block.getInstSize()+postamble.getInstSize()+cond.getInstSize()+2)));
         Application.newComment(" END FOR ");
     }
 

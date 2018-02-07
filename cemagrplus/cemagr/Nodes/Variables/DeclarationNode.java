@@ -49,21 +49,6 @@ public class DeclarationNode extends Declaration {
         return global;
     }
 
-    public int getDeclSize() {
-        if (declSize == -1) {
-            if (array) {
-                declSize = arrayNode.getDeclSize();
-            } else declSize = 1;
-        }
-        return declSize;
-    }
-
-    public int sizeAndSolve(AddressSolver solver) {
-        declSize = getDeclSize();
-        address = solver.getAddress(declSize);
-        return declSize;
-    }
-
     public boolean isArray() {
         return array;
     }

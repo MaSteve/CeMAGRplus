@@ -26,4 +26,12 @@ public class TypeNode extends ParserNode {
             default: return Type.FAIL;
         }
     }
+
+    public String getDefaultValue() {
+        switch (value) {
+            case "int": return "0";
+            case "bool": return "false";
+            default: return "";
+        }
+    }
 }

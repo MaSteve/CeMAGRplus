@@ -166,11 +166,11 @@ call_inst ::= ID:id LP VAR_LIST:list RP {: RESULT = new FuncCallNode(id, (VarLis
 
 return_inst ::= RETURN E0:ret {: RESULT = new ReturnNode(ret); :} ;
 
-func_decl ::= TYPE:type ID:id LP ARG_LIST:arg RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, null); :}
-            | TYPE:type ID:id LP RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, null); :} ;
+func_decl ::= TYPE:type ID:id LP ARG_LIST:arg RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block); :}
+            | TYPE:type ID:id LP RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block); :} ;
 
-proc_decl ::= PROC TYPE:type ID:id LP ARG_LIST:arg RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block, null); :}
-            | PROC TYPE:type ID:id LP RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block, null); :} ;
+proc_decl ::= PROC TYPE:type ID:id LP ARG_LIST:arg RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (ArgumentListNode) arg, (BlockNode) block); :}
+            | PROC TYPE:type ID:id LP RP LB inst_block:block RB {: RESULT = new FuncDeclarationNode(id, new TypeNode(type), (BlockNode) block); :} ;
 
 decl ::= TYPE:type ID:var STATIC_ARRAY_LIST:arr {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var), (StaticArrayNode) arr); :}
        | TYPE:type ID:var {: RESULT = new DeclarationNode(new TypeNode(type), new VarIDNode(var)); :}

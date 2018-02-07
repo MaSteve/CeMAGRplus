@@ -3,64 +3,50 @@ package cemagr.Nodes.Functions;
 import cemagr.Nodes.Declaration;
 import cemagr.Nodes.ParserNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by marcoantonio on 29/4/17.
  */
 public class VarListNode extends ParserNode {
-    private ParserNode var;
-    private VarListNode next;
-    private int size = -1, instSize = -1;
+
+    private List<ParserNode> variables;
 
     public VarListNode(ParserNode var) {
-        init(var, null);
+        variables = new ArrayList<>();
+        variables.add(var);
     }
     public VarListNode(ParserNode var, VarListNode node) {
-        init(var, node);
+        variables = node.getVariables();
+        variables.add(var);
     }
 
-    private void init(ParserNode var, VarListNode node) {
-        this.var = var;
-        next = node;
+    public List<ParserNode> getVariables() {
+        return variables;
     }
 
     public void solveReferences(HashMap<String, Declaration> previous) {
-        if (next != null) next.solveReferences(previous);
-        var.solveReferences(previous);
-    }
-
-    public ParserNode getExp() {
-        return var;
-    }
-
-    public VarListNode getNext() {
-        return next;
-    }
-
-    public int getSize() {
-        if (size == -1) {
-            if (next == null) size = 1;
-            else size = next.getSize() + 1;
+        for (ParserNode var: variables) {
+            var.solveReferences(previous);
         }
-        return size;
-    }
-
-    public int getInstSize() {
-        if (instSize == -1) {
-            if (next == null) instSize = var.getInstSize();
-            else instSize = next.getInstSize() + var.getInstSize();
-        }
-        return instSize;
     }
 
     public void translate() {
-        if (next != null) next.translate();
-        var.translate();
+        /*if (next != null) next.translate();
+        var.translate();*/
     }
 
     @Override
     public String toString() {
-        return (next == null? "": next + ", " ) + var;
+        String s = "";
+        boolean first = false;
+        for (ParserNode var : variables) {
+            if (first) s += ", ";
+            else first = true;
+            s += var.toString();
+        }
+        return s;
     }
 }

@@ -48,7 +48,7 @@ public class VarReferenceNode extends ParserNode {
     }
 
     public boolean isArray() {
-        return !array && ((DeclarationNode) def).isArray();
+        return array && ((DeclarationNode) def).isArray(); //TODO: WTF
     }
 
     public Declaration getDef() {
@@ -120,19 +120,6 @@ public class VarReferenceNode extends ParserNode {
             }
         }
         return TYPE;
-    }
-
-    public int getInstSize() {
-        int ret = 1;
-        if (array) {
-            if (def.getClassType() == Declaration.ARG) ret++;
-            ret += arrayNode.getInstSize();
-        }
-        if (dereference) {
-            ret++;
-        }
-        if (!(isArray() || address)) ret++;
-        return ret;
     }
 
     public void translate() {

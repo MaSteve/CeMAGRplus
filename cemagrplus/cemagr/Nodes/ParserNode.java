@@ -59,15 +59,7 @@ public abstract class ParserNode {
         return false;
     }
 
-    public int sizeAndSolve(AddressSolver solver) {
-        return 0;
-    }
-
     public void translate() {
 
-    }
-
-    public int getInstSize() {
-        return 0;
     }
 }
